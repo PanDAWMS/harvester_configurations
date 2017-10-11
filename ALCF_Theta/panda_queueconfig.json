@@ -1,0 +1,114 @@
+{
+    "ALCF_Theta": {
+        "mapType": "ManyToOne",
+        "maxWorkers": 3,
+        "allowJobMixture": true,
+        "messenger": {
+            "accessPoint": "/projects/AtlasADSP/atlas/harvester/workdir/panda/${workerID}",
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.cobalt_monitor",
+            "name": "CobaltMonitor"
+        },
+        "nQueueLimitJob": 768,
+        "nQueueLimitWorker": 20,
+        "preparator": {
+            "srcEndpoint" : "d8981638-6af7-11e6-83d0-22000b97daec",
+            "Globus_srcPath": "/pnfs/usatlas.bnl.gov/BNLT0D1/rucio",
+            "dstEndpoint" : "08925f04-569f-11e7-bef8-22000b9a448b",
+            "Globus_dstPath": "/projects/AtlasADSP/atlas/harvester/rucio",
+            "basePath": "/projects/AtlasADSP/atlas/harvester/rucio",
+            "module": "pandaharvester.harvesterpreparator.go_preparator",
+            "name": "GoPreparator"
+        },
+        "prodSourceLabel": "managed",
+        "stager": {
+            "dstEndpoint" : "d8981638-6af7-11e6-83d0-22000b97daec",
+            "Globus_dstPath": "/pnfs/usatlas.bnl.gov/BNLT0D1/rucio",
+            "srcEndpoint" : "08925f04-569f-11e7-bef8-22000b9a448b",
+            "Globus_srcPath": "/projects/AtlasADSP/atlas/harvester/rucio",
+            "basePath": "/projects/AtlasADSP/atlas/harvester/rucio",
+            "dstRSE_ES": "BNL-OSG2_SCRATCHDISK",
+            "dstRSE_Log": "BNL-OSG2_DATADISK",
+            "dstRSE_Out": "BNL-OSG2_DATADISK",
+            "module": "pandaharvester.harvesterstager.go_stager",
+            "name": "GlobusStager",
+            "objStoreID_ES": 117,
+            "srcBasePath": "/projects/AtlasADSP/atlas/harvester/rucio",
+            "srcRSE": "BNL-OSG2_DATADISK",
+            "zipDir": "${SRCDIR}"
+        },
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.cobalt_submitter",
+            "nCore": 16384,
+            "nCorePerNode": 128,
+            "name": "CobaltSubmitter",
+            "templateFile": "/projects/AtlasADSP/atlas/harvester/examples/Theta_cobalt_submit_minipilot.sh",
+            "test_accessPoint": "/projects/AtlasADSP/atlas/harvester/testdir"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.cobalt_sweeper",
+            "name": "CobaltSweeper"
+        },
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+            "nJobsPerWorker": 128
+        },
+        "zipPerMB": 1024
+    },
+    "CERN_PROD_1": {
+        "mapType": "OneToOne",
+        "maxWorkers": 5,
+        "messenger": {
+            "accessPoint": "/tmp/tmaeno/workdir/panda/${batchID}",
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.dummy_monitor",
+            "name": "DummyMonitor"
+        },
+        "nQueueLimitJob": 3,
+        "nQueueLimitWorker": 5,
+        "preparator": {
+            "dstEndpoint": "go#ep1",
+            "module": "pandaharvester.harvesterpreparator.go_preparator",
+            "name": "GoPreparator",
+            "srcEndpoint": "nersc#dtn"
+        },
+        "prodSourceLabel": "managed",
+        "stager": {
+            "ca_cert": "/etc/grid-security/certificates/CERN-Root-2.pem",
+            "dstEndpointES": "srm://dcsrm.usatlas.bnl.gov:8443/srm/managerv2?SFN=/???",
+            "dstEndpointOut": "srm://dcsrm.usatlas.bnl.gov:8443/srm/managerv2?SFN=/pnfs/usatlas.bnl.gov/BNLT0D1/rucio/",
+            "esObjStoreID": 117,
+            "ftsLookupTimeout": 180,
+            "ftsServer": "https://fts3-pilot.cern.ch:8446",
+            "module": "pandaharvester.harvesterstager.fts_stager",
+            "name": "FtsStager",
+            "srcEndpointES": "gsiftp://dtn01.nersc.gov/",
+            "srcEndpointLog": null,
+            "srcEndpointOut": "gsiftp://dtn01.nersc.gov/",
+            "zipDir": "${SRCDIR}"
+        },
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.slurm_submitter",
+            "nCore": 48,
+            "nCorePerNode": 24,
+            "name": "SlurmSubmitter"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.dummy_sweeper",
+            "name": "DummySweeper"
+        },
+        "useJobLateBinding": true,
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+            "workDir": "${TMPDIR}/panda/${PANDAID}"
+        }
+    }
+}
