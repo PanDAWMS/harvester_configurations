@@ -1,0 +1,46 @@
+{
+	"Titan_Harvester_MCORE":{
+		"prodSourceLabel":"managed",
+		"nQueueLimitJob":10,
+		"nQueueLimitWorker":0,
+		"maxWorkers":1,
+		"mapType":"ManyToOne",
+		"useJobLateBinding":false,
+		"walltimeLimit":1800,
+		"preparator":{
+			"name":"PilotmoverPreparator",
+			"module":"pandaharvester.harvesterpreparator.pilotmover_preparator",
+			"basePath":"/lustre/atlas/proj-shared/csc108/data/harvester"
+			},
+		"submitter":{
+			"name":"SAGASubmitter",
+			"module":"pandaharvester.harvestersubmitter.saga_submitter",
+			"nCorePerNode": 16,
+			"adaptor": "torque://localhost",
+			"localqueue": "debug",
+			"projectname": "csc108",
+			"nNodes": 3
+			},
+		"workerMaker":{
+			"name":"SimpleWorkerMaker",
+			"module":"pandaharvester.harvesterworkermaker.simple_worker_maker"
+			},
+		"messenger":{
+			"name":"SharedFileMessenger",
+			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint":"/lustre/atlas/proj-shared/csc108/harvester/workdirs/${workerID}"
+			},
+		"stager":{
+			"name":"RucioStagerHPC",
+			"module":"pandaharvester.harvesterstager.rucio_stager_hpc",
+			"dstRSE_Out":"BNL-OSG2_DATADISK",
+			"dstRSE_Log":"BNL-OSG2_DATADISK",
+			"zipDir":"${SRCDIR}"
+			},
+		"monitor":{
+			"name":"SAGAMonitor",
+			"module":"pandaharvester.harvestermonitor.saga_monitor",
+			"adaptor": "torque://localhost"
+			}
+	}
+}
