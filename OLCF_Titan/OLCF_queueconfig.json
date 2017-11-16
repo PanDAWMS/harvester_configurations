@@ -2,7 +2,7 @@
 	"Titan_Harvester_MCORE":{
 		"prodSourceLabel":"managed",
 		"nQueueLimitJob":10,
-		"nQueueLimitWorker":0,
+		"nQueueLimitWorker":2,
 		"maxWorkers":1,
 		"mapType":"ManyToOne",
 		"useJobLateBinding":false,
@@ -19,11 +19,16 @@
 			"adaptor": "torque://localhost",
 			"localqueue": "debug",
 			"projectname": "csc108",
-			"nNodes": 3
+			"nNodes": 2
 			},
 		"workerMaker":{
-			"name":"SimpleWorkerMaker",
-			"module":"pandaharvester.harvesterworkermaker.simple_worker_maker"
+			"name":"MultiJobWorkerMaker",
+			"module":"pandaharvester.harvesterworkermaker.multijob_worker_maker",
+			"nJobsPerWorker": 3,
+			"env": "source $MODULESHOME/init/bash, module load python, cd $PBS_O_WORKDIR",
+			"pilot": "/lustre/atlas/proj-shared/csc108/debug/atlas/v2/harvester/lib/python2.7/site-packages/pandaharvester/harvesterpayload/test_v1.py",
+			"pilot_params": "worker_pandaids.json",
+			"executor": "aprun"
 			},
 		"messenger":{
 			"name":"SharedFileMessenger",
