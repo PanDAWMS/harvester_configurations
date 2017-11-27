@@ -1,5 +1,5 @@
 {
-"BNL_PROD_5": {
+"BNL_PROD_2000": {
 	       "prodSourceLabel":"managed",
 	       "nQueueLimitJob":5,
 	       "nQueueLimitWorker":5,
@@ -20,7 +20,7 @@
 			},
 		"messenger":{
 			"name":"SharedFileMessenger",
-			"module":"pandaharvester.harvestermessenger.SharedFileMessenger",
+			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
 			"accessPoint":"/tmp/tmaeno/workdir/panda/${batchID}"
 			},
 	       "stager":{
@@ -32,7 +32,7 @@
 			"module":"pandaharvester.harvestermonitor.DummyMonitor"
 			}
 	       },
-"CERN_PROD_1":{
+"CERN_PROD_2000":{
 	       "prodSourceLabel":"managed",
 	       "nQueueLimitJob":3,
 	       "nQueueLimitWorker":5,
@@ -56,7 +56,7 @@
 			},
 		"messenger":{
 			"name":"SharedFileMessenger",
-			"module":"pandaharvester.harvestermessenger.SharedFileMessenger",
+			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
 			"accessPoint":"/tmp/tmaeno/workdir/panda/${batchID}"
 			},
 	       "stager":{
@@ -67,5 +67,87 @@
 			"name":"DummyMonitor",
 			"module":"pandaharvester.harvestermonitor.DummyMonitor"
 			}
-	       }
+	       },
+"CERN-EXTENSION_HARVESTER": {
+		"prodSourceLabel": "managed",
+		"nQueueLimitJob": 50,
+		"nQueueLimitWorker": 50,
+		"maxWorkers": 50,
+		"mapType": "OneToOne",
+		"noHeartbeat": "running,transferring,finished,failed,cancelled",
+		"preparator": {
+			"name": "DummyPreparator",
+			"module": "pandaharvester.harvesterpreparator.dummy_preparator"
+		},
+		"submitter": {
+			"name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cloudsceduler.sdf",
+                        "nCorePerNode": 8,
+                        "logDir": "/data/atlpan/condor_logs"
+		},
+		"workerMaker": {
+			"name": "SimpleWorkerMaker",
+			"module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+		},
+		"messenger": {
+			"name": "SharedFileMessenger",
+			"module": "pandaharvester.harvestermessenger.shared_file_messenger",
+			"jobSpecFileFormat": "cgi",
+			"accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+		},
+		"stager": {
+			"name": "DummyStager",
+			"module": "pandaharvester.harvesterstager.dummy_stager"
+		},
+		"monitor": {
+			"name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+		},
+		"sweeper": {
+			"name": "HTCondorSweeper",
+			"module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+		}
+	}
+"CERN-PROD-preprod": {
+		"prodSourceLabel": "managed",
+		"nQueueLimitJob": 2,
+		"nQueueLimitWorker": 2,
+		"maxWorkers": 2,
+		"mapType": "OneToOne",
+		"noHeartbeat": "running,transferring,finished,failed,cancelled",
+		"preparator": {
+			"name": "DummyPreparator",
+			"module": "pandaharvester.harvesterpreparator.dummy_preparator"
+		},
+		"submitter": {
+			"name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cloudsceduler.sdf",
+                        "nCorePerNode": 1,
+                        "logDir": "/data/atlpan/condor_logs"
+		},
+		"workerMaker": {
+			"name": "SimpleWorkerMaker",
+			"module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+		},
+		"messenger": {
+			"name": "SharedFileMessenger",
+			"module": "pandaharvester.harvestermessenger.shared_file_messenger",
+			"jobSpecFileFormat": "cgi",
+			"accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+		},
+		"stager": {
+			"name": "DummyStager",
+			"module": "pandaharvester.harvesterstager.dummy_stager"
+		},
+		"monitor": {
+			"name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+		},
+		"sweeper": {
+			"name": "HTCondorSweeper",
+			"module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+		}
+	}
 }
