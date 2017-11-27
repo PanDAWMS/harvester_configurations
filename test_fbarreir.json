@@ -123,7 +123,7 @@
 		"submitter": {
 			"name":"HTCondorSubmitter",
                         "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cloudsceduler.sdf",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cern-prod-preprod.sdf",
                         "nCorePerNode": 1,
                         "logDir": "/data/atlpan/condor_logs"
 		},
