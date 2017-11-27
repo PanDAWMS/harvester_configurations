@@ -108,7 +108,7 @@
 			"name": "HTCondorSweeper",
 			"module": "pandaharvester.harvestersweeper.htcondor_sweeper"
 		}
-	}
+	},
 "CERN-PROD-preprod": {
 		"prodSourceLabel": "managed",
 		"nQueueLimitJob": 2,
