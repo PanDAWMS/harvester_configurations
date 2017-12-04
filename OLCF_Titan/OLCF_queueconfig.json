@@ -46,6 +46,11 @@
 			"name":"SAGAMonitor",
 			"module":"pandaharvester.harvestermonitor.saga_monitor",
 			"adaptor": "torque://localhost"
+			},
+		"sweeper":{
+			"name":"SAGASweeper",
+			"module":"pandaharvester.harvestersweeper.saga_sweeper",
+			"adaptor": "torque://localhost"
 			}
 	}
 }
