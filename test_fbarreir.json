@@ -87,7 +87,7 @@
             "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
         }
     },
-	"CERN-PROD-preprod_UCORE": {
+	"CERN-PROD-TEST_UCORE": {
         "prodSourceLabel": "managed",
         "nQueueLimitWorker": 2,
         "maxWorkers": 2,
