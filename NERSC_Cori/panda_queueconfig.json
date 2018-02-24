@@ -10,14 +10,14 @@
         "submitter": {
             "module": "pandaharvester.harvestersubmitter.slurm_submitter",
             "name": "SlurmSubmitter",
-            "nCore": 544,
-            "nCorePerNode": 68,
+            "nCore": 128,
+            "nCorePerNode": 32,
             "templateFile": "/global/project/projectdirs/m2015/panda_cori/etc/panda/NERSC_Cori_p1_mcore-slurm_submit_minipilot.sh"
         },
         "workerMaker": {
             "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
             "name": "SimpleWorkerMaker",
-            "nJobsPerWorker": 8
+            "nJobsPerWorker": 4
         },
         "messenger": {
             "module": "pandaharvester.harvestermessenger.shared_file_messenger",

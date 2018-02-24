@@ -2,11 +2,10 @@
 #SBATCH -p regular
 #SBATCH -t 5:30:00
 #SBATCH -L SCRATCH,project
-###SBATCH -C haswell
-#SBATCH -C knl,quad,cache
+#SBATCH -C haswell
 #SBATCH -N {nNode}
 
-export ATHENA_PROC_NUMBER=68
+export ATHENA_PROC_NUMBER=32
 export PANDA_QUEUE=NERSC_Cori_p1_mcore
 
 export HARVESTER_DIR=$PANDA_HOME  # PANDA_HOME is defined in etc/sysconfig/panda_harvester
