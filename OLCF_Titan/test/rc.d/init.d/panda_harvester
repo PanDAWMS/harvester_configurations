@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# chkconfig: - 85 15
+#
+# description: Panda Harvester
+# processname: python
+# config: ${VIRTUAL_ENV}/etc/sysconfig/panda_harvester
+# pidfile: $VIRTUAL_ENV}/var/log/panda/panda_harvester.pid
+
+# When multiple arguments are given, only the error from the _last_
+# one is reported.
+#
+ARGV="$@"
+#
+# |||||||||||||||||||| START CONFIGURATION SECTION  ||||||||||||||||||||
+# --------------------                              --------------------
+#
+# setup python and virtual env
+# load module python
+VIRTUAL_ENV=/lustre/atlas/proj-shared/csc108/debug/atlas/v2/harvester
+. ${VIRTUAL_ENV}/bin/activate 
+
+# Source harvester env variables
+if [ -r ${VIRTUAL_ENV}/etc/sysconfig/panda_harvester ]; then
+   . ${VIRTUAL_ENV}/etc/sysconfig/panda_harvester
+fi
+
+# the path to application
+PROGNAME='python -u '${SITE_PACKAGES_PATH}'/pandaharvester/harvesterbody/master.py'
+# --foreground is required to run under supervisord
+#PROGNAME='python -u '${SITE_PACKAGES_PATH}'/pandaharvester/harvesterbody/master.py --foreground'
+
+# pid and lock files
+PIDFILE=/lustre/atlas/proj-shared/csc108/harvester/pids/panda_harvester_test.pid
+
+# log files
+HSTDOUT=/lustre/atlas/proj-shared/csc108/harvester/service_log/panda_harvester_test_stdout.log
+HSTDERR=/lustre/atlas/proj-shared/csc108/harvester/service_log/panda_harvester_test_stderr.log
+
+ERROR=0
+if [ "x$ARGV" = "x" ] ; then 
+    ARGV="-h"
+fi
+
+
+case $ARGV in
+start)
+    if [ -f $PIDFILE ]; then
+	echo ERROR: Harvester is already running with pidfile:$PIDFILE
+    else
+	echo start Harvester
+	for itry in `seq 1 1`
+	do
+	    echo trying $itry
+	    $PROGNAME --pid $PIDFILE >> $HSTDOUT 2>> $HSTDERR
+	    sleep 5
+	    ps -p `cat $PIDFILE` > /dev/null
+	    ERROR=$?
+	    echo $ERROR
+	    if [ $ERROR = 0 ]; then
+		echo succeeded
+		break
+	    else
+		echo failed
+		rm -f $PIDFILE
+	    fi
+	done
+    fi
+    ;;
+stop)
+    echo stop Harvester
+    kill -USR2 `cat $PIDFILE`
+    ERROR=$?
+    rm -f $PIDFILE
+    echo $ERROR
+    ;;
+*)
+    echo ERROR: unknown command $ARGV 
+    ERROR=1
+esac
+
+exit $ERROR
+

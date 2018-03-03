@@ -1,0 +1,57 @@
+{
+	"Titan_long_MCORE":{
+		"prodSourceLabel":"managed",
+		"nQueueLimitJob":1600,
+		"nQueueLimitWorker":2,
+		"maxWorkers":4,
+		"mapType":"ManyToOne",
+		"useJobLateBinding":false,
+		"walltimeLimit":43200,
+		"allowJobMixture":true,
+		"preparator":{
+			"name":"PilotmoverPreparator",
+			"module":"pandaharvester.harvesterpreparator.pilotmover_preparator",
+			"basePath":"/lustre/atlas/proj-shared/hep110/ATLAS_data"
+			},
+		"submitter":{
+			"name":"SAGASubmitter",
+			"module":"pandaharvester.harvestersubmitter.saga_submitter",
+			"nCorePerNode": 16,
+			"adaptor": "torque://localhost",
+			"localqueue": "batch",
+			"projectname": "hep110",
+			"nNodes": 2
+			},
+		"workerMaker":{
+			"name":"MultiJobWorkerMaker",
+			"module":"pandaharvester.harvesterworkermaker.multijob_worker_maker",
+			"nJobsPerWorker": 400,
+			"env": "source $MODULESHOME/init/bash, export SW_INSTALL_AREA=/ccs/proj/csc108/AtlasReleases/21.0.15, source $SW_INSTALL_AREA/AtlasSetup/scripts/asetup.sh 21.0.15 --releasesarea=$SW_INSTALL_AREA --cmakearea=$SW_INSTALL_AREA/sw/lcg/contrib/CMake --gcclocation=$SW_INSTALL_AREA/sw/lcg/releases/gcc/4.9.3/x86_64-slc6, export PYTHONPATH=$PYTHONPATH:/lustre/atlas2/csc108/proj-shared/debug/atlas/v2/harvester/lib/python2.7/site-packages/:/ccs/proj/csc108/AtlasReleases/python2.7/site-packages/, cd $PBS_O_WORKDIR",
+			"pilot": "/lustre/atlas/proj-shared/csc108/production/atlas/harvester/lib/python2.7/site-packages/pandaharvester/harvesterpayload/ATLAS_simple_wrapper_mpi.py",
+			"pilot_params": "worker_pandaids.json",
+			"executor": "aprun"
+			},
+		"messenger":{
+			"name":"SharedFileMessenger",
+			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint":"/lustre/atlas/proj-shared/hep110/harvester/workdirs/${workerID}"
+			},
+		"stager":{
+			"name":"RucioStagerHPC",
+			"module":"pandaharvester.harvesterstager.rucio_stager_hpc",
+			"dstRSE_Out":"BNL-OSG2_DATADISK",
+			"dstRSE_Log":"BNL-OSG2_DATADISK",
+			"zipDir":"${SRCDIR}"
+			},
+		"monitor":{
+			"name":"SAGAMonitor",
+			"module":"pandaharvester.harvestermonitor.saga_monitor",
+			"adaptor": "torque://localhost"
+			},
+		"sweeper":{
+			"name":"SAGASweeper",
+			"module":"pandaharvester.harvestersweeper.saga_sweeper",
+			"adaptor": "torque://localhost"
+			}
+	}
+}
