@@ -2,7 +2,7 @@
 	"Titan_long_MCORE":{
 		"prodSourceLabel":"managed",
 		"nQueueLimitJob":2400,
-		"nQueueLimitWorker":1,
+		"nQueueLimitWorker":3,
 		"maxWorkers":3,
 		"mapType":"ManyToOne",
 		"useJobLateBinding":false,
