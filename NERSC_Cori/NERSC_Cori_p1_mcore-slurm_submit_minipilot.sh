@@ -1,6 +1,7 @@
 #!/bin/sh
 #SBATCH -p regular
-#SBATCH -t 5:30:00
+#SBATCH -t 20:00:00
+#SBATCH -A m2616
 #SBATCH -L SCRATCH,project
 #SBATCH -C haswell
 #SBATCH -N {nNode}
@@ -36,8 +37,8 @@ for JOB_ID in $PANDA_JOB_IDS; do
    cd $JOB_ID
    [ $JOB_ID -eq $FIRST_JOB_ID ] && touch use_here_as_working_dir
    echo [$SECONDS] Launching job in: $PWD
-   srun -n 1 -N 1 --ntasks-per-node=1 --cpu_bind=verbose,none --cpus-per-task=272 -o $JOB_ID.log \
-       python $HARVESTER_DIR/etc/panda/NERSC_single_job_per_node.py --workdir $PWD 2>&1 &
+   srun -n 1 -N 1 --ntasks-per-node=1 --cpu_bind=verbose,none --cpus-per-task=32 -o $JOB_ID.log \
+       python $HARVESTER_DIR/etc/panda/NERSC_single_job_per_node-dvmfs.py --workdir $PWD 2>&1 &
    cd $WORK_DIR
 done
 
