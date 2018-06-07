@@ -1,0 +1,284 @@
+{
+"PRODUCTION_PUSH_TEMPLATE": {
+                "prodSourceLabel": "managed",
+                "nQueueLimitJobRatio": 50,
+                "nQueueLimitJobMax": 1000,
+                "nQueueLimitJobMin": 50,
+                "nQueueLimitWorker": 1000,
+                "maxWorkers": 3000,
+                "maxNewWorkersPerCycle": 500,
+                "mapType": "OneToOne",
+                "truePilot": true,
+                "maxSubmissionAttempts": 3,
+                "walltimeLimit": 172800,
+                "prefetchEvents" :false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "/data/atlpan/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"PRODUCTION_PULL_TEMPLATE": {
+                "prodSourceLabel": "managed",
+                "nQueueLimitWorker": 20,
+                "maxWorkers": 1000,
+                "maxNewWorkersPerCycle": 50,
+                "mapType": "NoJob",
+                "truePilot": true,
+                "maxSubmissionAttempts": 3,
+                "walltimeLimit": 1209600,
+                "prefetchEvents" :false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "/data/atlpan/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"ANALYSIS_PUSH_TEMPLATE": {
+                "prodSourceLabel": "user",
+                "nQueueLimitJobRatio": 100,
+                "nQueueLimitJobMax": 2,
+                "nQueueLimitJobMin": 1,
+                "nQueueLimitWorker": 50,
+                "maxWorkers": 50,
+                "maxNewWorkersPerCycle": 50,
+                "mapType": "OneToOne",
+                "truePilot": true,
+                "maxSubmissionAttempts": 3,
+                "walltimeLimit": 172800,
+                "prefetchEvents" :false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_pilot",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "/data/atlpan/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"CERN-EXTENSION_HARVESTER": {
+                "queueStatus": "online",
+                "prodSourceLabel": "managed",
+                "nQueueLimitJobRatio": 30,
+                "nQueueLimitJobMax": 500,
+                "nQueueLimitJobMin": 20,
+                "nQueueLimitWorker": 500,
+                "maxWorkers": 1000,
+                "mapType": "OneToOne",
+                "truePilot": true,
+                "prefetchEvents":false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cloudscheduler.sdf",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "/data/atlpan/condor_logs"
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore", "minRamCount", "maxDiskCount"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name": "HTCondorMonitor",
+                        "module": "pandaharvester.harvestermonitor.htcondor_monitor",
+                        "fifoCheckInterval": 180
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"CERN-PROD-preprod": {
+                "queueStatus": "online",
+                "templateQueueName": "PRODUCTION_PULL_TEMPLATE"
+        },
+"CERN-PROD-preprod_MCORE": {
+                "queueStatus": "online",
+                "templateQueueName": "PRODUCTION_PULL_TEMPLATE"
+        },
+"CERN-PROD_UCORE": {
+    "queueStatus": "OFFLINE",
+    "templateQueueName": "PRODUCTION_PULL_TEMPLATE",
+    "prodSourceLabel": "managed",
+    "nQueueLimitWorker": 5,
+    "maxWorkers": 5,
+    "runMode": "slave",
+    "mapType": "NoJob",
+    "throttler": {
+        "name": "SimpleThrottler",
+        "module": "pandaharvester.harvesterthrottler.simple_throttler",
+        "rulesForMissed": [{"level": "pq", "timeWindow": 10, "maxMissed": 1},
+                           {"level": "ce", "timeWindow": 10, "maxMissed": 1}]
+    }
+},
+"Taiwan-LCG2-HPC_Unified": {
+    "queueStatus": "OFFLNE",
+    "templateQueueName": "PRODUCTION_PULL_TEMPLATE",
+    "prodSourceLabel": "managed",
+    "nQueueLimitWorker": 3,
+    "maxWorkers": 10,
+    "maxNewWorkersPerCycle": 50,
+    "runMode": "slave",
+    "mapType": "NoJob"
+},
+
+    "BNL_PROD_HARVESTER-condor": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "BNL_PROD": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "ANALY_CERN_T0_ART": {
+        "queueStatus": "online",
+        "templateQueueName": "ANALYSIS_PUSH_TEMPLATE"
+    },
+
+    "Taiwan-LCG2-htcondor-score": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "CERN-EXTENSION_HARVESTER": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "CERN-PROD_UCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "Taiwan-LCG2-HPC_Unified": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "Taiwan-LCG2-HPC2_Unified": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "CERN-EXTENSION_TSYS": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "CERN-P1": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "ANALY_GOOGLE_HARVESTER": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "CERN-EXTENSION_GOOGLE_HARVESTER": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    }
+
+
+}
