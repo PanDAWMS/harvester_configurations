@@ -1,0 +1,1374 @@
+{
+"SCALABILITY_TEST_PUSH_TEMPLATE": {
+                "prodSourceLabel": "managed",
+                "nQueueLimitJob": 1,
+                "nQueueLimitWorker": 1,
+                "maxWorkers": 5,
+                "maxNewWorkersPerCycle": 1,
+                "mapType": "OneToOne",
+                "truePilot": true,
+                "maxSubmissionAttempts": 3,
+                "walltimeLimit": 172800,
+                "prefetchEvents" :false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"PRODUCTION_PUSH_TEMPLATE": {
+                "prodSourceLabel": "managed",
+                "nQueueLimitJobRatio": 50,
+                "nQueueLimitJobMax": 50,
+                "nQueueLimitJobMin": 1,
+                "nQueueLimitWorker": 10,
+                "maxWorkers": 10,
+                "maxNewWorkersPerCycle": 50,
+                "mapType": "OneToOne",
+                "truePilot": true,
+                "maxSubmissionAttempts": 3,
+                "walltimeLimit": 172800,
+                "prefetchEvents" :false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"PRODUCTION_PULL_TEMPLATE": {
+                "prodSourceLabel": "managed",
+                "nQueueLimitWorker": 5,
+                "maxWorkers": 5,
+                "maxNewWorkersPerCycle": 5,
+                "mapType": "NoJob",
+                "truePilot": true,
+                "maxSubmissionAttempts": 3,
+                "walltimeLimit": 1209600,
+                "prefetchEvents" :false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "jobAttributesToUse": ["nCore"]
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"CERN-EXTENSION_HARVESTER": {
+                "queueStatus": "online",
+                "prodSourceLabel": "managed",
+                "nQueueLimitJob": 1,
+                "nQueueLimitWorker": 1,
+                "maxWorkers": 2,
+                "mapType": "OneToOne",
+                "noHeartbeat": "running,transferring,finished,failed,cancelled",
+                "prefetchEvents":false,
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cloudscheduler.sdf",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs"
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"CERN-PROD-preprod": {
+                "queueStatus": "online",
+                "prodSourceLabel": "managed",
+                "nQueueLimitJob": null,
+                "nQueueLimitWorker": 10,
+                "maxWorkers": 15,
+                "mapType": "NoJob",
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "useAtlasGridCE": true,
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_cern_pub.sdf",
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"CERN-PROD-preprod_MCORE": {
+                "queueStatus": "online",
+                "prodSourceLabel": "managed",
+                "nQueueLimitJob": 10,
+                "nQueueLimitWorker": 10,
+                "maxWorkers": 300,
+                "mapType": "OneToOne",
+                "noHeartbeat": "running,transferring,finished,failed,cancelled",
+                "preparator": {
+                        "name": "DummyPreparator",
+                        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+                },
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d/htcondor-ce.sdf",
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "useAtlasGridCE": true,
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "jobSpecFileFormat": "cgi",
+                        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+                },
+                "stager": {
+                        "name": "DummyStager",
+                        "module": "pandaharvester.harvesterstager.dummy_stager"
+                },
+                "monitor": {
+                        "name":"HTCondorMonitor",
+                        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+                },
+                "sweeper": {
+                        "name": "HTCondorSweeper",
+                        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+                }
+        },
+"CERN-PROD_UCORE": {
+    "queueStatus": "OFFLINE",
+    "prodSourceLabel": "managed",
+    "nQueueLimitWorker": 3000,
+    "maxWorkers": 10000,
+    "runMode": "slave",
+    "mapType": "NoJob",
+    "preparator": {
+        "name": "DummyPreparator",
+        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+    },
+    "submitter": {
+        "name":"HTCondorSubmitter",
+        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_ucore.sdf",
+        "nCorePerNode": 1,
+        "nCore": 8,
+        "logDir": "/data/atlpan/condor_logs",
+        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+        "computingElements": ["condorce01.cern.ch"],
+        "useAtlasGridCE": true
+    },
+    "throttler": {
+        "name": "SimpleThrottler",
+        "module": "pandaharvester.harvesterthrottler.simple_throttler",
+        "rulesForMissed": [{"level": "pq", "timeWindow": 10, "maxMissed": 1},
+                           {"level": "ce", "timeWindow": 10, "maxMissed": 1}]
+    },
+    "workerMaker": {
+        "name": "SimpleWorkerMaker",
+        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+    },
+    "messenger": {
+        "name": "SharedFileMessenger",
+        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+        "jobSpecFileFormat": "cgi",
+        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+    },
+    "stager": {
+        "name": "DummyStager",
+        "module": "pandaharvester.harvesterstager.dummy_stager"
+    },
+    "monitor": {
+        "name":"HTCondorMonitor",
+                    "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+    },
+    "sweeper": {
+        "name": "HTCondorSweeper",
+        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    }
+},
+"Taiwan-LCG2-HPC_Unified": {
+    "queueStatus": "OFFLINE",
+    "prodSourceLabel": "managed",
+    "nQueueLimitWorker": 300,
+    "maxWorkers": 800,
+    "maxNewWorkersPerCycle": 50,
+    "runMode": "slave",
+    "mapType": "NoJob",
+    "preparator": {
+        "name": "DummyPreparator",
+        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+    },
+    "submitter": {
+        "name":"HTCondorSubmitter",
+        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+        "nCorePerNode": 24,
+        "logDir": "/data/atlpan/condor_logs",
+        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+        "useAtlasGridCE": true,
+        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d"
+    },
+    "workerMaker": {
+        "name": "SimpleWorkerMaker",
+        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+    },
+    "messenger": {
+        "name": "SharedFileMessenger",
+        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+        "jobSpecFileFormat": "cgi",
+        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+    },
+    "stager": {
+        "name": "DummyStager",
+        "module": "pandaharvester.harvesterstager.dummy_stager"
+    },
+    "monitor": {
+        "name":"HTCondorMonitor",
+                    "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+    },
+    "sweeper": {
+        "name": "HTCondorSweeper",
+        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    }
+},
+"Taiwan-LCG2-HPC2_Unified": {
+    "prodSourceLabel": "managed",
+    "nQueueLimitWorker": 500,
+    "maxWorkers": 800,
+    "maxNewWorkersPerCycle": 500,
+    "runMode": "slave",
+    "mapType": "NoJob",
+    "preparator": {
+        "name": "DummyPreparator",
+        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+    },
+    "submitter": {
+        "name":"HTCondorSubmitter",
+        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+        "nCorePerNode": 24,
+        "logDir": "/data/atlpan/condor_logs",
+        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+        "useAtlasGridCE": true,
+        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d"
+    },
+    "workerMaker": {
+        "name": "SimpleWorkerMaker",
+        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+    },
+    "messenger": {
+        "name": "SharedFileMessenger",
+        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+        "jobSpecFileFormat": "cgi",
+        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+    },
+    "stager": {
+        "name": "DummyStager",
+        "module": "pandaharvester.harvesterstager.dummy_stager"
+    },
+    "monitor": {
+        "name":"HTCondorMonitor",
+        "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+    },
+    "sweeper": {
+        "name": "HTCondorSweeper",
+        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    }
+},
+"CERN-EXTENSION_TSYS": {
+    "queueStatus": "online",
+    "prodSourceLabel": "managed",
+    "nQueueLimitWorker": 5,
+    "maxWorkers": 50,
+    "runMode": "slave",
+    "mapType": "NoJob",
+    "preparator": {
+        "name": "DummyPreparator",
+        "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+    },
+    "submitter": {
+        "name":"HTCondorSubmitter",
+        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+        "logDir": "/data/atlpan/condor_logs",
+        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+        "useAtlasGridCE": true,
+        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d"
+    },
+    "throttler": {
+        "name": "SimpleThrottler",
+        "module": "pandaharvester.harvesterthrottler.simple_throttler",
+        "rulesForMissed": [{"level": "pq", "timeWindow": 10, "maxMissed": 1},
+                           {"level": "ce", "timeWindow": 10, "maxMissed": 1}]
+    },
+    "workerMaker": {
+        "name": "SimpleWorkerMaker",
+        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+    },
+    "messenger": {
+        "name": "SharedFileMessenger",
+        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+        "jobSpecFileFormat": "cgi",
+        "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}"
+    },
+    "stager": {
+        "name": "DummyStager",
+        "module": "pandaharvester.harvesterstager.dummy_stager"
+    },
+    "monitor": {
+        "name":"HTCondorMonitor",
+                    "module":"pandaharvester.harvestermonitor.htcondor_monitor"
+    },
+    "sweeper": {
+        "name": "HTCondorSweeper",
+        "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    }
+},
+
+"CERN-P1": {
+    "queueStatus": "online",
+    "templateQueueName": "PRODUCTION_PUSH_TEMPLATE",
+    "prodSourceLabel": "managed",
+    "nQueueLimitJob": 3,
+    "nQueueLimitWorker": 5,
+    "maxWorkers": 20,
+    "maxNewWorkersPerCycle": 10,
+    "mapType": "OneToOne",
+    "submitter": {
+        "name":"HTCondorSubmitter",
+        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+        "nCorePerNode": 16,
+        "logDir": "/data/atlpan/condor_logs",
+        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
+        "useAtlasGridCE": false,
+        "templateFile":"/data/atlpan/harvester_common/htcondor_grid_submit_p1.sdf"
+    },
+    "workerMaker": {
+        "name": "SimpleWorkerMaker",
+        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+        "jobAttributesToUse": ["nCore", "minRamCount"]
+    }
+},
+
+    "ANALY_GOOGLE_HARVESTER": {
+        "queueStatus": "online",
+        "prodSourceLabel": "user",
+        "nQueueLimitWorker": 1,
+        "maxWorkers": 1,
+        "mapType": "NoJob",
+        "preparator": {
+            "name": "DummyPreparator",
+            "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+        },
+        "submitter": {
+            "name":"GoogleSubmitter",
+            "module":"pandaharvester.harvestersubmitter.cloud_google_submitter",
+            "nCorePerNode": 1,
+            "nCore": 8,
+            "logDir": "/data/atlpan/condor_logs",
+            "computingElements": ["condorce01.cern.ch"],
+            "preemptible": true
+        },
+        "throttler": {
+            "name": "SimpleThrottler",
+            "module": "pandaharvester.harvesterthrottler.simple_throttler",
+            "rulesForMissed": [{"level": "pq", "timeWindow": 10, "maxMissed": 1},
+                               {"level": "ce", "timeWindow": 10, "maxMissed": 1}]
+        },
+        "workerMaker": {
+            "name": "SimpleWorkerMaker",
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+        },
+        "messenger": {
+            "name": "SharedFileMessenger",
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "jobSpecFileFormat": "cgi",
+            "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}",
+            "worker_heartbeat": 60
+        },
+        "stager": {
+            "name": "DummyStager",
+            "module": "pandaharvester.harvesterstager.dummy_stager"
+        },
+        "monitor": {
+            "name":"GoogleMonitor",
+            "module":"pandaharvester.harvestermonitor.cloud_google_monitor"
+        },
+        "sweeper": {
+            "name": "GoogleSweeper",
+            "module": "pandaharvester.harvestersweeper.cloud_google_sweeper"
+        }
+    },
+    "CERN-EXTENSION_GOOGLE_HARVESTER": {
+        "prodSourceLabel": "managed",
+        "nQueueLimitWorker": 2,
+        "maxWorkers": 15,
+        "mapType": "NoJob",
+        "preparator": {
+            "name": "DummyPreparator",
+            "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+        },
+        "submitter": {
+            "name":"GoogleSubmitter",
+            "module":"pandaharvester.harvestersubmitter.cloud_google_submitter",
+            "nCorePerNode": 1,
+            "nCore": 1,
+            "logDir": "/data/atlpan/condor_logs",
+            "computingElements": ["condorce01.cern.ch"],
+            "preemptible": true
+        },
+        "throttler": {
+            "name": "SimpleThrottler",
+            "module": "pandaharvester.harvesterthrottler.simple_throttler",
+            "rulesForMissed": [{"level": "pq", "timeWindow": 10, "maxMissed": 1},
+                               {"level": "ce", "timeWindow": 10, "maxMissed": 1}]
+        },
+        "workerMaker": {
+            "name": "SimpleWorkerMaker",
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker"
+        },
+        "messenger": {
+            "name": "SharedFileMessenger",
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "jobSpecFileFormat": "cgi",
+            "accessPoint": "/data/atlpan/harvester_worker_dir/${workerID}",
+            "worker_heartbeat": 120
+        },
+        "stager": {
+            "name": "DummyStager",
+            "module": "pandaharvester.harvesterstager.dummy_stager"
+        },
+        "monitor": {
+            "name":"GoogleMonitor",
+            "module":"pandaharvester.harvestermonitor.cloud_google_monitor",
+            "fifoCheckInterval": 120
+        },
+        "sweeper": {
+            "name": "GoogleSweeper",
+            "module": "pandaharvester.harvestersweeper.cloud_google_sweeper"
+        }
+    },
+"ANALY_BNL_SHORT": {
+                "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE",
+                "prodSourceLabel": "user",
+                "nQueueLimitJob": 1,
+                "nQueueLimitWorker": 1,
+                "maxWorkers": 1,
+                "maxSubmissionAttempts":1,
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d/htcondor-ce.sdf",
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "useAtlasGridCE": true,
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_pilot",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                }
+        },
+"ANALY_DESY-HH": {
+                "queueStatus": "OFFLINE",
+                "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE",
+                "prodSourceLabel": "user",
+                "nQueueLimitJob": 1,
+                "nQueueLimitWorker": 1,
+                "maxWorkers": 1,
+                "maxSubmissionAttempts":1,
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d/arc-ce.sdf",
+                        "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+                        "useAtlasGridCE": true,
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_pilot",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                }
+        },
+"ANALY_LANCS_SL6": {
+                "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE",
+                "prodSourceLabel": "user",
+                "nQueueLimitJob": 1,
+                "nQueueLimitWorker": 1,
+                "maxWorkers": 1,
+                "maxSubmissionAttempts":1,
+                "submitter": {
+                        "name":"HTCondorSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+                        "templateFile":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d/cream-ce.sdf",
+                        "useAtlasGridCE": true,
+                        "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_pilot",
+                        "logDir": "/data/atlpan/condor_logs",
+                        "logBaseURL": "https://aipanda170.cern.ch/condor_logs",
+                        "nProcesses": 4
+                }
+        },
+"Taiwan-LCG2": {
+                "queueStatus": "OFFLINE",
+                "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE",
+                "nQueueLimitJob": 3,
+                "nQueueLimitWorker": 3,
+                "maxWorkers": 5,
+                "maxSubmissionAttempts":1
+        },
+    "AGLT2_LMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "AGLT2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "AGLT2_MCORE_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "AGLT2_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "AGLT2_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "AGLT2_TEST": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ATLAS_OPP_OSG-HYAK": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "Australia-ATLAS": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "Australia-ATLAS_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BEIJING": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BEIJING_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BNL_ATLAS_2": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "BNL_CLOUD": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BNL_CLOUD_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BNL_LOCAL": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "BNL_PROD": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "BNL_PROD_CONTR_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BNL_PROD_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "BNL_PROD_MCOREHIMEM": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "BNL_PROD_MCORE_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "BNL_PROD_HARVESTER-condor": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "CA-SCINET-T2": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-SCINET-T2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-SFU-T2": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-SFU-T2_CONTAINER": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-SFU-T2_CONTAINER_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-SFU-T2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-SFU-T2_MCORE_HIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-VICTORIA-WESTGRID-T2": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CA-VICTORIA-WESTGRID-T2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CERN-PROD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CERN-PROD_HI": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CERN-PROD_T0_4MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CERN-PROD_T0_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CERN-PROD_T0_SCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CERN-PROD_T0_SCORE_SHORT": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CPPM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CPPM_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CYFRONET-LCG2": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "CYFRONET-LCG2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "DESY-HH_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "DESY-ZN": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "DESY-ZN_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "EELA-UTFSM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "EELA-UTFSM_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "FMPhI-UNIBA": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "FMPhI-UNIBA_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GR-12-TEIKAV": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GRIF-IRFU": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GRIF-IRFU_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GRIF-LAL_HTCondor": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GRIF-LAL_HTCondor_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GRIF-LPNHE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GRIF-LPNHE_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GoeGrid": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "GoeGrid_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "HEPHY-UIBK": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "HK-LCG2_ARC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "HK-LCG2_MCORE_ARC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "HU_ATLAS_Tier2": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "HU_ATLAS_Tier2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IEPSAS-Kosice": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IEPSAS-Kosice_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IFAE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IFAE_HTCONDOR": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IFAE_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IFIC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IFIC_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IHEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IHEP_PROD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IL-TAU-HEP": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IL-TAU-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-CC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-CC_HIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-CC_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-CC_MCORE_HIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-CC_VVL": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-LAPP-TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "IN2P3-LPSC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-COSENZA-RECAS": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-COSENZA-RECAS_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-FRASCATI": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-FRASCATI_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-GENOVA": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-LECCE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-MILANO-ATLASC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-MILANO-ATLASC_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-NAPOLI-ATLAS": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-NAPOLI-ATLAS_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-NAPOLI-RECAS": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-NAPOLI-RECAS-TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-NAPOLI-RECAS_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-NAPOLI-SCOPE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-ROMA1": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-ROMA1_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-ROMA3": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "INFN-ROMA3_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ITEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ITEP_PROD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "JINR_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "JINR_PROD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "LAPP": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "LAPP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "LPC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "LPC_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "LPSC_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "MWT2_HIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "MWT2_HIMEM_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "MWT2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "MWT2_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "MWT2_VHIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "MWT2_VHIMEM_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "NCG-INGRID-PT_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "NCG-INGRID-PT_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "NIKHEF-ELPROD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "NIKHEF-ELPROD-HighMem": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "NIKHEF-ELPROD_LONG": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "NIKHEF-ELPROD_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "OU_OSCER_ATLAS": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "OU_OSCER_ATLAS_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "OU_OSCER_ATLAS_OPP": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "OU_OSCER_ATLAS_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "PNPI_PROD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "PSNC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "PSNC_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "RAL-LCG2_ES": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA02": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA02_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA07": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA07_ARC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA07_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA14": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA14_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA16": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ROMANIA16_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "RRC-KI-T1": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "RRC-KI-T1_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "RRC-KI-T1_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SARA-MATRIX": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SARA-MATRIX_LONG": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SARA-MATRIX_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SLACXRD": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SLACXRD_LMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SLACXRD_MP8": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SWT2_CPB_DEV_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "SWT2_CPB_DEV_SCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "Taiwan-LCG2-htcondor-score": {
+        "templateQueueName": "PRODUCTION_PULL_TEMPLATE"
+    },
+    "TECHNION-HEP": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TECHNION-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TOKYO_ARC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TOKYO_MCORE_ARC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TR-10-ULAKBIM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TR-10-ULAKBIM_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF_HIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF_MCORE_LOMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF_PPS": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF_SL7": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TRIUMF_SL7_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TW-FTT_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "TW-FTT_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UAM-LCG2_CREAM_HTCONDOR": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UAM-LCG2_CREAM_HTCONDOR_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-Brunel_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-Brunel_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-Brunel_ipv6_TEST": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-IC-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-IC-HEP_MCORE_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-IC-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-IC-HEP_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-IC-HEP_TEST_SL7": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-QMUL_ES": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-QMUL_HIMEM_SL6": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-QMUL_MCORE": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-QMUL_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-RHUL_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-LT2-RHUL_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LANCS-HEP_ES": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LANCS-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LANCS-HEP_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LANCS-HEP_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LIV-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LIV-HEP_MCORE_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LIV-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-LIV-HEP_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-MAN-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-MAN-HEP_MCORE_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-MAN-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-MAN-HEP_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-MAN-HEP_TEST_SL7": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-SHEF-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-NORTHGRID-SHEF-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-DURHAM_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-DURHAM_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-ECDF_MCORE_SL7": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-ECDF_SL7": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-GLASGOW_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-GLASGOW_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SCOTGRID-GLASGOW_TEST": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-BHAM-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-CAM-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-CAM-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-OX-HEP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-OX-HEP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-RALPP_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-RALPP_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-SUSX_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UKI-SOUTHGRID-SUSX_SL6": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UNI-FREIBURG": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UNI-FREIBURG_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "UNI-SIEGEN-HEP": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "WEIZMANN-LCG2": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "WEIZMANN-LCG2_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ZA-CHPC": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ZA-UJ": {
+        "queueStatus": "OFFLINE",
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "ZA-WITS-CORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "pic": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "pic_HIMEM": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "pic_HTCondor-mcore": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "pic_HTCondor-score": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "pic_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "praguelcg2_fzu_MCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    },
+    "praguelcg2_fzu_SCORE": {
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+    }
+
+}
+
