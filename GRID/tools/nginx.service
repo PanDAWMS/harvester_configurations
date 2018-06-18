@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Description:  Run openresty nginx service with JWT authentication for harvester
+# By:   FaHui Lin
+
+PATH=/usr/local/openresty/nginx/sbin:$PATH
+export PATH
+
+NGINX_DIR=/usr/local/openresty/nginx
+
+export JWT_SECRET=`cat /data/atlpan/harvester_jwt.secret`
+
+PROGNAME="nginx -c ${NGINX_DIR}/conf/nginx.conf"
+
+case $1 in
+start)
+    ${PROGNAME}
+    ;;
+stop)
+    ${PROGNAME} -s stop
+    ;;
+reload)
+    ${PROGNAME} -s reload
+    ;;
+*)
+    echo ERROR: unknown command $1
+    exit 1
+esac
