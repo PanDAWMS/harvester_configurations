@@ -24,7 +24,7 @@
                         "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
                         "logDir": "/data/atlpan/condor_logs",
                         "logBaseURL": "/data/atlpan/condor_logs",
-                        "nProcesses": 4
+                        "nProcesses": 8
                 },
                 "workerMaker": {
                         "name": "SimpleWorkerMaker",
@@ -78,7 +78,7 @@
                         "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
                         "logDir": "/data/atlpan/condor_logs",
                         "logBaseURL": "https://aipanda023.cern.ch/condor_logs",
-                        "nProcesses": 4
+                        "nProcesses": 8
                 },
                 "workerMaker": {
                         "name": "SimpleWorkerMaker",
@@ -128,7 +128,7 @@
                         "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_prod",
                         "logDir": "/data/atlpan/condor_logs",
                         "logBaseURL": "https://aipanda023.cern.ch/condor_logs",
-                        "nProcesses": 4
+                        "nProcesses": 8
                 },
                 "workerMaker": {
                         "name": "SimpleWorkerMaker",
@@ -179,7 +179,7 @@
                         "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
                         "logDir": "/data/atlpan/condor_logs",
                         "logBaseURL": "https://aipanda023.cern.ch/condor_logs",
-                        "nProcesses": 4
+                        "nProcesses": 8
                 },
                 "workerMaker": {
                         "name": "SimpleWorkerMaker",
@@ -232,7 +232,7 @@
                         "x509UserProxy": "/data/atlpan/proxy/x509up_u25606_pilot",
                         "logDir": "/data/atlpan/condor_logs",
                         "logBaseURL": "https://aipanda023.cern.ch/condor_logs",
-                        "nProcesses": 4
+                        "nProcesses": 8
                 },
                 "workerMaker": {
                         "name": "SimpleWorkerMaker",
@@ -286,7 +286,7 @@
                         "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
                         "logDir": "/data/atlpan/condor_logs",
                         "logBaseURL": "https://aipanda023.cern.ch/condor_logs",
-                        "nProcesses": 4
+                        "nProcesses": 8
                 },
                 "workerMaker": {
                         "name": "SimpleWorkerMaker",
@@ -360,11 +360,11 @@
                 }
         },
 "CERN-PROD-preprod": {
-                "queueStatus": "online",
+                "queueStatus": "OFFLINE",
                 "templateQueueName": "PRODUCTION_PUSH_SHAREDFS_TEMPLATE"
         },
 "CERN-PROD-preprod_MCORE": {
-                "queueStatus": "online",
+                "queueStatus": "OFFLINE",
                 "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE"
         },
 "CERN-PROD_UCORE": {
@@ -470,5 +470,51 @@
     "ANALY_GOOGLE_HARVESTER": {
         "queueStatus": "OFFLINE",
         "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
+    },
+    "UAM-LCG2_CREAM_HTCONDOR_MCORE": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 800,
+        "maxNewWorkersPerCycle": 50,
+        "nQueueLimitWorker": 200,
+        "runMode": "slave",
+        "mapType": "NoJob"
+    },
+    "ifae_MCORE_htcondor": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 400,
+        "maxNewWorkersPerCycle": 50,
+        "nQueueLimitWorker": 100,
+        "runMode": "slave",
+        "mapType": "NoJob"
+    },
+    "pic_HTCondor-mcore": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 3000,
+        "maxNewWorkersPerCycle": 50,
+        "nQueueLimitWorker": 300,
+        "runMode": "slave",
+        "mapType": "NoJob"
+    },
+    "NCG-INGRID-PT_MCORE": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 400,
+        "maxNewWorkersPerCycle": 50,
+        "nQueueLimitWorker": 150,
+        "runMode": "slave",
+        "mapType": "NoJob"
+    },
+    "CERN-EXTENSION_RHEA": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 1000,
+        "maxNewWorkersPerCycle": 50,
+        "nQueueLimitWorker": 400,
+        "runMode": "slave",
+        "mapType": "NoJob"
     }
+
 }
