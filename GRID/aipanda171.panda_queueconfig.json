@@ -463,7 +463,7 @@
         "queueStatus": "OFFLINE",
         "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
     },
-    "CERN-P1": {
+    "CERN-P1_UCORE": {
         "queueStatus": "OFFLINE",
         "templateQueueName": "PRODUCTION_PUSH_TEMPLATE"
     },
@@ -507,12 +507,30 @@
         "runMode": "slave",
         "mapType": "NoJob"
     },
+    "EELA-UTFSM_MCORE": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 400,
+        "maxNewWorkersPerCycle": 50,
+        "nQueueLimitWorker": 150,
+        "runMode": "slave",
+        "mapType": "NoJob"
+    },
     "CERN-EXTENSION_RHEA": {
         "queueStatus": "online",
         "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
         "maxWorkers": 1000,
         "maxNewWorkersPerCycle": 50,
         "nQueueLimitWorker": 400,
+        "runMode": "slave",
+        "mapType": "NoJob"
+    },
+    "CERN-PROD_EOS": {
+        "queueStatus": "online",
+        "templateQueueName": "PRODUCTION_PULL_SHAREDFS_TEMPLATE",
+        "maxWorkers": 3000,
+        "maxNewWorkersPerCycle": 100,
+        "nQueueLimitWorker": 500,
         "runMode": "slave",
         "mapType": "NoJob"
     }
