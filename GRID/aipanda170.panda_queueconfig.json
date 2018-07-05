@@ -332,9 +332,9 @@
     }
 },
 "Taiwan-LCG2-HPC_Unified": {
-    "queueStatus": "OFFLINE",
+    "queueStatus": "online",
     "prodSourceLabel": "managed",
-    "nQueueLimitWorker": 300,
+    "nQueueLimitWorker": 200,
     "maxWorkers": 800,
     "maxNewWorkersPerCycle": 50,
     "runMode": "slave",
@@ -470,7 +470,7 @@
     }
 },
 
-"CERN-P1": {
+"CERN-P1_UCORE": {
     "queueStatus": "online",
     "templateQueueName": "PRODUCTION_PUSH_TEMPLATE",
     "prodSourceLabel": "managed",
@@ -511,9 +511,10 @@
             "module":"pandaharvester.harvestersubmitter.cloud_google_submitter",
             "nCorePerNode": 1,
             "nCore": 8,
+            "ram_per_core": 4,
+            "disk_size": 100,
             "logDir": "/data/atlpan/condor_logs",
-            "computingElements": ["condorce01.cern.ch"],
-            "preemptible": true
+            "computingElements": ["condorce01.cern.ch"]
         },
         "throttler": {
             "name": "SimpleThrottler",
@@ -548,7 +549,7 @@
     "CERN-EXTENSION_GOOGLE_HARVESTER": {
         "prodSourceLabel": "managed",
         "nQueueLimitWorker": 2,
-        "maxWorkers": 15,
+        "maxWorkers": 5,
         "mapType": "NoJob",
         "preparator": {
             "name": "DummyPreparator",
@@ -1178,7 +1179,8 @@
         "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
     },
     "UAM-LCG2_CREAM_HTCONDOR_MCORE": {
-        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
+        "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE",
+        "queueStatus": "OFFLINE"
     },
     "UKI-LT2-Brunel_MCORE": {
         "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
@@ -1355,6 +1357,7 @@
         "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
     },
     "pic_HTCondor-mcore": {
+        "queueStatus": "OFFLINE",
         "templateQueueName": "SCALABILITY_TEST_PUSH_TEMPLATE"
     },
     "pic_HTCondor-score": {
