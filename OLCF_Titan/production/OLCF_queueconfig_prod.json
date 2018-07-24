@@ -1,9 +1,9 @@
 {
 	"Titan_long_MCORE":{
 		"prodSourceLabel":"managed",
-		"nQueueLimitJob":2400,
-		"nQueueLimitWorker":3,
-		"maxWorkers":3,
+		"nQueueLimitJob":3200,
+		"nQueueLimitWorker":2,
+		"maxWorkers":4,
 		"mapType":"ManyToOne",
 		"useJobLateBinding":false,
 		"walltimeLimit":43200,
@@ -11,7 +11,7 @@
 		"preparator":{
 			"name":"PilotmoverPreparator",
 			"module":"pandaharvester.harvesterpreparator.pilotmover_preparator",
-			"basePath":"/lustre/atlas/proj-shared/hep110/ATLAS_data"
+			"basePath":"/lustre/atlas/proj-shared/hep113/ATLAS_data"
 			},
 		"submitter":{
 			"name":"SAGASubmitter",
@@ -19,7 +19,7 @@
 			"nCorePerNode": 16,
 			"adaptor": "torque://localhost",
 			"localqueue": "batch",
-			"projectname": "hep110",
+			"projectname": "hep113",
 			"nNodes": 2
 			},
 		"workerMaker":{
@@ -34,7 +34,7 @@
 		"messenger":{
 			"name":"SharedFileMessenger",
 			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
-			"accessPoint":"/lustre/atlas/proj-shared/hep110/harvester/workdirs/${workerID}"
+			"accessPoint":"/lustre/atlas/proj-shared/hep113/harvester/workdirs/${workerID}"
 			},
 		"stager":{
 			"name":"RucioStagerHPC",
