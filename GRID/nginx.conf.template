@@ -1,0 +1,94 @@
+user <some_user> <some_group>;
+worker_processes auto;
+error_log /data/atlpan/nginx_logs/error.log debug;
+pid /data/atlpan/nginx_logs/nginx.pid;
+
+# Load dynamic modules. See /usr/share/nginx/README.dynamic.
+#include /usr/share/nginx/modules/*.conf;
+
+# Export JTW secret
+env JWT_SECRET;
+
+events {
+    worker_connections 1024;
+}
+
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /data/atlpan/nginx_logs/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 2048;
+
+    #include             /etc/nginx/mime.types;
+    #default_type        application/octet-stream;
+
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
+    #include /etc/nginx/conf.d/*.conf;
+
+    lua_package_path "/opt/nginx-jwt/?.lua;/usr/local/openresty/lualib/?.lua;;";
+
+    server {
+        listen                    <some_port>;
+        server_name               $hostname;
+        ssl                       on;
+        #etag                      on;  # used in tests
+
+        ssl_certificate "/etc/grid-security/atlpan/hostcert.pem";
+        ssl_certificate_key "/etc/grid-security/atlpan/hostkey.pem";
+        ssl_client_certificate "/opt/ca-bundle-manual.pem";
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout  10m;
+        #ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_ciphers HIGH:!CAMELLIA:!ADH:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!3DES;
+        ssl_prefer_server_ciphers on;
+
+        # Load configuration files for the default server block.
+        #include /etc/nginx/default.d/*.conf;
+
+        #ssl_verify_client         optional;
+        #ssl_verify_client         optional_no_ca;
+        ssl_verify_client         off;
+        #ssl_verify_depth          2;
+        ssl_verify_depth          5;
+
+        location /<some_path> {
+
+            access_by_lua '
+                local jwt = require("nginx-jwt")
+                jwt.auth({
+                    })
+                ';
+
+            uwsgi_pass              localhost:<some_port>;
+            include                 uwsgi_params;
+
+            uwsgi_param             SSL_CLIENT_ID       $ssl_client_s_dn;
+            uwsgi_param             REMOTE_USER         $ssl_client_s_dn;
+            uwsgi_param             UWSGI_SCHEME        $scheme;
+
+            #Values to relay from nginx to uwsgi
+            uwsgi_param             SSL_CLIENT_CERT     $ssl_client_cert;
+            uwsgi_param             SSL_CLIENT_RAW_CERT $ssl_client_raw_cert;
+            uwsgi_param             SSL_CLIENT_VERIFY   $ssl_client_verify;
+
+            uwsgi_param             SERVER_SOFTWARE     nginx/$nginx_version;
+        }
+
+        location / {
+            return                 403;
+        }
+
+
+    }
+
+}

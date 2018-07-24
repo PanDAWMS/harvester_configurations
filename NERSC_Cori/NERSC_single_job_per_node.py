@@ -108,7 +108,7 @@ class Singlejobpernode:
         self.workdir = workdir
         # hard code data path right now.
         self.dataPath = '/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio'
-        self.dbProxy = DBProxy()
+        #self.dbProxy = DBProxy()
 
     def create_job_shell_script(self,PandajobID,jobjson,eventstatusjson,workerAttributesFile,datapath):
         print "start of create_job_shell_script"
@@ -121,18 +121,18 @@ class Singlejobpernode:
         # cmd is the contents of the shell script
         try:
             cmd =  "#set -x;"
-            cmd += "umask 022;"
             cmd += "source $HARVESTER_DIR/bin/deactivate;"
             cmd += "shifter --image=custom:atlas_cvmfs_centos6:latest --volume=/global/cscratch1/sd/yangw/tmpfiles:/tmp:perNodeCache=size=8G --volume=/global/project/projectdirs/atlas/prodenv/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase/etc/grid-security-emi/certificates:/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase/etc/grid-security-emi/certificates:ro --volume=/global/project/projectdirs/atlas/prodenv/cvmfs/atlas.cern.ch/repo/sw/local/etc:/cvmfs/atlas.cern.ch/repo/sw/local/etc:ro --volume=/global/project/projectdirs/atlas/prodenv/cvmfs/atlas.cern.ch/repo/sw/local/x86_64-slc5-gcc43-opt:/cvmfs/atlas.cern.ch/repo/sw/local/x86_64-slc5-gcc43-opt:ro <<EOF;"
 
             cmd += "#!/bin/bash;"
+            cmd += "umask 002;"
+            cmd += "free -s 300 > mem.free.log &;"
             cmd += "WORKDIR={0};".format(self.workdir)
             cmd += "[ -f \$WORKDIR/use_here_as_working_dir ] || WORKDIR=/tmp;"
             cmd += "cd \$WORKDIR;"
             cmd += "tar xzvf $HARVESTER_DIR/etc/minipilot-container.tgz;"
             cmd += "export PYTHONPATH=\$WORKDIR/lib64/python2.6/site-packages;"
             cmd += "export X509_USER_PROXY=" + os.getenv("X509_USER_PROXY") + ";"
-            cmd += "#export ATHENA_PROC_NUMBER=68;"
             cmd += "export VO_ATLAS_SW_DIR=/cvmfs/atlas.cern.ch/repo/sw/;"
             cmd += "export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase;"
             cmd += "source \$ATLAS_LOCAL_ROOT_BASE/user/atlasLocalSetup.sh;"
@@ -151,16 +151,18 @@ class Singlejobpernode:
 
             cmd += ";"
             cmd += "localSetupEmi;"
-            cmd += " ;"
+            cmd += ";"
             cmd += "export DBBASEPATH=/cvmfs/atlas.cern.ch/repo/sw/database/DBRelease/current;"
             cmd += "export CORAL_DBLOOKUP_PATH=\$DBBASEPATH/XMLConfig;"
             cmd += "export CORAL_AUTH_PATH=\$DBBASEPATH/XMLConfig;"
             cmd += "export DATAPATH=\$WORKDIR:\$DBBASEPATH:\$DATAPATH;"
+            cmd += "export FRONTIER_SERVER=\"(serverurl=http://t1-frontier.triumf.ca:3128/ATLAS_frontier)(serverurl=http://frontier.triumf.ca:3128/ATLAS_frontier)(serverurl=http://tier1nfs.triumf.ca:3128/ATLAS_frontier)(serverurl=http://ccfrontier.in2p3.fr:23128/ccin2p3-AtlasFrontier)(serverurl=http://ccsqfatlasli02.in2p3.fr:23128/ccin2p3-AtlasFrontier)(serverurl=http://ccsqfatlasli01.in2p3.fr:23128/ccin2p3-AtlasFrontier)(proxyurl=http://frontiercache.nersc.gov:3128)(proxyurl=http://gk07.atlas-swt2.org:3128)\";"
+            cmd += "#unset FRONTIER_SERVER;"
             cmd += " ;"
             cmd += "#mkdir -p \$WORKDIR/poolcond;"
             cmd += "#cp -v \$DBBASEPATH/poolcond/*.xml \$WORKDIR/poolcond;"
-            cmd += "unset FRONTIER_SERVER;"
             cmd += "python ./pilot.py --queue $PANDA_QUEUE --queuedata /cvmfs/atlas.cern.ch/repo/sw/local/etc/agis_schedconf.json --job_tag prod --job_description {0}/jobspec_{1}.json --simulate_rucio --no_job_update --harvester --harvester_workdir {2} --harvester_datadir {3} --harvester_eventStatusDumpJsonFile {4} --harvester_workerAttributesFile {5};".format(self.workdir,PandajobID,self.workdir,self.dataPath,eventstatusjson,workerAttributesFile)
+            cmd += "kill \$(jobs -p);"
             cmd += "EOF;"
             cmd = cmd.replace(";","\n")
             print cmd
