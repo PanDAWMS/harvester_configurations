@@ -1,0 +1,61 @@
+{
+	"Titan_Harvester_MCORE":{
+		"prodSourceLabel":"managed",
+		"nQueueLimitJob":1,
+		"nQueueLimitWorker":1,
+		"maxWorkers":1,
+		"mapType":"OneToMany",
+		"useJobLateBinding":false,
+		"walltimeLimit":7140,
+		"zipPerMB":1024,
+		"preparator":{
+			"name":"PilotmoverPreparator",
+			"module":"pandaharvester.harvesterpreparator.pilotmover_preparator",
+			"basePath":"/lustre/atlas/proj-shared/csc108/data/harvester_aes"
+			},
+		"submitter":{
+			"name":"SAGASubmitter",
+			"module":"pandaharvester.harvestersubmitter.saga_submitter",
+			"nCorePerNode": 16,
+			"adaptor": "torque://localhost",
+			"localqueue": "batch",
+			"projectname": "csc108",
+			"nNodes": 10
+			},
+		"workerMaker":{
+			"name":"MultiNodeWorkerMaker",
+			"module":"pandaharvester.harvesterworkermaker.multinode_worker_maker",
+			"nNodes": 10,
+			"mode": "static",
+			"env": "date, source /ccs/proj/csc108/eventservice/virtual_env/setup.sh, export MPICH_GNI_VC_MSG_PROTOCOL=MSGQ, export KMP_AFFINITY=granularity=fine,compact,1,0, export ATHENA_PROC_NUMBER=16, export HARVESTER_ID=OLCF_Titan_ATLAS_test, source $MODULESHOME/init/bash, export LD_LIBRARY_PATH=/ccs/proj/csc108/AtlasReleases/ldpatch:$LD_LIBRARY_PATH, export SW_INSTALL_AREA=/ccs/proj/csc108/AtlasReleases/21.0.15, source $SW_INSTALL_AREA/AtlasSetup/scripts/asetup.sh 21.0.15 --releasesarea=$SW_INSTALL_AREA --cmakearea=$SW_INSTALL_AREA/sw/lcg/contrib/CMake --gcclocation=$SW_INSTALL_AREA/sw/lcg/releases/gcc/4.9.3/x86_64-slc6, export PYTHONPATH=$PYTHONPATH:/lustre/atlas/world-shared/csc108/lib/python2.7/site-packages/:/ccs/proj/csc108/eventservice/virtual_env/venv/lib/python2.7/site-packages/, export DBRelease_AREA=/lustre/atlas/proj-shared/csc108/app_dir/atlas_app/atlas_rel/21.0.15, export CORAL_DBLOOKUP_PATH=$DBRelease_AREA/DBRelease/current/XMLConfig, export CORAL_AUTH_PATH=$DBRelease_AREA/DBRelease/current/XMLConfig, export DATAPATH=$DBRelease_AREA/DBRelease/current:$DATAPATH, date",
+			"pilot": "python /ccs/proj/csc108/eventservice/virtual_env/venv/lib/python2.7/site-packages/pandayoda/yoda_droid.py",
+			"pilot_params": " -w {work_dir} -c /lustre/atlas/proj-shared/csc108/debug/atlas/AES/tests/etc/yoda_prod.cfg --debug",
+			"executor": "aprun"
+			},
+		"messenger":{
+			"name":"SharedFileMessenger",
+			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint":"/lustre/atlas/proj-shared/csc108/harvester_aes/workdirs/${workerID}"
+			},
+		"stager":{
+			"name":"RucioStagerHPC",
+			"module":"pandaharvester.harvesterstager.rucio_stager_hpc",
+			"dstRSE_Out":"BNL-OSG2_DATADISK",
+			"dstRSE_Log":"BNL-OSG2_DATADISK",
+			"zipDir":"${SRCDIR}",
+			"scopeForTmp": "transient",
+			"objstoreID": 1381,
+			"pathConvention": 1000
+			},
+		"monitor":{
+			"name":"SAGAMonitor",
+			"module":"pandaharvester.harvestermonitor.saga_monitor",
+			"adaptor": "torque://localhost"
+			},
+		"sweeper":{
+			"name":"SAGASweeper",
+			"module":"pandaharvester.harvestersweeper.saga_sweeper",
+			"adaptor": "torque://localhost"
+			}
+	}
+}
