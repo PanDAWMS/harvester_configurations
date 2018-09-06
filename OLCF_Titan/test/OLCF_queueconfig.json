@@ -1,9 +1,9 @@
 {
-	"Titan_Harvester_MCORE":{
+	"Titan_Harvester_test_MCORE":{
 		"prodSourceLabel":"managed",
-		"nQueueLimitJob":200,
+		"nQueueLimitJob":30,
 		"nQueueLimitWorker":1,
-		"maxWorkers":2,
+		"maxWorkers":3,
 		"mapType":"ManyToOne",
 		"useJobLateBinding":false,
 		"walltimeLimit":7140,
@@ -24,10 +24,10 @@
 		"workerMaker":{
 			"name":"MultiJobWorkerMaker",
 			"module":"pandaharvester.harvesterworkermaker.multijob_worker_maker",
-			"nJobsPerWorker": 50,
-			"env": "source $MODULESHOME/init/bash, export SW_INSTALL_AREA=/ccs/proj/csc108/AtlasReleases/21.0.15, source $SW_INSTALL_AREA/AtlasSetup/scripts/asetup.sh 21.0.15 --releasesarea=$SW_INSTALL_AREA --cmakearea=$SW_INSTALL_AREA/sw/lcg/contrib/CMake --gcclocation=$SW_INSTALL_AREA/sw/lcg/releases/gcc/4.9.3/x86_64-slc6, export PYTHONPATH=$PYTHONPATH:/lustre/atlas2/csc108/proj-shared/debug/atlas/v2/harvester/lib/python2.7/site-packages/:/ccs/proj/csc108/AtlasReleases/python2.7/site-packages/, cd $PBS_O_WORKDIR",
-			"pilot": "/lustre/atlas/proj-shared/csc108/debug/atlas/v2/harvester/lib/python2.7/site-packages/pandaharvester/harvesterpayload/ATLAS_simple_wrapper_mpi.py",
-			"pilot_params": "worker_pandaids.json",
+			"nJobsPerWorker": 10,
+			"env": "date, export ATHENA_PROC_NUMBER=16, export HARVESTER_ID=OLCF_Titan_ATLAS_test, source $MODULESHOME/init/bash, export LD_LIBRARY_PATH=/ccs/proj/csc108/AtlasReleases/ldpatch:$LD_LIBRARY_PATH, export SW_INSTALL_AREA=/ccs/proj/csc108/AtlasReleases/21.0.15, source $SW_INSTALL_AREA/AtlasSetup/scripts/asetup.sh 21.0.15 --releasesarea=$SW_INSTALL_AREA --cmakearea=$SW_INSTALL_AREA/sw/lcg/contrib/CMake --gcclocation=$SW_INSTALL_AREA/sw/lcg/releases/gcc/4.9.3/x86_64-slc6, export PYTHONPATH=$PYTHONPATH:/lustre/atlas/world-shared/csc108/lib/python2.7/site-packages/:/lustre/atlas/proj-shared/csc108/debug/atlas/pilot2/, date",
+			"pilot": "python /ccs/proj/csc108/panda/pilot2/pilot.py",
+			"pilot_params": " -q ORNL_Titan_MCORE -r ORNL_Titan_MCORE -s OLCF --pilot-user atlas -w generic_hpc -d --hpc-resource titan",
 			"executor": "aprun"
 			},
 		"messenger":{
