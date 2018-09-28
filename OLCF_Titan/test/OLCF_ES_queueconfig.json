@@ -4,7 +4,7 @@
 		"nQueueLimitJob":1,
 		"nQueueLimitWorker":1,
 		"maxWorkers":1,
-		"mapType":"OneToMany",
+		"mapType":"OneToOne",
 		"useJobLateBinding":false,
 		"walltimeLimit":7140,
 		"zipPerMB":1024,
