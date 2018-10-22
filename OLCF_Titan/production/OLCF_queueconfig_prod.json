@@ -1,12 +1,12 @@
 {
 	"Titan_long_MCORE":{
 		"prodSourceLabel":"managed",
-		"nQueueLimitJob":3200,
-		"nQueueLimitWorker":2,
-		"maxWorkers":4,
+		"nQueueLimitJob":7600,
+		"nQueueLimitWorker":1,
+		"maxWorkers":2,
 		"mapType":"ManyToOne",
 		"useJobLateBinding":false,
-		"walltimeLimit":43200,
+		"walltimeLimit":57600,
 		"allowJobMixture":true,
 		"preparator":{
 			"name":"PilotmoverPreparator",
@@ -25,7 +25,7 @@
 		"workerMaker":{
 			"name":"MultiJobWorkerMaker",
 			"module":"pandaharvester.harvesterworkermaker.multijob_worker_maker",
-			"nJobsPerWorker": 800,
+			"nJobsPerWorker": 3800,
 			"env": "source $MODULESHOME/init/bash, export SW_INSTALL_AREA=/ccs/proj/csc108/AtlasReleases/21.0.15, source $SW_INSTALL_AREA/AtlasSetup/scripts/asetup.sh 21.0.15 --releasesarea=$SW_INSTALL_AREA --cmakearea=$SW_INSTALL_AREA/sw/lcg/contrib/CMake --gcclocation=$SW_INSTALL_AREA/sw/lcg/releases/gcc/4.9.3/x86_64-slc6, export PYTHONPATH=$PYTHONPATH:/lustre/atlas/proj-shared/csc108/production/atlas/harvester/lib/python2.7/site-packages/:/ccs/proj/csc108/AtlasReleases/python2.7/site-packages/, cd $PBS_O_WORKDIR",
 			"pilot": "/lustre/atlas/proj-shared/csc108/production/atlas/harvester/lib/python2.7/site-packages/pandaharvester/harvesterpayload/ATLAS_simple_wrapper_mpi.py",
 			"pilot_params": "worker_pandaids.json",
