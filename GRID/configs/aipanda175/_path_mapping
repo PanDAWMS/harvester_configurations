@@ -1,4 +1,0 @@
-panda_harvester-uwsgi.ini       /usr/etc/panda/panda_harvester-uwsgi.ini
-logrotate-panda_harvester       /etc/logrotate.d/panda_harvester
-harvester_cleanspace.cron       /etc/cron.d/harvester_cleanspace.cron
-condor_config.local             /etc/condor/config.d/condor_config.local

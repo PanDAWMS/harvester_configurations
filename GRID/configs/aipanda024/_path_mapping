@@ -1,2 +1,0 @@
-harvester_condor.cron           /etc/cron.d/harvester_condor.cron
-condor_config.local             /etc/condor/config.d/condor_config.local
