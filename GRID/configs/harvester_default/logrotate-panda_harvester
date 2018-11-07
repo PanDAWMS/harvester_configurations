@@ -1,0 +1,15 @@
+nocompress
+
+/var/log/harvester/*log {
+    rotate 10
+    daily
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        /usr/etc/rc.d/init.d/panda_harvester-uwsgi stop > /dev/null 2> /dev/null || true
+        /usr/etc/rc.d/init.d/panda_harvester-uwsgi start > /dev/null 2> /dev/null || true
+        /bin/sleep 30
+        /bin/renice -n 0 -u atlpan
+    endscript
+}

@@ -1,0 +1,9 @@
+8 11,23 * * * root /usr/bin/find /data/atlpan/condor_logs/ -type f -mtime +15 -delete > /dev/null 2>&1
+8 0,12 * * * root /usr/bin/find /data/atlpan/condor_logs/ -type d -empty -mtime +3 -delete > /dev/null 2>&1
+8 15 * * * root /usr/bin/find /data/atlpan/harvester_worker_dir/ -mindepth 1 -maxdepth 2 -mtime +7 -delete > /dev/null 2>&1
+#8 7 * * * root /usr/bin/find /cephfs/atlpan/harvester/harvester_worker_dir/ -mindepth 1 -maxdepth 2 -mtime +7 -delete > /dev/null 2>&1
+8 19 * * * root /usr/bin/find /data/atlpan/harvester_logs/*.log.* -type f -mtime +7 -delete > /dev/null 2>&1
+
+# Create dummy condor log subdirectory
+8 8 * * * root /bin/mkdir -m 1777 -p /data/atlpan/condor_logs/$(/bin/date -d "+1 days" +"\%y-\%m-\%d")_{00..23}  > /dev/null 2>&1
+8 1 * * * root /usr/bin/find /data/atlpan/condor_logs/ -mindepth 1 -maxdepth 2 -mtime +3 -delete  > /dev/null 2>&1

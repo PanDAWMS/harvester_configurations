@@ -1,0 +1,6 @@
+# Create dummy condor log subdirectory
+# /data1 on remote schedd is 2TB volume; thus, on harvester we need a dummy directory with same path
+# All files genterated will be empty under /data1/atlpan/condor_logs on this machine
+9 9 * * * root /bin/mkdir -m 1777 -p /data1/atlpan/condor_logs/$(/bin/date -d "+1 days" +"\%y-\%m-\%d")_{00..23} > /dev/null 2>&1
+9 2 * * * root /usr/bin/find /data1/atlpan/condor_logs/ -type f -mtime +3 -delete > /dev/null 2>&1
+9 3 * * * root /usr/bin/find /data1/atlpan/condor_logs/ -mindepth 1 -type d -empty -mtime +2 -delete > /dev/null 2>&1
