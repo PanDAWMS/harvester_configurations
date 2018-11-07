@@ -52,6 +52,14 @@
 			"name":"SAGASweeper",
 			"module":"pandaharvester.harvestersweeper.saga_sweeper",
 			"adaptor": "torque://localhost"
-			}
+			},
+		"resource": {
+			"name": "TitanUtils",
+			"module": "pandaharvester.harvestermisc.titan_utils",
+			"partition": "titan",
+			"minNodes": 10,
+			"maxNodes": 150,
+			"minWalltime": 6000
+		}
 	}
 }
