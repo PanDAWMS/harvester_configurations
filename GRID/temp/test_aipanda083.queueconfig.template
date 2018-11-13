@@ -1,5 +1,5 @@
 {
-"SCALABILITY_TEST_PUSH_TEMPLATE_from_GitHub": {
+"SCALABILITY_TEST_PUSH_from_GitHub_TEMPLATE": {
                 "prodSourceLabel": "managed",
                 "nQueueLimitJob": 2,
                 "nQueueLimitWorker": 2,
