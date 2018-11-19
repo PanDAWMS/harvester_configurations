@@ -1,0 +1,20 @@
+# define virtual env if not using python venv
+export VIRTUAL_ENV=/usr
+
+# panda home
+export PANDA_HOME=${VIRTUAL_ENV}
+
+# timezone
+export TZ=UTC
+
+# python site packages
+export SITE_PACKAGES_PATH=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
+
+# import panda modules
+export PYTHONPATH=${SITE_PACKAGES_PATH}/pandacommon:${SITE_PACKAGES_PATH}
+
+# option for frontend
+OPTIONS="-f "${VIRTUAL_ENV}"/etc/panda/panda_harvester-httpd.conf"
+
+# passphrase for watcher
+#export HARVESTER_WATCHER_PASSPHRASE=FIXME_FIXME_FIXME
