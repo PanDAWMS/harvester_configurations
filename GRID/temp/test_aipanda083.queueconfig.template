@@ -1,4 +1,61 @@
 {
+  "production.push": {
+      "isTemplateQueue": true,
+      "prodSourceLabel": "managed",
+      "nQueueLimitJob": 2,
+      "nQueueLimitWorker": 2,
+      "maxWorkers": 3,
+      "maxNewWorkersPerCycle": 1,
+      "mapType": "OneToOne",
+      "truePilot": true,
+      "maxSubmissionAttempts": 3,
+      "walltimeLimit": 172800,
+      "prefetchEvents" :false,
+      "preparator": {
+              "name": "DummyPreparator",
+              "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "submitter": {
+              "name":"HTCondorSubmitter",
+              "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+              "condorSchedd": ["aipanda023.cern.ch", "aipanda024.cern.ch"],
+              "condorPool": ["aipanda023.cern.ch:19618", "aipanda024.cern.ch:19618"],
+              "useAtlasGridCE": true,
+              "CEtemplateDir":"/data/atlpan/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
+              "executableFile": "/data/atlpan/harvester_common/runpilot3-wrapper.sh",
+              "x509UserProxy": "/data/atlpan/x509up_u25606_production",
+              "logDir": "/data1/atlpan/condor_logs",
+              "logBaseURL": "https://[ScheddHostname]/condor_logs_1",
+              "nProcesses": 4
+      },
+      "workerMaker": {
+              "name": "SimpleWorkerMaker",
+              "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+              "jobAttributesToUse": ["nCore"]
+      },
+      "messenger": {
+              "name": "SharedFileMessenger",
+              "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+              "jobSpecFileFormat": "cgi",
+              "accessPoint": "/data/atlpan/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager": {
+              "name": "DummyStager",
+              "module": "pandaharvester.harvesterstager.dummy_stager"
+      },
+      "monitor": {
+              "name": "HTCondorMonitor",
+              "module": "pandaharvester.harvestermonitor.htcondor_monitor",
+              "cancelUnknown": false,
+              "cacheRefreshInterval": 300
+      },
+      "sweeper": {
+              "name": "HTCondorSweeper",
+              "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+      }
+  },
+
+
 "SCALABILITY_TEST_PUSH_from_GitHub_TEMPLATE": {
                 "prodSourceLabel": "managed",
                 "nQueueLimitJob": 2,
