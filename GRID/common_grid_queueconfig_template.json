@@ -68,7 +68,7 @@
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
       "nQueueLimitWorker":1000,
-      "nQueueLimitWorkerRatio":20,
+      "nQueueLimitWorkerRatio":40,
       "maxWorkers":1000,
       "maxNewWorkersPerCycle":10,
       "mapType":"NoJob",
@@ -130,7 +130,7 @@
   "production.pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
-      "nQueueLimitWorkerRatio":20,
+      "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":15,
       "maxWorkers":999999,
