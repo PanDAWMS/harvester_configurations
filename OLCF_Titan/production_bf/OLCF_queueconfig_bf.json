@@ -1,0 +1,71 @@
+{
+	"ORNL_Titan_MCORE":{
+		"prodSourceLabel":"managed",
+		"nQueueLimitJob":15000,
+		"nQueueLimitWorker":1,
+		"maxWorkers":8,
+		"mapType":"ManyToOne",
+		"useJobLateBinding":false,
+		"walltimeLimit":7140,
+		"allowJobMixture":true,
+		"preparator":{
+			"name":"PilotmoverPreparator",
+			"module":"pandaharvester.harvesterpreparator.pilotmover_preparator",
+			"basePath":"/lustre/atlas/proj-shared/csc108/data/harvester_bf/"
+			},
+		"submitter":{
+			"name":"SAGASubmitter",
+			"module":"pandaharvester.harvestersubmitter.saga_submitter",
+			"nCorePerNode": 16,
+			"adaptor": "torque://localhost",
+			"localqueue": "batch",
+			"projectname": "csc108",
+			"nNodes": 2
+			},
+		"workerMaker":{
+			"name":"MultiNodeWorkerMaker",
+			"module":"pandaharvester.harvesterworkermaker.multinode_worker_maker",
+			"nNodes": 10,
+			"nJobsPerNode": 1,
+			"nCorePerJob": 16,
+			"walltimelimit": 7140,
+			"mode": "dynamic",
+			"env": "date, export ATHENA_PROC_NUMBER=16, export HARVESTER_ID=OLCF_Titan_ATLAS_BF, source $MODULESHOME/init/bash, export LD_LIBRARY_PATH=/ccs/proj/csc108/AtlasReleases/ldpatch:$LD_LIBRARY_PATH, export SW_INSTALL_AREA=/ccs/proj/csc108/AtlasReleases/21.0.15, source $SW_INSTALL_AREA/AtlasSetup/scripts/asetup.sh 21.0.15 --releasesarea=$SW_INSTALL_AREA --cmakearea=$SW_INSTALL_AREA/sw/lcg/contrib/CMake --gcclocation=$SW_INSTALL_AREA/sw/lcg/releases/gcc/4.9.3/x86_64-slc6, export PYTHONPATH=$PYTHONPATH:/lustre/atlas/world-shared/csc108/lib/python2.7/site-packages/:/ccs/proj/csc108/panda/pilot2/, date",
+			"pilot": "python /ccs/proj/csc108/panda/pilot2/pilot.py",
+			"pilot_params": " -q ORNL_Titan_MCORE -r ORNL_Titan_MCORE -s OLCF --pilot-user atlas -w generic_hpc -d --hpc-resource titan",
+			"executor": "aprun"
+			},
+		"messenger":{
+			"name":"SharedFileMessenger",
+			"module":"pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint":"/lustre/atlas/proj-shared/csc108/harvester/workdirs/${workerID}"
+			},
+		"stager":{
+			"name":"RucioStagerHPC",
+			"module":"pandaharvester.harvesterstager.rucio_stager_hpc",
+			"dstRSE_Out":"BNL-OSG2_DATADISK",
+			"dstRSE_Log":"BNL-OSG2_DATADISK",
+			"zipDir":"${SRCDIR}"
+			},
+		"monitor":{
+			"name":"SAGAMonitor",
+			"module":"pandaharvester.harvestermonitor.saga_monitor",
+			"adaptor": "torque://localhost",
+			"maxqueuetime": 300
+			},
+		"sweeper":{
+			"name":"SAGASweeper",
+			"module":"pandaharvester.harvestersweeper.saga_sweeper",
+			"adaptor": "torque://localhost"
+			},
+		"resource":{
+			"name":"TitanUtils",
+			"module":"pandaharvester.harvestermisc.titan_utils",
+			"partition": "titan",
+			"minNodes": 15,
+			"maxNodes": 150,
+			"minWalltime": 4200
+			}
+
+	}
+}
