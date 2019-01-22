@@ -132,7 +132,7 @@
       "prodSourceLabel":"managed",
       "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMax":999999,
-      "nQueueLimitWorkerMin":100,
+      "nQueueLimitWorkerMin":50,
       "maxWorkers":999999,
       "maxNewWorkersPerCycle":75,
       "mapType":"NoJob",
