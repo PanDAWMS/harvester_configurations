@@ -261,9 +261,9 @@
   "analysis.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
-      "nQueueLimitWorkerRatio":20,
-      "nQueueLimitWorkerMax":999999,
-      "nQueueLimitWorkerMin":10,
+      "nQueueLimitWorkerRatio":40,
+      "nQueueLimitWorkerMax":300,
+      "nQueueLimitWorkerMin":50,
       "maxWorkers":999999,
       "maxNewWorkersPerCycle":50,
       "mapType":"NoJob",
