@@ -106,7 +106,8 @@
           "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
           "jobAttributesToUse":[
               "nCore"
-          ]
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
       },
       "messenger":{
           "name":"SharedFileMessenger",
@@ -171,7 +172,8 @@
           "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
           "jobAttributesToUse":[
               "nCore"
-          ]
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
       },
       "messenger":{
           "name":"SharedFileMessenger",
@@ -300,7 +302,8 @@
           "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
           "jobAttributesToUse":[
               "nCore"
-          ]
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
       },
       "messenger":{
           "name":"SharedFileMessenger",
@@ -365,7 +368,8 @@
           "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
           "jobAttributesToUse":[
               "nCore"
-          ]
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
       },
       "messenger":{
           "name":"SharedFileMessenger",
