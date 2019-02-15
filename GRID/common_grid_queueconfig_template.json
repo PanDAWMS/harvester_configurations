@@ -619,7 +619,7 @@
               "aipanda024.cern.ch:19618"
           ],
           "useSpool":false,
-          "useAtlasGridCE":false,
+          "useAtlasGridCE":true,
           "templateFile":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d/htcondor-ce-bnl.sdf",
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
