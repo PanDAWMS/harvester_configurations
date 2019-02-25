@@ -207,6 +207,7 @@
       "mapType":"OneToOne",
       "truePilot":true,
       "maxSubmissionAttempts":3,
+      "walltimeLimit":172800,
       "prefetchEvents":false,
       "preparator":{
           "name":"DummyPreparator",
