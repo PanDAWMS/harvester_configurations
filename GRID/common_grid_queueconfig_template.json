@@ -34,7 +34,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -98,7 +98,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -164,7 +164,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -229,7 +229,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -293,7 +293,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -359,7 +359,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -426,7 +426,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -490,7 +490,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -556,7 +556,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
@@ -623,7 +623,7 @@
           "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs_1",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
           "nProcesses":8
       },
       "workerMaker":{
