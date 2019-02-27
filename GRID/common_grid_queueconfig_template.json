@@ -279,7 +279,7 @@
   "analysis.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
-      "nQueueLimitWorkerRatio":60,
+      "nQueueLimitWorkerRatio":80,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":100,
       "maxWorkers":999999,
