@@ -416,6 +416,76 @@
       }
   },
 
+  "special.pull":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"user",
+      "nQueueLimitWorkerRatio":100,
+      "nQueueLimitWorkerMax":500,
+      "nQueueLimitWorkerMin":15,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":100,
+      "mapType":"NoJob",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":1209600,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "submitter":{
+          "name":"HTCondorSubmitter",
+          "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+          "condorSchedd":[
+              "aipanda023.cern.ch",
+              "aipanda024.cern.ch",
+              "aipanda183.cern.ch",
+              "aipanda184.cern.ch"
+          ],
+          "condorPool":[
+              "aipanda023.cern.ch:19618",
+              "aipanda024.cern.ch:19618",
+              "aipanda183.cern.ch:19618",
+              "aipanda184.cern.ch:19618"
+          ],
+          "useSpool":false,
+          "useAtlasGridCE":true,
+          "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
+          "executableFile":"/cephfs/atlpan/harvester/harvester_common/runpilot3-wrapper.sh",
+          "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
+          "logDir":"/data1/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "nProcesses":8
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "monitor":{
+          "name":"HTCondorMonitor",
+          "module":"pandaharvester.harvestermonitor.htcondor_monitor",
+          "cancelUnknown":false
+      },
+      "sweeper":{
+          "name":"HTCondorSweeper",
+          "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      }
+  },
+
   "US_analysis_push":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
