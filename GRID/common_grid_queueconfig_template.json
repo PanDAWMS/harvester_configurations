@@ -36,8 +36,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -103,8 +103,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -172,8 +172,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -241,8 +241,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_push.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -308,8 +308,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -377,8 +377,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -446,8 +446,8 @@
           "useAtlasGridCE":true,
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
@@ -722,8 +722,8 @@
           "useAtlasGridCE":true,
           "templateFile":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d/htcondor-ce-bnl.sdf",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
-          "logDir":"/data1/atlpan/condor_logs",
-          "logBaseURL":"https://[ScheddHostname]/condor_logs",
+          "logDir":"/data2/atlpan/condor_logs",
+          "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
       },
       "workerMaker":{
