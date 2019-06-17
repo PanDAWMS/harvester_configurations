@@ -2,6 +2,7 @@
   "production.push":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitJobRatio":40,
       "nQueueLimitJobMax":999999,
       "nQueueLimitJobMin":100,
@@ -70,6 +71,7 @@
   "production.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorker":1000,
       "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMin":100,
@@ -138,6 +140,7 @@
   "production.pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":100,
@@ -207,6 +210,7 @@
   "analysis.push":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitJobRatio":50,
       "nQueueLimitJobMax":1000,
       "nQueueLimitJobMin":100,
@@ -275,6 +279,7 @@
   "analysis.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":100,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":100,
@@ -343,6 +348,7 @@
   "analysis.pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":60,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":100,
@@ -413,6 +419,7 @@
   "special.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":100,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":15,
@@ -482,6 +489,7 @@
   "US_analysis_push":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitJobRatio":20,
       "nQueueLimitJobMax":1000,
       "nQueueLimitJobMin":5,
@@ -550,6 +558,7 @@
   "US_analysis_pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":60,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":100,
@@ -618,6 +627,7 @@
   "US_analysis_pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":20,
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":10,
@@ -688,6 +698,7 @@
   "BNL_production_pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
       "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":50,
