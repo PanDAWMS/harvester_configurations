@@ -1,0 +1,77 @@
+{
+    "pic_MareNostrum4_Harvester": {
+                "queueStatus": "offline",
+                "prodSourceLabel": "managed",
+                "allowJobMixture": true,
+                "nQueueLimitJob": 1,
+                "nQueueLimitWorker": 1,
+                "maxWorkers": 1,
+                "maxNewWorkersPerCycle": 10,
+                "mapType": "OneToOne",
+                "zipPerMB": 1024,
+                "preparator": {
+                        "name": "PilotmoverMTPreparator",
+                        "module": "pandaharvester.harvesterpreparator.pilotmover_mt_preparator_kari",
+                        "basePath": "/gpfs/projects/ifae96/ifae96853/panda_inputs",
+                        "n_threads": 8
+                },
+                "submitter": {
+                        "name":"SlurmSubmitter",
+                        "module":"pandaharvester.harvestersubmitter.slurm_submitter",
+                        "nCore": 9600,
+                        "nCorePerNode": 48,
+                        "templateFile": "/home/ifae96/ifae96853/yoda_stuff/MareNostrum_slurm_submit.sh",
+                        "middleware": "rpc"
+                },
+                "workerMaker": {
+                        "name": "SimpleWorkerMaker",
+                        "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+                        "nJobsPerWorker": 1
+                },
+                "messenger": {
+                        "name": "SharedFileMessenger",
+                        "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+                        "accessPoint": "/gpfs/projects/ifae96/ifae96853/harvester_wdir/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}",
+                        "middleware": "rpc",
+                        "bareFunctions":["events_requested","events_to_update","get_work_attributes","kill_requested","acknowledge_events_files","job_requested","is_alive","feed_events","clean_up","get_panda_ids","setup_access_points","feed_jobs"]
+                },
+                "stager": {
+                        "name":"RucioStagerHPC",
+			"module":"pandaharvester.harvesterstager.rucio_stager_hpc_minikui",
+			"dstRSE_Out":"PRAGUELCG2_DATADISK",
+			"dstRSE_Log":"PRAGUELCG2_DATADISK",
+                        "scopeForTmp":"transient",
+                        "objstoreID":1561,
+                        "pathConvention":1000,
+			"zipDir":"${SRCDIR}",
+                        "sshkey":"/data/atlpan/.ssh/id_rsa-no_passphrase",
+                        "userhost":"ifae96853@mn2.bsc.es",
+                        "fileop_script":"/home/ifae96/ifae96853/scripts/file_operations.py",
+                        "nThreadsForUpload":8
+                },
+                "monitor": {
+                        "name":"SlurmMonitor",
+                        "module":"pandaharvester.harvestermonitor.slurm_monitor",
+                        "middleware": "rpc"
+                },
+                "sweeper": {
+                        "name": "SlurmSweeper",
+                        "module": "pandaharvester.harvestersweeper.slurm_sweeper",
+                        "middleware": "rpc"
+                },
+                "rpc": {
+                        "name": "RpcHerder",
+                        "module": "pandaharvester.harvestermiddleware.rpc_herder",
+                        "remoteHost": "mn3.bsc.es",
+                        "remoteBindPort": 18861,
+                        "numTunnels": 3,
+                        "sshUserName": "xxxxxxxxxxxxxxxxxxxx",
+                        "sshPassword": null,
+                        "privateKey": "/data/atlpan/.ssh/id_rsa",
+                        "passPhrase": "xxxxxxxxxxxxxxxxxxxx",
+                        "jumpHost": "mn3.bsc.es",
+                        "jumpPort": 22
+                }
+    }
+
+}
