@@ -1,0 +1,76 @@
+{
+	"ANALY_ORNL_Summit": {
+		"prodSourceLabel": "user",
+		"nQueueLimitJob": 600,
+		"nQueueLimitWorker": 100,
+		"maxWorkers": 4,
+		"mapType": "ManyToOne",
+                "____comment_____useJobLateBinding": true,
+                "allowJobMixture": true,
+		"submitter": {
+			"name": "LSFSubmitter",
+			"module": "pandaharvester.harvestersubmitter.lsf_submitter",
+		        "templateFile":"/gpfs/alpine/hep113/world-shared/harvester/etc/panda/ANALY_ORNL_Summit_ManyToOne_pilot-wrapper.lsf.template",
+		        "nGpuPerNode":  6,
+			"nCorePerNode": 6,
+			"nCore": 12
+		},
+		"workerMaker": {
+			"name": "SimpleWorkerMaker",
+			"module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+		        "nJobsPerWorker": 2
+		},
+		"messenger": {
+			"name": "SharedFileMessenger",
+			"module": "pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint": "/gpfs/alpine/hep113/world-shared/harvester/var/lib/workdir/panda/${workerID}"
+		},
+		"preparator": {
+		        "ddmEndpointIn" : "SLACXRD_SCRATCHDISK",
+		        "srcEndpoint" : "d98c7f90-6d04-11e5-ba46-22000b92c6ec",
+                        "Globus_srcPath": "/xrootd/atlas/atlasdatadisk/rucio",
+                        "dstEndpoint" : "ef1a9560-7ca1-11e5-992c-22000b96db58",
+                        "Globus_dstPath": "/gpfs/alpine/hep113/world-shared/rucio",
+                        "basePath": "/gpfs/alpine/hep113/world-shared/rucio",
+                        "module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+                        "name": "GlobusBulkPreparator"
+ 		},
+		"stager": {
+                        "dstEndpoint" : "d98c7f90-6d04-11e5-ba46-22000b92c6ec",
+                        "Globus_dstPath": "/xrootd/atlas/atlasdatadisk/rucio",
+                        "srcEndpoint" : "ef1a9560-7ca1-11e5-992c-22000b96db58",
+                        "Globus_srcPath": "/gpfs/alpine/hep113/world-shared/rucio",
+                        "basePath": "/gpfs/alpine/hep113/world-shared/rucio",
+                        "dstRSE_ES": "SLACXRD_SCRATCHDISK",
+                        "dstRSE_Log": "SLACXRD_SCRATCHDISK",
+                        "dstRSE_Out": "SLACXRD_SCRATCHDISK",
+                        "module": "pandaharvester.harvesterstager.go_bulk_stager",
+                        "name": "GlobusBulkStager",
+                        "objStoreID_ES": 1641,
+                        "pathConvention": 1000,
+                        "jobtype": "ManyToOne",
+                        "srcBasePath": "/gpfs/alpine/hep113/world-shared/rucio",
+                        "srcRSE": "SLACXRD_SCRATCHDISK",
+                        "nThreadsForZip": 8,
+                        "zipDir": "${WORKDIR}"
+		},
+		"monitor": {
+			"name": "LSFMonitor",
+			"module": "pandaharvester.harvestermonitor.lsf_monitor"
+		},
+		"sweeper": {
+			"name": "LSFSweeper",
+			"module": "pandaharvester.harvestersweeper.lsf_sweeper"
+		},
+                "aux_preparator": {
+                        "name": "AnalysisAuxPreparator",
+                        "module": "pandaharvester.harvesterpreparator.analysis_aux_preparator",
+                        "localBasePath": "/gpfs/alpine/hep113/world-shared/harvester/var/lib/workdir/aux",
+                        "externalCommand": {"docker": {"trigger": {"args":["/gpfs/alpine/hep113/world-shared/harvester/etc/panda/ANALY_ORNL_Summit_make_container_script.sh","-i","{src}","-o","{dst}"]}, "check": {"args":["/gpfs/alpine/hep113/world-shared/harvester/etc/panda/ANALY_ORNL_Summit_check_container.sh","-i","{dst}"]}}}
+                },
+                "extractor": {
+                        "name": "AnalysisExtractor",
+                        "module": "pandaharvester.harvesterextractor.analysis_extractor"
+                }
+	}
+}

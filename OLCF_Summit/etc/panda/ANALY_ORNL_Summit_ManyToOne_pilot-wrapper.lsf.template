@@ -1,0 +1,185 @@
+#!/bin/sh
+# Begin LSF Directives
+#BSUB -P hep113
+#BSUB -W 2:00
+#BSUB -nnodes {nNode}
+#BSUB -alloc_flags "gpumps smt1"
+#BSUB -J userjob_{workerID}
+#BSUB -o {accessPoint}/userjob-1-gpu-per-task-6-tasks-per-node-allcpu_stdout.%J
+#BSUB -e {accessPoint}/userjob-1-gpu-per-task-6-tasks-per-node-allcpu_stderr.%J
+
+# debugging
+echo
+hostname
+echo
+which python
+echo 
+which jsrun
+echo 
+env | sort
+echo
+# debugging
+
+echo
+#module load cuda
+#echo [$SECONDS] module load python/2.7.15
+#module load python/2.7.15
+echo
+echo [$SECONDS] source /sw/summit/python/2.7/anaconda2/5.3.0/etc/profile.d/conda.sh
+source /sw/summit/python/2.7/anaconda2/5.3.0/etc/profile.d/conda.sh
+echo [$SECONDS] conda activate  /gpfs/alpine/hep113/world-shared/pilot-python2
+conda activate  /gpfs/alpine/hep113/world-shared/pilot-python2
+echo
+
+# debugging
+echo
+hostname
+echo
+which python
+echo 
+which jsrun
+echo 
+env | sort
+echo
+# debugging
+
+#nTasks=$SLURM_JOB_NUM_NODES
+nTasks={nNode}
+
+export PANDA_QUEUE=ANALY_ORNL_Summit
+
+export PANDA_HOME=/gpfs/alpine/hep113/world-shared/harvester
+
+export HARVESTER_DIR=$PANDA_HOME  # PANDA_HOME is defined in etc/sysconfig/panda_harvester
+export HARVESTER_WORKER_ID={workerID}
+export HARVESTER_ACCESS_POINT={accessPoint}
+export HARVESTER_NNODE={nNode}
+export HARVESTER_NTASKS=$nTasks
+
+#set variable to define HARVESTER running mode (mapType) for this worker
+#  possible choices OneToOne, OneToMany, ManyToOne
+export HARVESTER_MAPTYPE=ManyToOne
+
+export pilot_wrapper_file=$HARVESTER_DIR/etc/panda/runpilot2-wrapper.sh
+export pilot_tar_file=$HARVESTER_DIR/etc/panda/pilot2.tar.gz
+
+# get the PanDA Job IDs from worker_pandaids.json 
+#PANDA_JOB_IDS=( "$(python -c "import json;pids = json.load(open('worker_pandaids.json'));print(' '.join(str(x) for x in pids))")" )
+PANDA_JOB_IDS=$(cat {accessPoint}/worker_pandaids.json | sed 's/\[//g' | sed 's/\,//g' | sed 's/\]//g')
+export X509_USER_PROXY=$HARVESTER_DIR/var/lib/x509up_vomsproxy
+
+# record the various HARVESTER envars
+echo
+echo [$SECONDS] "Harvester Top level directory - "$HARVESTER_DIR
+echo [$SECONDS] "Harvester accessPoint - "$HARVESTER_ACCESS_POINT
+echo [$SECONDS] "Harvester Worker ID - "$HARVESTER_WORKER_ID
+echo [$SECONDS] "Harvester workflow (MAPTYPE) - "$HARVESTER_MAPTYPE
+echo [$SECONDS] "Harvester accessPoint - "$HARVESTER_ACCESS_POINT
+echo [$SECONDS] "pilot wrapper file - "$pilot_wrapper_file
+echo [$SECONDS] "Pilot tar file - "$pilot_tar_file
+echo [$SECONDS] PANDA_JOB_IDS: $PANDA_JOB_IDS
+echo [$SECONDS] "Number of Nodes to use - "$HARVESTER_NNODE
+echo [$SECONDS] "Number of tasks for srun - "$HARVESTER_NTASKS 
+echo [$SECONDS] "ATHENA_PROC_NUMBER - "$ATHENA_PROC_NUMBER
+echo
+
+echo [$SECONDS] TMPDIR = $TMPDIR
+echo [$SECONDS] unset TMPDIR
+unset TMPDIR
+echo [$SECONDS] TMPDIR = $TMPDIR
+
+
+# In OneToOne running Harvester expects fdiles in $HARVESTER_ACCESS_POINT
+# In OneToMany running (aka Jumbo jobs) Harvester expects fdiles in $HARVESTER_ACCESS_POINT
+#    Note in jumbo job running pilot wrapper will ensure each pilot runs in a different directory
+
+# Loop over PanDA ID's
+
+for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
+
+    echo [$SECONDS] "PanDA Job ID - "$PANDA_JOB_ID
+    
+    # test if running in ManyToOne mode and set working directory accordingly
+    export HARVESTER_WORKDIR=$HARVESTER_ACCESS_POINT
+    if [[ "$HARVESTER_MAPTYPE" = "ManyToOne" ]] ; then
+	export HARVESTER_WORKDIR=$HARVESTER_ACCESS_POINT/$PANDA_JOB_ID
+    fi    
+    echo [$SECONDS] "setting Harvester Work Directory to - "$HARVESTER_WORKDIR
+
+    # move into job directory
+    echo [$SECONDS] "Changing to $HARVESTER_WORKDIR "
+    cd $HARVESTER_WORKDIR
+    
+    #set PAYLOAD_INPUT_DIR required for Panda worker node script
+    echo [$SECONDS] "export PAYLOAD_INPUT_DIR=$HARVESTER_WORKDIR"
+    export PAYLOAD_INPUT_DIR=$HARVESTER_WORKDIR
+    
+    # define PAYLOAD_CONTAINER_LOCATION 
+    echo [$SECONDS] "export PAYLOAD_CONTAINER_LOCATION=$HARVESTER_WORKDIR"
+    export PAYLOAD_CONTAINER_LOCATION=$HARVESTER_WORKDIR
+
+    #copy pilot wrapper and panda pilot tarball to working directory
+    echo [$SECONDS] copy $pilot_wrapper_file to $HARVESTER_WORKDIR
+    cp -v $pilot_wrapper_file $HARVESTER_WORKDIR
+    echo [$SECONDS] copy $pilot_tar_file to $HARVESTER_WORKDIR
+    cp -v $pilot_tar_file $HARVESTER_WORKDIR
+
+    #copy the various files needed for the pilot
+    echo [$SECONDS] copy $HARVESTER_DIR/ANALY_ORNL_Summit_queuedata.json to $HARVESTER_WORKDIR/queuedata.json
+    cp -v $HARVESTER_DIR/ANALY_ORNL_Summit_queuedata.json $HARVESTER_WORKDIR/queuedata.json
+    echo [$SECONDS] copy $HARVESTER_DIR/ANALY_ORNL_Summit_agis_schedconf.json to $HARVESTER_WORKDIR/agis_schedconf.json
+    cp -v $HARVESTER_DIR/ANALY_ORNL_Summit_agis_schedconf.json $HARVESTER_WORKDIR/agis_schedconf.json
+    echo [$SECONDS] copy $HARVESTER_DIR/pilot_agis_ddmendpoints.json to $HARVESTER_WORKDIR/agis_ddmendpoints.json
+    cp -v $HARVESTER_DIR/pilot_agis_ddmendpoints.json $HARVESTER_WORKDIR/agis_ddmendpoints.json
+
+    #DPB debugging
+    #env | sort
+    #DPB debugging
+
+ 
+    # In ManyToOne running or OnetoOne running want one launch on srun per node - per PanDAid
+    if [[ "$HARVESTER_MAPTYPE" = "OneToMany" ]] ; then    #AKA Jumbo jobs
+        # now start things up
+	echo [$SECONDS] "Launching srun command from : " $PWD
+
+	echo [$SECONDS] srun -n $nTasks  -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log \
+	     shifter /bin/bash ./runpilot2-wrapper.sh -s $PANDA_QUEUE -r $PANDA_QUEUE \
+	     -q $PANDA_QUEUE -j managed -i PR -t --mute --harvester SLURM_NODEID \
+	     --harvester_workflow $HARVESTER_MAPTYPE \
+	     --container -w generic --pilot-user=atlashpc \
+	     -d --harvester-submit-mode=PUSH \
+	     --harvester-workdir=$HARVESTER_WORKDIR \
+	     --allow-same-user=False --resource-type MCORE -z 
+
+	srun -n $nTasks  -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log \
+	     shifter /bin/bash ./runpilot2-wrapper.sh -s $PANDA_QUEUE -r $PANDA_QUEUE \
+	     -q $PANDA_QUEUE -j managed -i PR -t --mute --harvester SLURM_NODEID \
+	     --harvester_workflow $HARVESTER_MAPTYPE \
+	     --container -w generic --pilot-user=atlashpc \
+	     -d --harvester-submit-mode=PUSH \
+	     --harvester-workdir=$HARVESTER_WORKDIR \
+	     --allow-same-user=False --resource-type MCORE -z &
+    elif [[ "$HARVESTER_MAPTYPE" = "ManyToOne" ]] ; then    #AKA jobs in one submission
+        # now start things up
+	echo [$SECONDS] "Launching srun command from : " $PWD
+
+	echo [$SECONDS] jsrun -n 1 -a 1 -c 7 -g 1  --stdio_mode individual --stdio_stdout analyjob_stdout --stdio_stdout analyjob_stderr \
+	     ./runpilot2-wrapper.sh -q $PANDA_QUEUE -s $PANDA_QUEUE -r $PANDA_QUEUE \
+	    --container --harvester $LSB_BATCH_JID \
+             -d -j managed --pilot-user ATLAS -w generic -z -t --piloturl local --mute \
+             --hpc-resource cori --harvester-workdir $HARVESTER_WORKDIR --harvester-submit-mode PUSH --cleanup False --hpc-mode manytoone 
+
+	jsrun -n 1 -a 1 -c 1 -g 1  --stdio_mode individual --stdio_stdout analyjob_stdout --stdio_stdout analyjob_stderr \
+	     ./runpilot2-wrapper.sh -q $PANDA_QUEUE -s $PANDA_QUEUE -r $PANDA_QUEUE \
+	    --container --harvester $LSB_BATCH_JID \
+             -d -j managed --pilot-user ATLAS -w generic -z -t --piloturl local --mute \
+	    --hpc-resource cori --harvester-workdir $HARVESTER_WORKDIR --harvester-submit-mode PUSH --cleanup False --hpc-mode manytoone &
+
+    else 
+	continue 
+    fi
+    
+
+done
+
+wait
