@@ -1,0 +1,138 @@
+{
+    "NERSC_Cori_p2_mcore": {
+        "mapType": "ManyToOne",
+        "____comment_____useJobLateBinding": true,
+        "maxWorkers": 60,
+        "allowJobMixture": true,
+        "nQueueLimitJob": 3000,
+        "nQueueLimitWorker": 60,
+        "prodSourceLabel": "managed",
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.slurm_submitter",
+            "name": "SlurmSubmitter",
+            "nCore": 6800,
+            "nCorePerNode": 136,
+            "templateFile": "/global/cfs/cdirs/m2616/harvester/etc/panda/NERSC_Cori_p2_mcore_ManyToOne_pilot-wrapper.sh"
+        },
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+            "nJobsPerWorker": 50 
+        },
+        "messenger": {
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger",
+            "accessPoint": "/global/cscratch1/sd/dbenjami/m2616/harvester/var/lib/workdir/panda/${workerID}",
+            "stripJobParams": true,
+	    "scanInPostProcess": true,
+	    "outputSubDir": "outputs",
+	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
+        },
+        "preparator": {
+            "srcEndpoint" : "d98c7f90-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/xrootd/atlas/atlasdatadisk/rucio",
+            "dstEndpoint" : "9d6d994a-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "basePath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+            "name": "GlobusBulkPreparator"
+        },
+        "stager": {
+            "dstEndpoint" : "d98c7f90-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/xrootd/atlas/atlasdatadisk/rucio",
+            "srcEndpoint" : "9d6d994a-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "basePath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "dstRSE_ES": "SLACXRD_DATADISK",
+            "dstRSE_Log": "SLACXRD_DATADISK",
+            "dstRSE_Out": "SLACXRD_DATADISK",
+            "module": "pandaharvester.harvesterstager.go_bulk_stager",
+            "name": "GlobusBulkStager",
+            "objStoreID_ES": 1641,
+            "pathConvention": 1000,
+            "jobtype": "ManyToOne",
+            "srcBasePath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "srcRSE": "SLACXRD_DATADISK",
+            "nThreadsForZip": 8,
+            "zipDir": "${WORKDIR}"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.slurm_monitor",
+            "name": "SlurmMonitor"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.slurm_sweeper",
+            "name": "SlurmSweeper"
+        },
+        "zipPerMB": 256
+    },
+    "NERSC_Cori_p2_ES": {
+        "mapType": "OneToOne",
+        "____comment_____useJobLateBinding": true,
+        "maxWorkers": 5,
+        "allowJobMixture": true,
+        "nQueueLimitJob": 5,
+        "nQueueLimitWorker": 5,
+        "prodSourceLabel": "managed",
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.slurm_submitter",
+            "name": "SlurmSubmitter",
+            "nCore": 136,
+            "nCorePerNode": 136,
+            "templateFile": "/global/cfs/cdirs/m2616/harvester/etc/panda/NERSC_Cori_p2_ES_pilot-wrapper.sh"
+        },
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+	    "maxWorkersPerJobPerCycle": 3,
+            "nWorkersPerJob": 1,
+	    "maxWorkersPerJobInTotal": 1
+        },
+        "messenger": {
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger",
+            "accessPoint": "/global/cscratch1/sd/dbenjami/m2616/harvester/var/lib/workdir/panda/${workerID}",
+            "stripJobParams": true,
+	    "scanInPostProcess": true,
+	    "outputSubDir": "outputs",
+	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
+        },
+        "preparator": {
+            "srcEndpoint" : "d98c7f90-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/xrootd/atlas/atlasdatadisk/rucio",
+            "dstEndpoint" : "9d6d994a-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "basePath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+            "name": "GlobusBulkPreparator"
+        },
+        "stager": {
+            "dstEndpoint" : "d98c7f90-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/xrootd/atlas/atlasdatadisk/rucio",
+            "srcEndpoint" : "9d6d994a-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "basePath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "dstRSE_ES": "SLACXRD_DATADISK",
+            "dstRSE_Log": "SLACXRD_DATADISK",
+            "dstRSE_Out": "SLACXRD_DATADISK",
+            "module": "pandaharvester.harvesterstager.go_bulk_stager",
+            "name": "GlobusBulkStager",
+            "objStoreID_ES": 1641,
+            "pathConvention": 1000,
+            "jobtype": "Yoda",
+            "srcBasePath": "/global/cscratch1/sd/dbenjami/m2015/atlasdatadisk/rucio",
+            "srcRSE": "SLACXRD_DATADISK",
+            "nThreadsForZip": 8,
+            "zipDir": "${WORKDIR}"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.slurm_monitor",
+            "name": "SlurmMonitor"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.slurm_sweeper",
+            "name": "SlurmSweeper"
+        },
+        "zipPerMB": 256
+    }
+}
