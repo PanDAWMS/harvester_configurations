@@ -1,0 +1,162 @@
+{
+	"ANALY_BNL_KNL": {
+		"prodSourceLabel": "managed",
+		"nQueueLimitJob": 4,
+		"nQueueLimitWorker": 2,
+		"maxWorkers": 2,
+		"mapType": "OneToOne",
+                "____comment_____useJobLateBinding": true,
+                "allowJobMixture": true,
+		"preparator": {
+                        "name": "XrdcpPreparator",
+                        "module": "pandaharvester.harvesterpreparator.xrdcp_preparator",
+                        "srcBasePath": " root://dcgftp.usatlas.bnl.gov:1096//pnfs/usatlas.bnl.gov/BNLT0D1/rucio",
+                        "localBasePath": "/hpcgpfs01/scratch/benjamin/harvester/rucio-data-area",
+		        "maxAttempts": 3,
+			"checkLocalPath": true
+ 		},
+		"submitter": {
+			"name": "SlurmSubmitter",
+			"module": "pandaharvester.harvestersubmitter.slurm_submitter",
+		        "templateFile":"/hpcgpfs01/work/benjamin/harvester-knl-py3/etc/panda/ANALY_BNL_KNL_ManyToOne_pilot-wrapper.slurm.template",
+			"nCorePerNode": 128,
+			"nCore": 128
+		},
+		"workerMaker": {
+			"name": "SimpleWorkerMaker",
+			"module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+		        "nJobsPerWorker": 1
+		},
+		"messenger": {
+			"name": "SharedFileMessenger",
+			"module": "pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint": "/hpcgpfs01/work/benjamin/harvester-knl-py3/var/lib/workdir/panda/${workerID}"
+		},
+		"stager": {
+		        "zipDir":"${SRCDIR}",
+		        "dstRSE_Out":"BNL-OSG2_DATADISK",
+		        "dstRSE_Log":"BNL-OSG2_DATADISK",
+		        "basePath": "/hpcgpfs01/scratch/benjamin/harvester/rucio-data-area/",
+			"name": "RucioStagerHPC",
+			"module": "pandaharvester.harvesterstager.rucio_stager_hpc"
+		},
+		"monitor": {
+			"name": "SlurmMonitor",
+			"module": "pandaharvester.harvestermonitor.slurm_monitor"
+		},
+		"sweeper": {
+			"name": "SlurmSweeper",
+			"module": "pandaharvester.harvestersweeper.slurm_sweeper"
+		},
+                "aux_preparator": {
+                        "name": "AnalysisAuxPreparator",
+                        "module": "pandaharvester.harvesterpreparator.analysis_aux_preparator",
+                        "localBasePath":"/hpcgpfs01/scratch/benjamin/harvester/aux/rucio"
+                },
+                "extractor": {
+                        "name": "AnalysisExtractor",
+                        "module": "pandaharvester.harvesterextractor.analysis_extractor"
+                }
+	},
+	"BNL_KNL_MCORE": {
+		"prodSourceLabel": "managed",
+		"nQueueLimitJob": 4,
+		"nQueueLimitWorker": 2,
+		"maxWorkers": 2,
+		"mapType": "ManyToOne",
+                "____comment_____useJobLateBinding": true,
+                "allowJobMixture": true,
+		"preparator": {
+                        "name": "XrdcpPreparator",
+                        "module": "pandaharvester.harvesterpreparator.xrdcp_preparator",
+                        "srcBasePath": " root://dcgftp.usatlas.bnl.gov:1096//pnfs/usatlas.bnl.gov/BNLT0D1/rucio",
+                        "localBasePath": "/hpcgpfs01/scratch/benjamin/harvester/rucio-data-area",
+		        "maxAttempts": 3,
+			"checkLocalPath": true
+ 		},
+		"submitter": {
+			"name": "SlurmSubmitter",
+			"module": "pandaharvester.harvestersubmitter.slurm_submitter",
+		        "templateFile":"/hpcgpfs01/work/benjamin/harvester-knl-py3/etc/panda/BNL_KNL_MCORE_ManyToOne_pilot-wrapper.slurm.template",
+			"nCorePerNode": 128,
+			"nCore": 128
+		},
+		"workerMaker": {
+			"name": "SimpleWorkerMaker",
+			"module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+		        "nJobsPerWorker": 1
+		},
+		"messenger": {
+			"name": "SharedFileMessenger",
+			"module": "pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint": "/hpcgpfs01/work/benjamin/harvester-knl-py3/var/lib/workdir/panda/${workerID}"
+		},
+		"stager": {
+		        "zipDir":"${SRCDIR}",
+		        "dstRSE_Out":"BNL-OSG2_DATADISK",
+		        "dstRSE_Log":"BNL-OSG2_DATADISK",
+		        "basePath": "/hpcgpfs01/scratch/benjamin/harvester/rucio-data-area/",
+			"name": "RucioStagerHPC",
+			"module": "pandaharvester.harvesterstager.rucio_stager_hpc"
+		},
+		"monitor": {
+			"name": "SlurmMonitor",
+			"module": "pandaharvester.harvestermonitor.slurm_monitor"
+		},
+		"sweeper": {
+			"name": "SlurmSweeper",
+			"module": "pandaharvester.harvestersweeper.slurm_sweeper"
+		}
+	},
+	"BNL_KNL_ES": {
+		"prodSourceLabel": "managed",
+		"nQueueLimitJob": 1,
+		"nQueueLimitWorker": 1,
+		"maxWorkers": 1,
+		"mapType": "OneToOne",
+                "____comment_____useJobLateBinding": true,
+                "allowJobMixture": true,
+		"preparator": {
+                        "name": "XrdcpPreparator",
+                        "module": "pandaharvester.harvesterpreparator.xrdcp_preparator",
+                        "srcBasePath": " root://dcgftp.usatlas.bnl.gov:1096//pnfs/usatlas.bnl.gov/BNLT0D1/rucio",
+                        "localBasePath": "/hpcgpfs01/scratch/benjamin/harvester/rucio-data-area",
+		        "maxAttempts": 3,
+			"checkLocalPath": true
+		},
+		"submitter": {
+			"name": "SlurmSubmitter",
+			"module": "pandaharvester.harvestersubmitter.slurm_submitter",
+		        "templateFile":"/hpcgpfs01/work/benjamin/harvester-knl-py3/etc/panda/BNL_KNL_MCORE_ManyToOne_pilot-wrapper.slurm.template",
+			"nCorePerNode": 128,
+			"nCore": 128
+		},
+		"workerMaker": {
+			"name": "SimpleWorkerMaker",
+			"module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+		        "nJobsPerWorker": 1
+		},
+		"messenger": {
+			"name": "SharedFileMessenger",
+			"module": "pandaharvester.harvestermessenger.shared_file_messenger",
+			"accessPoint": "/hpcgpfs01/work/benjamin/harvester-knl-py3/var/lib/workdir/panda/${workerID}"
+		},
+		"stager": {
+		        "zipDir":"${SRCDIR}",
+		        "dstRSE_Out":"BNL-OSG2_DATADISK",
+		        "dstRSE_Log":"BNL-OSG2_DATADISK",
+		        "basePath": "/hpcgpfs01/scratch/benjamin/harvester/rucio-data-area/",
+			"name": "RucioStagerHPC",
+			"module": "pandaharvester.harvesterstager.rucio_stager_hpc"
+		},
+		"monitor": {
+			"name": "SlurmMonitor",
+			"module": "pandaharvester.harvestermonitor.slurm_monitor"
+		},
+		"sweeper": {
+			"name": "SlurmSweeper",
+			"module": "pandaharvester.harvestersweeper.slurm_sweeper"
+		},
+                "zipPerMB": 256
+	}
+}
