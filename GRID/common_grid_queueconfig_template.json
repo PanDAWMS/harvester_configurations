@@ -799,16 +799,15 @@
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
       }
   },
-
-  "BNL_production_pull_ups":{
+  "US_production_pull_intel":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
       "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
-      "nQueueLimitWorkerRatio":40,
+      "nQueueLimitWorkerRatio":20,
       "nQueueLimitWorkerMax":999999,
-      "nQueueLimitWorkerMin":50,
+      "nQueueLimitWorkerMin":10,
       "maxWorkers":999999,
-      "maxNewWorkersPerCycle":75,
+      "maxNewWorkersPerCycle":50,
       "mapType":"NoJob",
       "runMode":"slave",
       "truePilot":true,
@@ -839,8 +838,9 @@
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
-          "templateFile":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d/htcondor-ce-bnl.sdf",
+          "templateFile":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d/htcondor-ce-intel_pilot2.sdf",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "x509UserProxyAnalysis":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
