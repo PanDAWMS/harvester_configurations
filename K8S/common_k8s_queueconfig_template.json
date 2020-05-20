@@ -1,0 +1,431 @@
+{
+  "production.push":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitJobRatio":40,
+      "nQueueLimitJobMax":999999,
+      "nQueueLimitJobMin":100,
+      "nQueueLimitWorker":999999,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":100,
+      "mapType":"OneToOne",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":172800,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ]
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  },
+  "production.pull":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitWorker":1000,
+      "nQueueLimitWorkerRatio":40,
+      "nQueueLimitWorkerMin":100,
+      "maxWorkers":100000,
+      "maxNewWorkersPerCycle":50,
+      "mapType":"NoJob",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":1209600,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  },
+  "production.pull_ups":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"managed",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitWorkerRatio":40,
+      "nQueueLimitWorkerMax":999999,
+      "nQueueLimitWorkerMin":100,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":75,
+      "mapType":"NoJob",
+      "runMode":"slave",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":1209600,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  },
+  "analysis.push":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitJobRatio":50,
+      "nQueueLimitJobMax":1000,
+      "nQueueLimitJobMin":100,
+      "nQueueLimitWorker":999999,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":100,
+      "mapType":"OneToOne",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":172800,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ]
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  },
+  "analysis.pull":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitWorkerRatio":100,
+      "nQueueLimitWorkerMax":500,
+      "nQueueLimitWorkerMin":100,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":100,
+      "mapType":"NoJob",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":1209600,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  },
+  "analysis.pull_ups":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitWorkerRatio":60,
+      "nQueueLimitWorkerMax":500,
+      "nQueueLimitWorkerMin":100,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":50,
+      "mapType":"NoJob",
+      "runMode":"slave",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":1209600,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  },
+
+  "special.pull":{
+      "isTemplateQueue": true,
+      "prodSourceLabel":"user",
+      "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "nQueueLimitWorkerRatio":100,
+      "nQueueLimitWorkerMax":500,
+      "nQueueLimitWorkerMin":15,
+      "maxWorkers":999999,
+      "maxNewWorkersPerCycle":100,
+      "mapType":"NoJob",
+      "truePilot":true,
+      "maxSubmissionAttempts":3,
+      "walltimeLimit":1209600,
+      "prefetchEvents":false,
+      "preparator":{
+          "name":"DummyPreparator",
+          "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+      },
+      "workerMaker":{
+          "name":"SimpleWorkerMaker",
+          "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+          "jobAttributesToUse":[
+              "nCore"
+          ],
+          "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+      },
+      "messenger":{
+          "name":"SharedFileMessenger",
+          "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+          "jobSpecFileFormat":"cgi",
+          "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+      },
+      "stager":{
+          "name":"DummyStager",
+          "module":"pandaharvester.harvesterstager.dummy_stager"
+      },
+      "submitter":{
+          "name": "K8sSubmitter",
+          "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+          "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+          "logDir": "/var/log/harvester/k8s_logs_t2",
+          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "cpuAdjustRatio": 90,
+          "memoryAdjustRatio": 100,
+          "nProcesses": 4
+      },
+      "monitor":{
+          "name": "K8sMonitor",
+          "module": "pandaharvester.harvestermonitor.k8s_monitor"
+      },
+      "sweeper":{
+          "name": "K8sSweeper",
+          "module": "pandaharvester.harvestersweeper.k8s_sweeper"
+      },
+      "common": {
+          "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
+          "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
+          "k8s_namespace": "default"
+      }
+  }
+}
