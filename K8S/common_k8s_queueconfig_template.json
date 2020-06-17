@@ -54,6 +54,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
@@ -115,6 +124,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
@@ -177,6 +195,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
@@ -237,6 +264,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
@@ -298,6 +334,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
@@ -360,6 +405,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
@@ -422,6 +476,15 @@
           "name": "K8sSweeper",
           "module": "pandaharvester.harvestersweeper.k8s_sweeper"
       },
+      "credmanagers": [
+        {
+          "module": "pandaharvester.harvestercredmanager.k8s_secret_cred_manager",
+          "name": "K8sSecretCredManager",
+          "k8s_namespace": "${common.k8s_namespace}",
+          "k8s_config_file": "${common.k8s_config_file}",
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+        }
+      ],
       "common": {
           "k8s_yaml_file": "/data/atlpan/k8_configs/job_csi_driver.yaml",
           "k8s_config_file": "/data/atlpan/k8_configs/CERN-EXTENSION_KUBERNETES_config",
