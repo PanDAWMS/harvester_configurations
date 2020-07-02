@@ -21,20 +21,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -92,20 +78,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -165,20 +137,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -239,20 +197,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -310,20 +254,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -383,20 +313,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -456,20 +372,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -530,20 +432,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -601,20 +489,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -674,20 +548,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -748,20 +608,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
@@ -821,20 +667,6 @@
       "submitter":{
           "name":"HTCondorSubmitter",
           "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
-          "condorSchedd":[
-              "aipanda023.cern.ch",
-              "aipanda024.cern.ch",
-              "aipanda156.cern.ch",
-              "aipanda183.cern.ch",
-              "aipanda184.cern.ch"
-          ],
-          "condorPool":[
-              "aipanda023.cern.ch:19618",
-              "aipanda024.cern.ch:19618",
-              "aipanda156.cern.ch:19618",
-              "aipanda183.cern.ch:19618",
-              "aipanda184.cern.ch:19618"
-          ],
           "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
           "useSpool":false,
           "useAtlasGridCE":true,
