@@ -1,0 +1,138 @@
+{
+    "test_LCRC": {
+        "mapType": "ManyToOne",
+        "____comment_____useJobLateBinding": true,
+        "maxWorkers": 8,
+        "allowJobMixture": true,
+        "nQueueLimitJob": 10,
+        "nQueueLimitWorker": 2,
+        "prodSourceLabel": "managed",
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.slurm_submitter",
+            "name": "SlurmSubmitter",
+            "nCore": 180,
+            "nCorePerNode": 36,
+            "templateFile": "/home/dbenjamin/harvester-py3/etc/panda/test_LCRC_ManyToOne_pilot-wrapper.slurm.template"
+        },
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+            "nJobsPerWorker": 5 
+        },
+        "messenger": {
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger",
+            "accessPoint": "/lcrc/group/ATLAS/harvester/var/lib/workdir/panda/${workerID}",
+            "stripJobParams": true,
+	    "scanInPostProcess": true,
+	    "outputSubDir": "outputs",
+	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
+        },
+        "preparator": {
+            "srcEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/mnt/hpcdisk/atlasdatadisk/rucio",
+            "dstEndpoint" : "61f9954c-a4fa-11ea-8f07-0a21f750d19b",
+            "Globus_dstPath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "basePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+            "name": "GlobusBulkPreparator"
+        },
+        "stager": {
+            "dstEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/mnt/hpcdisk/atlasdatadisk/rucio",
+            "srcEndpoint" : "61f9954c-a4fa-11ea-8f07-0a21f750d19b",
+            "Globus_srcPath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "basePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "dstRSE_ES": "BNLHPC_DATADISK",
+            "dstRSE_Log": "BNLHPC_DATADISK",
+            "dstRSE_Out": "BNLHPC_DATADISK",
+            "module": "pandaharvester.harvesterstager.go_bulk_stager",
+            "name": "GlobusBulkStager",
+            "objStoreID_ES": 9656,
+            "pathConvention": 1000,
+            "jobtype": "ManyToOne",
+            "srcBasePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "srcRSE": "BNLHPC_DATADISK",
+            "nThreadsForZip": 8,
+            "zipDir": "${WORKDIR}"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.slurm_monitor",
+            "name": "SlurmMonitor"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.slurm_sweeper",
+            "name": "SlurmSweeper"
+        },
+        "zipPerMB": 256
+    },
+    "NERSC_Cori_p2_ES": {
+        "mapType": "OneToOne",
+        "____comment_____useJobLateBinding": true,
+        "maxWorkers": 5,
+        "allowJobMixture": true,
+        "nQueueLimitJob": 5,
+        "nQueueLimitWorker": 5,
+        "prodSourceLabel": "managed",
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.slurm_submitter",
+            "name": "SlurmSubmitter",
+            "nCore": 136,
+            "nCorePerNode": 136,
+            "templateFile": "/global/cfs/cdirs/m2616/harvester/etc/panda/NERSC_Cori_p2_ES_pilot-wrapper.sh"
+        },
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+	    "maxWorkersPerJobPerCycle": 3,
+            "nWorkersPerJob": 1,
+	    "maxWorkersPerJobInTotal": 1
+        },
+        "messenger": {
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger",
+            "accessPoint": "/lcrc/group/ATLAS/harvester-es/var/lib/workdir/panda/${workerID}",
+            "stripJobParams": true,
+	    "scanInPostProcess": true,
+	    "outputSubDir": "outputs",
+	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
+        },
+        "preparator": {
+            "srcEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/mnt/hpcdisk/atlasdatadisk/rucio",
+            "dstEndpoint" : "61f9954c-a4fa-11ea-8f07-0a21f750d19b",
+            "Globus_dstPath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "basePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+            "name": "GlobusBulkPreparator"
+        },
+        "stager": {
+            "dstEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/mnt/hpcdisk/atlasdatadisk/rucio",
+            "srcEndpoint" : "61f9954c-a4fa-11ea-8f07-0a21f750d19b",
+            "Globus_srcPath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "basePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "dstRSE_ES": "BNLHPC_DATADISK",
+            "dstRSE_Log": "BNLHPC_DATADISK",
+            "dstRSE_Out": "BNLHPC_DATADISK",
+            "module": "pandaharvester.harvesterstager.go_bulk_stager",
+            "name": "GlobusBulkStager",
+            "objStoreID_ES": 9656,
+            "pathConvention": 1000,
+            "jobtype": "Yoda",
+            "srcBasePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
+            "srcRSE": "BNLHPC_DATADISK",
+            "nThreadsForZip": 8,
+            "zipDir": "${WORKDIR}"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.slurm_monitor",
+            "name": "SlurmMonitor"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.slurm_sweeper",
+            "name": "SlurmSweeper"
+        },
+        "zipPerMB": 256
+    }
+}
