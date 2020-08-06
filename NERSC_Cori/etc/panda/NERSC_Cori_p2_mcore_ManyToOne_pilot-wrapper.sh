@@ -3,6 +3,7 @@
 #DPB #SBATCH --time 0:30:00
 #DPB #SBATCH -q premium
 #DPB #SBATCH --time 2:00:00
+#DPB #SBATCH -q premium
 #SBATCH -q regular
 #SBATCH --time 6:00:00
 #SBATCH --image=custom:atlas_athena_21.0.15_DBRelease-31.8.1:latest
@@ -11,10 +12,17 @@
 #DPB #SBATCH --time-min=02:00:00
 #DPB #SBATCH --time 4:00:00
 #SBATCH -A m2616
+##SBATCH -A m3416
 #SBATCH -L SCRATCH,project
 #SBATCH -C knl,quad,cache  
 #SBATCH --cpus-per-task 136
 #SBATCH -N {nNode}
+
+# change to group m2616 (ERCAP group)
+echo
+echo [$SECONDS] "change to group m2616 (ERCAP group) via command : newgrp m2616"
+newgrp m2616
+echo
 
 export MPICH_GNI_VC_MSG_PROTOCOL=MSGQ
 export KMP_AFFINITY="granularity=fine,compact,1,0"

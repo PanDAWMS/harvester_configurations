@@ -2,22 +2,22 @@
     "NERSC_Cori_p2_mcore": {
         "mapType": "ManyToOne",
         "____comment_____useJobLateBinding": true,
-        "maxWorkers": 60,
+        "maxWorkers": 5,
         "allowJobMixture": true,
         "nQueueLimitJob": 3000,
-        "nQueueLimitWorker": 60,
+        "nQueueLimitWorker": 5,
         "prodSourceLabel": "managed",
         "submitter": {
             "module": "pandaharvester.harvestersubmitter.slurm_submitter",
             "name": "SlurmSubmitter",
-            "nCore": 6800,
+            "nCore": 27200,
             "nCorePerNode": 136,
             "templateFile": "/global/cfs/cdirs/m2616/harvester/etc/panda/NERSC_Cori_p2_mcore_ManyToOne_pilot-wrapper.sh"
         },
         "workerMaker": {
             "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
             "name": "SimpleWorkerMaker",
-            "nJobsPerWorker": 50 
+            "nJobsPerWorker": 200 
         },
         "messenger": {
             "module": "pandaharvester.harvestermessenger.shared_file_messenger",
