@@ -1,0 +1,93 @@
+{
+    "ANALY_ORNL_Summit_ML":{
+        "prodSourceLabel":"user",
+        "nQueueLimitJob":6,
+        "nQueueLimitJobMax":6,
+        "nQueueLimitJobMin":1,
+        "nQueueLimitWorker":6,
+        "maxWorkers":4,
+        "mapType":"ManyToOne",
+        "useJobLateBinding":false,
+        "walltimeLimit":57600,
+        "allowJobMixture":true,
+
+
+	"preparator": {
+		"ddmEndpointIn" : "BNLHPC_SCRATCHDISK",
+		"srcEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+		"Globus_srcPath": "/mnt/hpcdisk/atlasscratchdisk/rucio",
+		"dstEndpoint" : "ef1a9560-7ca1-11e5-992c-22000b96db58",
+		"Globus_dstPath": "/gpfs/alpine/csc343/world-shared/rucio",
+		"basePath": "/gpfs/alpine/csc343/world-shared/rucio",
+		"module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+		"name": "GlobusBulkPreparator"
+
+	},
+
+        "submitter":{
+            "name":"LSFSubmitter",
+            "module":"pandaharvester.harvestersubmitter.lsf_submitter",
+            "templateFile":"/gpfs/alpine/csc343/world-shared/harvester_instances/harvester-ml/template/lsf_submit.template",
+            "nCorePerNode": 16,
+            "projectName": "CSC343",
+            "nNodes": 1,
+            "gpu_per_rank": 1,
+            "nRanks": 1
+            },
+
+        "workerMaker":{
+            "name":"SimpleWorkerMaker",
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+	    "nJobsPerWorker": 3,
+            "env": "export PATH=/usr/bin:/usr/sbin:/sw/sources/lsf-tools/2.0/summit/bin:/sw/summit/xalt/1.1.4/bin:/autofs/nccs-svm1_sw/summit/.swci/1-compute/opt/spack/20180914/linux-rhel7-ppc64le/gcc-4.8.5/darshan-runtime-3.1.7-csygoqyym3m3ysoaperhxlhoiluvpa2u/bin:/sw/sources/hpss/bin:/autofs/nccs-svm1_sw/summit/.swci/1-compute/opt/spack/20180914/linux-rhel7-ppc64le/xl-16.1.1-3/spectrum-mpi-10.3.0.1-20190611-aqjt3jo53mogrrhcrd2iufr435azcaha/bin:/sw/summit/xl/16.1.1-3/xlC/16.1.1/bin:/sw/summit/xl/16.1.1-3/xlf/16.1.1/bin:/opt/ibm/spectrumcomputing/lsf/10.1/linux3.10-glibc2.17-ppc64le-csm/etc:/opt/ibm/spectrumcomputing/lsf/10.1/linux3.10-glibc2.17-ppc64le-csm/bin:/opt/ibm/csm/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/ibm/flightlog/bin:/opt/ibutils/bin:/opt/ibm/spectrum_mpi/jsm_pmix/bin:/opt/puppetlabs/bin:/usr/lpp/mmfs/bin",
+            "executor": "jsrun"
+            },
+
+        "messenger":{
+            "name":"SharedFileMessenger",
+            "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+            "accessPoint":"/gpfs/alpine/world-shared/csc343/psvirin/harvester-ml/var/panda/messenger/${workerID}"
+            },
+
+        "stager": {
+			"dstEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            		"Globus_dstPath": "/mnt/hpcdisk/atlasscratchdisk/rucio",
+	                "srcEndpoint" : "ef1a9560-7ca1-11e5-992c-22000b96db58",
+                        "Globus_srcPath": "/gpfs/alpine/csc343/world-shared/rucio",
+                        "basePath": "/gpfs/alpine/csc343/world-shared/rucio",
+                        "dstRSE_ES":  "BNLHPC_SCRATCHDISK",
+                        "dstRSE_Log": "BNLHPC_SCRATCHDISK",
+                        "dstRSE_Out": "BNLHPC_SCRATCHDISK",
+                        "module": "pandaharvester.harvesterstager.go_bulk_stager",
+                        "name": "GlobusBulkStager",
+                        "objStoreID_ES": 9656,
+                        "pathConvention": 1000,
+                        "jobtype": "ManyToOne",
+                        "srcBasePath": "/gpfs/alpine/csc343/world-shared/rucio",
+                        "srcRSE": "BNLHPC_SCRATCHDISK",
+                        "nThreadsForZip": 8,
+                        "zipDir": "${WORKDIR}"
+		},
+
+	"aux_preparator": {
+		"name": "AnalysisAuxPreparator",
+		"module": "pandaharvester.harvesterpreparator.analysis_aux_preparator",
+		"localBasePath": "/gpfs/alpine/csc343/world-shared/harvester/var/lib/workdir/aux",
+		"externalCommand": {"docker": {"trigger": {"args":["/gpfs/alpine/world-shared/csc343/harvester_instances/harvester-ml/scripts//ANALY_ORNL_Summit_make_container_script.sh","-i","{src}","-o","{dst}"]}, "check": {"args":["/gpfs/alpine/world-shared/csc343/harvester_instances/harvester-ml/scripts/ANALY_ORNL_Summit_check_container.sh","-i","{dst}"]}}}
+	},
+
+	"extractor": {
+		"name": "AuxExtractor",
+		"module": "pandaharvester.harvesterextractor.aux_extractor"
+	},
+
+        "monitor":{
+            "name":"LSFMonitor",
+            "module":"pandaharvester.harvestermonitor.lsf_monitor"
+            },
+        "sweeper":{
+            "name":"LSFSweeper",
+            "module":"pandaharvester.harvestersweeper.lsf_sweeper"
+            }
+    }
+}
