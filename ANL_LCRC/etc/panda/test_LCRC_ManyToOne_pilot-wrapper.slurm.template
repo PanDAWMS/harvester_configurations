@@ -1,30 +1,38 @@
 #!/bin/bash
 
-#SBATCH -A ATLAS-HEP-group
+##SBATCH -A ATLAS-HEP-group
 ##SBATCH -p knlall
-#SBATCH -p bdwall
+##SBATCH -p bdwall
 
-##SBATCH -A condo
-##SBATCH -p  hepd
+#SBATCH -A condo
+#SBATCH -p  hepd
 
-#SBATCH --time 8:00:00
+##SBATCH --time 1:30:00
+#SBATCH --time 3:00:00
+##SBATCH --time 4:00:00
+
+# 36 for Broadwell and 128 for KNL
+##SBATCH --cpus-per-task 128
 #SBATCH --cpus-per-task 36
+
 #SBATCH -N {nNode}
 
 #export MPICH_GNI_VC_MSG_PROTOCOL=MSGQ
 #export KMP_AFFINITY="granularity=fine,compact,1,0"
 nTasks=$SLURM_JOB_NUM_NODES
 
-export container_setup=/release_setup.sh
+#export container_setup=/release_setup.sh
 
 export PANDA_QUEUE=test_LCRC
 
+export IMAGE_BASE=/home/dbenjamin/harvester-py3/containers
 
 export HARVESTER_DIR=$PANDA_HOME  # PANDA_HOME is defined in etc/sysconfig/panda_harvester
 export HARVESTER_WORKER_ID={workerID}
 export HARVESTER_ACCESS_POINT={accessPoint}
 export HARVESTER_NNODE={nNode}
 export HARVESTER_NTASKS=$nTasks
+
 
 #set variable to define HARVESTER running mode (mapType) for this worker
 #  possible choices OneToOne, OneToMany, ManyToOne
@@ -33,6 +41,20 @@ export HARVESTER_MAPTYPE=ManyToOne
 #source $HARVESTER_DIR/setup.sh
 #source $HARVESTER_DIR/etc/sysconfig/panda_harvester
 
+# Darshan setup 
+#export DARSHAN_LOGPATH={accessPoint}/darshan-logs-outside
+export DARSHAN_ENABLE_NONMPI=1
+##export DXT_ENABLE_IO_TRACE=1
+#export DARSHAN_JOBID=$SLURM_JOBID
+#mkdir -v $DARSHAN_LOGPATH
+#/home/dbenjamin/darshan/bin/darshan-mk-log-dirs-dpb.pl $DARSHAN_LOGPATH                                                                 
+# in setup release #export LD_PRELOAD=/home/dbenjamin/darshan/bin/libdarshan.so                                                          
+# move to hacked wrapper                                                                                                                 
+echo [$SECONDS] "darshan-config --log-path " $(/home/dbenjamin/harvester-py3/darshan/bin/darshan-config --log-path)
+#export LD_PRELOAD=/home/dbenjamin/harvester-py3/darshan/lib/libdarshan.so                                                               
+
+
+
 # add location of prmon to PATH
 
 echo export PATH=$PATH:$HARVESTER_DIR/prmon-install/bin 
@@ -40,19 +62,28 @@ export PATH=$PATH:$HARVESTER_DIR/prmon-install/bin
 
 export pilot_wrapper_file=$HARVESTER_DIR/etc/panda/runpilot2-wrapper.sh
 export pilot_tar_file=$HARVESTER_DIR/etc/panda/pilot2.tar.gz
-export create_singularity_wrapper_file=$HARVESTER_DIR/etc/panda/LCRC_create_singularity_srun_wrapper.sh
+
+export pilot_cric_pandaqueues_file=$HARVESTER_DIR/cric_pandaqueues.json
 
 export pilot_schedconfig_JSON_file=$HARVESTER_DIR/test_LCRC_agis_schedconf.json
 export pilot_queuedata_file=$HARVESTER_DIR/test_LCRC_queuedata.json
-export pilot_ddmendpoints_file=$HARVESTER_DIR/pilot_agis_ddmendpoints.json
+export pilot_ddmendpoints_file=$HARVESTER_DIR/cric_ddmendpoints.json
 
-export HARVESTER_CONTAINER_IMAGE=/hpcgpfs01/work/benjamin/images/atlas_athena_21_0_15_31_8_1.simg
+#export HARVESTER_CONTAINER_IMAGE=/hpcgpfs01/work/benjamin/images/atlas_athena_21_0_15_31_8_1.simg
 # variables create the string to setup container release path including fixing PYTHONPATH and LD_LIBRARY_PATH for yampl
-export HARVESTER_CONTAINER_RELEASE_SETUP_FILE="/release_setup.sh"
+#export HARVESTER_CONTAINER_RELEASE_SETUP_FILE="/release_setup.sh"
 #DPBexport HARVESTER_LD_LIBRARY_PATH="/opt/yampl/lib"
 #DPBexport HARVESTER_PYTHONPATH="/opt/python-yampl"
 
+# set ATLAS Local Root Base options
+# Valid for singularity Only
+export ALRB_CONT_OPTS="$ALRB_CONT_OPTS -v -d"
+
 #Athena settings for AthenaMP
+# 36 for Broadwell nodes 128 KNL nodes
+#export ATHENA_PROC_NUMBER_JOB=128
+#export ATHENA_PROC_NUMBER=128
+#export ATHENA_CORE_NUMBER=128
 export ATHENA_PROC_NUMBER_JOB=36
 export ATHENA_PROC_NUMBER=36
 export ATHENA_CORE_NUMBER=36
@@ -71,13 +102,12 @@ echo [$SECONDS] "Harvester workflow (MAPTYPE) - "$HARVESTER_MAPTYPE
 echo [$SECONDS] "Harvester accessPoint - "$HARVESTER_ACCESS_POINT
 echo [$SECONDS] "pilot wrapper file - "$pilot_wrapper_file
 echo [$SECONDS] "Pilot tar file - "$pilot_tar_file
-echo [$SECONDS] "Container image - "$HARVESTER_CONTAINER_IMAGE
+echo [$SECONDS] "Container IMAGE_BASE - "$IMAGE_BASE
 echo [$SECONDS] "command to setup release in container - "$HARVESTER_CONTAINER_RELEASE_SETUP_FILE
 echo [$SECONDS] PANDA_JOB_IDS: $PANDA_JOB_IDS
 echo [$SECONDS] "Number of Nodes to use - "$HARVESTER_NNODE
 echo [$SECONDS] "Number of tasks for srun - "$HARVESTER_NTASKS 
 echo [$SECONDS] "ATHENA_PROC_NUMBER - "$ATHENA_PROC_NUMBER
-echo
 
 echo [$SECONDS] TMPDIR = $TMPDIR
 echo [$SECONDS] unset TMPDIR
@@ -88,6 +118,7 @@ echo [$SECONDS] ATLAS_LOCAL_ROOT_BASE = $ATLAS_LOCAL_ROOT_BASE
 #echo [$SECONDS] unset ATLAS_LOCAL_ROOT_BASE
 #unset ATLAS_LOCAL_ROOT_BASE
 echo [$SECONDS] ATLAS_LOCAL_ROOT_BASE = $ATLAS_LOCAL_ROOT_BASE
+echo [$SECONDS] "ALRB_CONT_OPTS - "$ALRB_CONT_OPTS
 
 
 
@@ -121,35 +152,24 @@ for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
     cp -v $pilot_tar_file $HARVESTER_WORKDIR
 
     # test for json files used by pilot's infoservice
-    if [ ! -f $pilot_schedconfig_JSON_file ] ; then
-	echo [$SECONDS] Warning the file - "$pilot_schedconfig_JSON_file" does not exist
+    if [ ! -f $pilot_cric_pandaqueues_file ] ; then
+        echo [$SECONDS] Warning the file - "$pilot_cric_pandaqueues_file" does not exist
     else
-	cp -v $pilot_schedconfig_JSON_file $HARVESTER_WORKDIR/agis_schedconf.json 
-    fi   
+        cp -v $pilot_cric_pandaqueues_file $HARVESTER_WORKDIR/cric_pandaqueues.json
+    fi
 
     if [ ! -f $pilot_queuedata_file ] ; then
-	echo [$SECONDS] Warning the file - "$pilot_queuedata_file" does not exist
+        echo [$SECONDS] Warning the file - "$pilot_queuedata_file" does not exist
     else
-	cp -v $pilot_queuedata_file $HARVESTER_WORKDIR/queuedata.json 
-    fi   
+        cp -v $pilot_queuedata_file $HARVESTER_WORKDIR/queuedata.json
+    fi
 
     if [ ! -f $pilot_ddmendpoints_file ] ; then
-	echo [$SECONDS] Warning the file - "$pilot_ddmendpoints_file" does not exist
+        echo [$SECONDS] Warning the file - "$pilot_ddmendpoints_file" does not exist
     else
-	cp -v $pilot_ddmendpoints_file $HARVESTER_WORKDIR/agis_ddmendpoints.json 
-    fi   
-
-    # create singularity wrapper script file in $HARVESTER_WORKDIR 
-    $create_singularity_wrapper_file 
-    if [ ! -x ./singularity_wrapper_file.sh ] ; then
-	echo "Error - Singularity wrapper_file.sh does not exist or is not executable - exit early!"
-	exit 2
+        cp -v $pilot_ddmendpoints_file $HARVESTER_WORKDIR/cric_ddmendpoints.json
     fi
-    ls -l ./singularity_wrapper_file.sh
-    echo [$SECONDS] "singularity_wrapper_file.sh contents: "
-    cat ./singularity_wrapper_file.sh
-    echo 
-    
+
     #DPB debugging
     #env | sort
     #DPB debugging
@@ -183,8 +203,16 @@ for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
 	echo [$SECONDS] "Hostname : " $HOSTNAME
 	echo [$SECONDS] "Launching srun command from : " $PWD
 
-	echo [$SECONDS] srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log ./singularity_wrapper_file.sh 
-        srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log ./singularity_wrapper_file.sh &
+        echo [$SECONDS] srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log /bin/bash ./runpilot2-wrapper.sh -3 -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
+	    -j managed -i PR -t --mute --harvester SLURM_NODEID --harvester_workflow $HARVESTER_MAPTYPE \
+	    --container -w generic --pilot-user=atlas --hpc-resource cori --use-https False -d --harvester-submit-mode=PUSH \
+	    --harvester-workdir=$HARVESTER_WORKDIR --allow-same-user=False --resource-type MCORE --cleanup False -z
+
+        srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log /bin/bash ./runpilot2-wrapper.sh -3 -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
+	    -j managed -i PR -t --mute --harvester SLURM_NODEID --harvester_workflow $HARVESTER_MAPTYPE \
+	    --container -w generic --pilot-user=atlas --hpc-resource cori --use-https False -d --harvester-submit-mode=PUSH \
+	    --harvester-workdir=$HARVESTER_WORKDIR --allow-same-user=False --resource-type MCORE --cleanup False -z
+
     fi
     
 
