@@ -1,0 +1,308 @@
+#!/bin/bash
+
+
+#SBATCH -A ATLAS-HEP-group
+##SBATCH -p knlall
+#SBATCH -p bdws
+##SBATCH -p bdwall
+
+##SBATCH -A condo
+##SBATCH -p  hepd
+
+##SBATCH --time 1:30:00
+#SBATCH --time 0:45:00
+##SBATCH --time 4:00:00
+##SBATCH --cpus-per-task 128
+#SBATCH --cpus-per-task 36
+#SBATCH -N {nNode}
+
+echo [$SECONDS] date -u $(date -u)
+
+#export MPICH_GNI_VC_MSG_PROTOCOL=MSGQ
+#export KMP_AFFINITY="granularity=fine,compact,1,0"
+nTasks=$SLURM_JOB_NUM_NODES
+
+export container_setup=/release_setup.sh
+
+export IMAGE_BASE=/home/dbenjamin/harvester-py3/containers
+
+export HARVESTER_DIR=$PANDA_HOME  # PANDA_HOME is defined in etc/sysconfig/panda_harvester
+export HARVESTER_HOME=$PANDA_HOME
+export HARVESTER_WORKER_ID={workerID}
+export HARVESTER_ACCESS_POINT={accessPoint}
+export HARVESTER_NNODE={nNode}
+export HARVESTER_NTASKS=$nTasks
+
+# Darshan setup
+#export DARSHAN_LOGPATH={accessPoint}/darshan-logs-outside
+export DARSHAN_ENABLE_NONMPI=1
+##export DXT_ENABLE_IO_TRACE=1
+#export DARSHAN_JOBID=$SLURM_JOBID
+#mkdir -v $DARSHAN_LOGPATH
+#/home/dbenjamin/darshan/bin/darshan-mk-log-dirs-dpb.pl $DARSHAN_LOGPATH
+# in setup release #export LD_PRELOAD=/home/dbenjamin/harvester-py3/darshan/lib/libdarshan.so
+# move to hacked wrapper
+echo [$SECONDS] "darshan-config --log-path " $(/home/dbenjamin/harvester-py3/darshan/bin/darshan-config --log-path)
+#export LD_PRELOAD=/home/dbenjamin/harvester-py3/darshan/lib/libdarshan.so   
+
+#set variable to define HARVESTER running mode (mapType) for this worker
+#  possible choices OneToOne, OneToMany, ManyToOne
+export HARVESTER_MAPTYPE=OneToMany
+
+#source $HARVESTER_DIRsetup.sh
+#source $HARVESTER_DIR/etc/sysconfig/panda_harvester
+
+#export HARVESTER_CONTAINER_IMAGE=/hpcgpfs01/work/benjamin/images/atlas_athena_21_0_15_31_8_1.simg
+# variables create the string to setup container release path including fixing PYTHONPATH and LD_LIBRARY_PATH for yampl
+#now handled by ALRB export HARVESTER_CONTAINER_RELEASE_SETUP_FILE="/release_setup.sh"
+export HARVESTER_PILOT_CONFIG=/home/dbenjamin/harvester-py3/etc/panda/raythena-pilot-default.cfg
+#DPBexport HARVESTER_LD_LIBRARY_PATH="/opt/yampl/lib"
+#DPBexport HARVESTER_PYTHONPATH="/opt/python-yampl"
+
+export PANDA_QUEUE=test_LCRC_ES
+
+# add location of prmon to PATH
+
+echo export PATH=$PATH:$HARVESTER_DIR/prmon-install/bin 
+export PATH=$PATH:$HARVESTER_DIR/prmon-install/bin 
+
+export pilot_wrapper_bin=$HARVESTER_DIR/etc/panda/runpilot2-wrapper.sh
+export pilot_wrapper_file=$HARVESTER_DIR/etc/panda/runpilot2-wrapper.sh
+export pilot_tar_file=$HARVESTER_DIR/etc/panda/pilot2.tar.gz
+export create_singularity_wrapper_file=$HARVESTER_DIR/etc/panda/LCRC_create_singularity_srun_wrapper.sh
+
+#export pilot_schedconfig_JSON_file=$HARVESTER_DIR/test_LCRC_agis_schedconf.json
+export pilot_cric_pandaqueues_file=$HARVESTER_DIR/cric_pandaqueues.json
+export pilot_queuedata_file=$HARVESTER_DIR/test_LCRC_ES_queuedata.json
+export pilot_ddmendpoints_file=$HARVESTER_DIR/cric_ddmendpoints.json
+
+#Athena settings for AthenaMP
+# 36 Broadwell nodes 128 KNL nodes
+#export ATHENA_PROC_NUMBER_JOB=128
+#export ATHENA_PROC_NUMBER=128
+#export ATHENA_CORE_NUMBER=128
+export ATHENA_PROC_NUMBER_JOB=36
+export ATHENA_PROC_NUMBER=36
+export ATHENA_CORE_NUMBER=36
+
+# get the PanDA Job IDs from worker_pandaids.json 
+PANDA_JOB_IDS=( "$(python -c "import json;pids = json.load(open('worker_pandaids.json'));print(' '.join(str(x) for x in pids))")" )
+
+export X509_USER_PROXY=$HARVESTER_DIR/globus/$USER/usathpc_robot_vomsproxy_2020.pem
+
+# get node ip for the ray driver node
+nodes=$(scontrol show hostnames $SLURM_JOB_NODELIST) # Getting the node names
+#set space as delimiter
+IFS=' '
+# get the first node
+read -a nodes_array <<< "$nodes"
+node1=$nodes_array
+
+echo [$SECONDS] "nodes = "$nodes
+echo [$SECONDS] "nodes_array = "$nodes_array
+echo [$SECONDS] "node1 = "$node1
+
+# Making address
+ip_prefix=$(srun --nodes=1 --ntasks=1 -w $node1 hostname --ip-address) 
+#ray start --block --port=6379 --node-ip-address=10.70.132.37 --head --redis-password=b041f832-552d-4658-a0f8-2af1108a3836 --num-cpus 1
+#ip_prefix=10.70.132.37
+echo [$SECONDS] "ip_prefix = "$ip_prefix
+
+
+# variables for ray
+export SOURCEDIR=/home/dbenjamin/harvester-py3/ray
+export BINDIR=$SOURCEDIR/bin
+export CONFDIR=$SOURCEDIR/conf
+
+export RAYTHENA_HARVESTER_ENDPOINT=$HARVESTER_ACCESS_POINT
+export RAYTHENA_RAY_WORKDIR=$HARVESTER_ACCESS_POINT
+export RAYTHENA_PAYLOAD_BINDIR=$HARVESTER_ACCESS_POINT
+export RAYTHENA_RAY_REDIS_PASSWORD=$(uuidgen -r)
+#export RAYTHENA_RAY_REDIS_PASSWORD=$redis_password
+export RAYTHENA_RAY_REDIS_PORT=6379
+export RAYTHENA_CONFIG=$CONFDIR/lcrc.yaml
+export RAYTHENA_DEBUG=1
+export RAYTHENA_RAY_HEAD_IP=$ip_prefix
+export RAYTHENA_PANDA_QUEUE=$PANDA_QUEUE
+export NWORKERS=$((HARVESTER_NNODE - 1))
+#export NWORKERS=$HARVESTER_NNODE
+export RAYTHENA_CORE_PER_NODE=$SLURM_CPUS_PER_TASK
+
+# record the various HARVESTER envars
+echo
+echo [$SECONDS] "Harvester Top level directory - "$HARVESTER_DIR
+echo [$SECONDS] "Harvester accessPoint - "$HARVESTER_ACCESS_POINT
+echo [$SECONDS] "Harvester Worker ID - "$HARVESTER_WORKER_ID
+echo [$SECONDS] "Harvester workflow (MAPTYPE) - "$HARVESTER_MAPTYPE
+echo [$SECONDS] "Harvester accessPoint - "$HARVESTER_ACCESS_POINT
+echo [$SECONDS] "pilot config file - "$HARVESTER_PILOT_CONFIG
+echo [$SECONDS] "pilot wrapper file - "$pilot_wrapper_file
+echo [$SECONDS] "Pilot tar file - "$pilot_tar_file
+echo [$SECONDS] "Container image - "$HARVESTER_CONTAINER_IMAGE
+echo [$SECONDS] "command to setup release in container - "$HARVESTER_CONTAINER_RELEASE_SETUP_FILE
+echo [$SECONDS] "IMAGE_BASE - "$IMAGE_BASE
+echo [$SECONDS] "PANDA_QUEUE -"$PANDA_QUEUE
+echo [$SECONDS] PANDA_JOB_IDS: $PANDA_JOB_IDS
+echo [$SECONDS] "Number of Nodes to use - "$HARVESTER_NNODE
+echo [$SECONDS] "Number of tasks for srun - "$HARVESTER_NTASKS 
+echo [$SECONDS] "ATHENA_PROC_NUMBER - "$ATHENA_PROC_NUMBER
+echo [$SECONDS] "Ray - SOURCEDIR - "$SOURCEDIR
+echo [$SECONDS] "Ray - BINDIR - "$BINDIR
+echo [$SECONDS] "Ray - CONFDIR - "$CONFDIR
+echo [$SECONDS] "Ray - RAYTHENA_HARVESTER_ENDPOINT - "$RAYTHENA_HARVESTER_ENDPOINT
+echo [$SECONDS] "Ray - RAYTHENA_RAY_WORKDIR - "$RAYTHENA_RAY_WORKDIR
+echo [$SECONDS] "Ray - RAYTHENA_PAYLOAD_BINDIR - "$RAYTHENA_PAYLOAD_BINDIR
+echo [$SECONDS] "Ray - RAYTHENA_RAY_REDIS_PASSWORD - "$RAYTHENA_RAY_REDIS_PASSWORD
+echo [$SECONDS] "Ray - RAYTHENA_RAY_REDIS_PORT - "$RAYTHENA_RAY_REDIS_PORT
+echo [$SECONDS] "Ray - RAYTHENA_CONFIG - "$RAYTHENA_CONFIG
+echo [$SECONDS] "Ray - RAYTHENA_RAY_HEAD_IP - "$RAYTHENA_RAY_HEAD_IP
+echo [$SECONDS] "Ray - RAYTHENA_PANDA_QUEUE - "$RAYTHENA_PANDA_QUEUE
+echo [$SECONDS] "Ray - NWORKERS - "$NWORKERS
+echo [$SECONDS] "Ray - RAYTHENA_CORE_PER_NODE - "$RAYTHENA_CORE_PER_NODE
+echo
+
+echo [$SECONDS] TMPDIR = $TMPDIR
+echo [$SECONDS] unset TMPDIR
+unset TMPDIR
+echo [$SECONDS] TMPDIR = $TMPDIR
+
+echo [$SECONDS] ATLAS_LOCAL_ROOT_BASE = $ATLAS_LOCAL_ROOT_BASE
+#echo [$SECONDS] unset ATLAS_LOCAL_ROOT_BASE
+#unset ATLAS_LOCAL_ROOT_BASE
+echo [$SECONDS] ATLAS_LOCAL_ROOT_BASE = $ATLAS_LOCAL_ROOT_BASE
+
+# In OneToOne running Harvester expects files in $HARVESTER_ACCESS_POINT
+# In OneToMany running (aka Jumbo jobs) Harvester expects fdiles in $HARVESTER_ACCESS_POINT
+#    Note in jumbo job running pilot wrapper will ensure each pilot runs in a different directory
+
+# create Ray tmpdir
+export RAY_TMP_DIR=/tmp/raytmp/$SLURM_JOB_ID
+echo [$SECONDS] "Ray - RAY_TMP_DIR - "$RAY_TMP_DIR
+
+if [[ ! -d $RAY_TMP_DIR ]]; then
+  mkdir -pv "$RAY_TMP_DIR"
+fi
+
+
+# Loop over PanDA ID's
+
+for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
+
+    echo [$SECONDS] "PanDA Job ID - "$PANDA_JOB_ID
+    
+    # test if running in ManyToOne mode and set working directory accordingly
+    export HARVESTER_WORKDIR=$HARVESTER_ACCESS_POINT
+    if [[ "$HARVESTER_MAPTYPE" = "ManyToOne" ]] ; then
+	export HARVESTER_WORKDIR=$HARVESTER_ACCESS_POINT/$PANDA_JOB_ID
+    fi    
+    echo [$SECONDS] "setting Harvester Work Directory to - "$HARVESTER_WORKDIR
+
+    # move into job directory
+    echo [$SECONDS] "Changing to $HARVESTER_WORKDIR "
+    cd $HARVESTER_WORKDIR
+    
+    # DARSHAN
+    export DXT_TRIGGER_CONF_PATH=$HARVESTER_WORKDIR/DXT_TRIGGER.conf
+    echo "FILE ^"$HARVESTER_WORKDIR"/"$PANDA_JOB_ID >> $DXT_TRIGGER_CONF_PATH
+    echo "FILE ^/lcrc/group/ATLAS/atlasdatadisk/rucio" >> $DXT_TRIGGER_CONF_PATH
+
+    #copy pilot wrapper and panda pilot tarball to working directory
+    echo [$SECONDS] copy $pilot_wrapper_file to $HARVESTER_WORKDIR
+    cp -v $pilot_wrapper_file $HARVESTER_WORKDIR
+    echo [$SECONDS] copy $pilot_tar_file to $HARVESTER_WORKDIR
+    cp -v $pilot_tar_file $HARVESTER_WORKDIR
+    tar xzf $pilot_tar_file -C$HARVESTER_WORKDIR
+
+    # test for json files used by pilot's infoservice
+    if [ ! -f $pilot_cric_pandaqueues_file ] ; then
+	echo [$SECONDS] Warning the file - "$pilot_cric_pandaqueues_file" does not exist
+    else
+	cp -v $pilot_cric_pandaqueues_file $HARVESTER_WORKDIR/cric_pandaqueues.json
+    fi   
+
+    if [ ! -f $pilot_queuedata_file ] ; then
+	echo [$SECONDS] Warning the file - "$pilot_queuedata_file" does not exist
+    else
+	cp -v $pilot_queuedata_file $HARVESTER_WORKDIR/queuedata.json
+    fi   
+
+    if [ ! -f $pilot_ddmendpoints_file ] ; then
+	echo [$SECONDS] Warning the file - "$pilot_ddmendpoints_file" does not exist
+    else
+	cp -v $pilot_ddmendpoints_file $HARVESTER_WORKDIR/cric_ddmendpoints.json 
+    fi   
+
+    #DPB debugging
+    #env | sort
+    #DPB debugging
+
+    # In ManyToOne running or OnetoOne running want one launch on srun per node - per PanDAid
+    if [[ "$HARVESTER_MAPTYPE" = "OneToMany" ]] ; then    #AKA Jumbo jobs
+        # now start things up
+	echo [$SECONDS] "Launching srun command from : " $PWD
+
+	echo [$SECONDS] srun -N1 -n1 -w "$SLURMD_NODENAME" $BINDIR/ray_start_head 
+	srun -N1 -n1 -w "$SLURMD_NODENAME" $BINDIR/ray_start_head &
+	pid=$!
+	retsync=1
+	try=1
+	while [[ $retsync -ne 0 ]]; do
+	    $BINDIR/ray_sync
+	    retsync=$?
+	    kill -0 "$pid"
+	    status=$?
+	    if [[ $retsync -ne 0 ]] && [[ $status -ne 0 ]]; then
+		try=$((try+1))
+		if [[ $try -gt 5 ]]; then
+		    exit 1
+		fi
+		#echo [$SECONDS] sleep for 15 seconds
+		#sleep 15
+		echo [$SECONDS] Restarting head node init
+		echo [$SECONDS] srun -N1 -n1 -w "$SLURMD_NODENAME" $BINDIR/ray_start_head 
+		srun -N1 -n1 -w "$SLURMD_NODENAME" $BINDIR/ray_start_head &
+		pid=$!
+	    fi
+	done
+	
+	echo [$SECONDS] srun -x "$SLURMD_NODENAME" -N$NWORKERS -n$NWORKERS $BINDIR/ray_start_worker 
+	srun -x "$SLURMD_NODENAME" -N$NWORKERS -n$NWORKERS $BINDIR/ray_start_worker &
+	pid=$!
+	retsync=1
+	try=1
+	while [[ $retsync -ne 0 ]]; do
+	    $BINDIR/ray_sync --wait-workers --nworkers $NWORKERS
+	    retsync=$?
+	    kill -0 "$pid"
+	    status=$?
+	    if [[ $retsync -ne 0 ]] && [[ $status -ne 0 ]]; then
+		try=$((try+1))
+		if [[ $try -gt 5 ]]; then
+		    exit 1
+		fi
+		echo [$SECONDS] Restarting workers setup
+		echo [$SECONDS] srun -x "$SLURMD_NODENAME" -N$NWORKERS -n$NWORKERS $BINDIR/ray_start_worker 
+		srun -x "$SLURMD_NODENAME" -N$NWORKERS -n$NWORKERS $BINDIR/ray_start_worker &
+		pid=$!
+	    fi
+	done
+
+	echo [$SECONDS] $SOURCEDIR/app.py
+	python $SOURCEDIR/app.py
+
+	echo [$SECONDS] ray stop
+	ray stop
+    fi    
+done
+
+if [[ -f core ]]; then
+  rm core
+fi
+
+echo [$SECONDS] " wait command  "
+wait
+
+#if [ -e $DARSHAN_LOGPATH ] ; then
+#    chmod -R o+r $DARSHAN_LOGPATH
+#fi
+
