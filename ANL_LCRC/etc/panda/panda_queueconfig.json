@@ -1,23 +1,23 @@
 {
-    "test_LCRC": {
+    "ANALY_test_LCRC": {
         "mapType": "ManyToOne",
         "____comment_____useJobLateBinding": true,
         "maxWorkers": 8,
         "allowJobMixture": true,
-        "nQueueLimitJob": 10,
-        "nQueueLimitWorker": 2,
-        "prodSourceLabel": "managed",
+        "nQueueLimitJob": 20,
+        "nQueueLimitWorker": 4,
+        "prodSourceLabel": "user",
         "submitter": {
             "module": "pandaharvester.harvestersubmitter.slurm_submitter",
             "name": "SlurmSubmitter",
-            "nCore": 180,
+            "nCore": 72,
             "nCorePerNode": 36,
-            "templateFile": "/home/dbenjamin/harvester-py3/etc/panda/test_LCRC_ManyToOne_pilot-wrapper.slurm.template"
+            "templateFile": "/home/dbenjamin/harvester-py3/etc/panda/ANALY_test_LCRC_ManyToOne_pilot-wrapper.slurm.template"
         },
         "workerMaker": {
             "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
             "name": "SimpleWorkerMaker",
-            "nJobsPerWorker": 5 
+            "nJobsPerWorker": 2 
         },
         "messenger": {
             "module": "pandaharvester.harvestermessenger.shared_file_messenger",
@@ -25,7 +25,84 @@
             "accessPoint": "/lcrc/group/ATLAS/harvester/var/lib/workdir/panda/${workerID}",
             "stripJobParams": true,
 	    "scanInPostProcess": true,
-	    "outputSubDir": "outputs",
+            "outputSubDir": "esOutput",
+	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
+        },
+        "preparator": {
+            "srcEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_srcPath": "/mnt/hpcdisk/atlasscratchdisk/rucio",
+            "dstEndpoint" : "61f9954c-a4fa-11ea-8f07-0a21f750d19b",
+            "Globus_dstPath": "/lcrc/group/ATLAS/atlasscratchdisk/rucio",
+            "basePath": "/lcrc/group/ATLAS/atlasscratchdisk/rucio",
+            "module": "pandaharvester.harvesterpreparator.go_bulk_preparator",
+            "name": "GlobusBulkPreparator"
+        },
+        "stager": {
+            "dstEndpoint" : "c67b1eee-6d04-11e5-ba46-22000b92c6ec",
+            "Globus_dstPath": "/mnt/hpcdisk/atlasscratchdisk/rucio",
+            "srcEndpoint" : "61f9954c-a4fa-11ea-8f07-0a21f750d19b",
+            "Globus_srcPath": "/lcrc/group/ATLAS/atlasscratchdisk/rucio",
+            "basePath": "/lcrc/group/ATLAS/atlasscratchdisk/rucio",
+            "dstRSE_ES": "BNLHPC_DATADISK",
+            "dstRSE_Log": "BNLHPC_DATADISK",
+            "dstRSE_Out": "BNLHPC_DATADISK",
+            "module": "pandaharvester.harvesterstager.go_bulk_stager",
+            "name": "GlobusBulkStager",
+            "objStoreID_ES": 9656,
+            "pathConvention": 1000,
+            "jobtype": "ManyToOne",
+            "srcBasePath": "/lcrc/group/ATLAS/atlasscratchdisk/rucio",
+            "srcRSE": "BNLHPC_DATADISK",
+            "nThreadsForZip": 8,
+            "zipDir": "${WORKDIR}"
+        },
+        "monitor": {
+            "module": "pandaharvester.harvestermonitor.slurm_monitor",
+            "name": "SlurmMonitor"
+        },
+        "sweeper": {
+            "module": "pandaharvester.harvestersweeper.slurm_sweeper",
+            "name": "SlurmSweeper"
+        },
+        "aux_preparator": {
+            "name": "AnalysisAuxPreparator",
+            "module": "pandaharvester.harvesterpreparator.analysis_aux_preparator",
+            "containerRuntime": "singularity",
+            "localBasePath": "/lcrc/group/ATLAS/harvester/var/lib/workdir/aux"
+        },
+        "extractor": {
+            "name": "AnalysisExtractor",
+            "module": "pandaharvester.harvesterextractor.analysis_extractor"
+        },
+        "zipPerMB": 256
+    },
+    "test_LCRC": {
+        "mapType": "ManyToOne",
+        "____comment_____useJobLateBinding": true,
+        "maxWorkers": 8,
+        "allowJobMixture": true,
+        "nQueueLimitJob": 20,
+        "nQueueLimitWorker": 4,
+        "prodSourceLabel": "managed",
+        "submitter": {
+            "module": "pandaharvester.harvestersubmitter.slurm_submitter",
+            "name": "SlurmSubmitter",
+            "nCore": 72,
+            "nCorePerNode": 36,
+            "templateFile": "/home/dbenjamin/harvester-py3/etc/panda/test_LCRC_ManyToOne_pilot-wrapper.slurm.template"
+        },
+        "workerMaker": {
+            "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+            "name": "SimpleWorkerMaker",
+            "nJobsPerWorker": 2 
+        },
+        "messenger": {
+            "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+            "name": "SharedFileMessenger",
+            "accessPoint": "/lcrc/group/ATLAS/harvester/var/lib/workdir/panda/${workerID}",
+            "stripJobParams": true,
+	    "scanInPostProcess": true,
+            "outputSubDir": "esOutput",
 	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
         },
         "preparator": {
@@ -66,35 +143,33 @@
         },
         "zipPerMB": 256
     },
-    "NERSC_Cori_p2_ES": {
-        "mapType": "OneToOne",
+    "test_LCRC_ES": {
+        "mapType": "OneToMany",
         "____comment_____useJobLateBinding": true,
-        "maxWorkers": 5,
+        "maxWorkers": 4,
         "allowJobMixture": true,
-        "nQueueLimitJob": 5,
-        "nQueueLimitWorker": 5,
+        "nQueueLimitJob": 40,
+        "nQueueLimitWorker": 2,
         "prodSourceLabel": "managed",
         "submitter": {
             "module": "pandaharvester.harvestersubmitter.slurm_submitter",
             "name": "SlurmSubmitter",
-            "nCore": 136,
-            "nCorePerNode": 136,
-            "templateFile": "/global/cfs/cdirs/m2616/harvester/etc/panda/NERSC_Cori_p2_ES_pilot-wrapper.sh"
+            "nCore": 180,
+            "nCorePerNode": 36,
+            "templateFile": "/home/dbenjamin/harvester-py3/etc/panda/test_LCRC_ES_raythena.slurm.template"
         },
         "workerMaker": {
             "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
             "name": "SimpleWorkerMaker",
-	    "maxWorkersPerJobPerCycle": 3,
-            "nWorkersPerJob": 1,
-	    "maxWorkersPerJobInTotal": 1
+            "nJobsPerWorker": 1 
         },
         "messenger": {
             "module": "pandaharvester.harvestermessenger.shared_file_messenger",
             "name": "SharedFileMessenger",
-            "accessPoint": "/lcrc/group/ATLAS/harvester-es/var/lib/workdir/panda/${workerID}",
+            "accessPoint": "/lcrc/group/ATLAS/harvester/var/lib/workdir/panda/${workerID}",
             "stripJobParams": true,
 	    "scanInPostProcess": true,
-	    "outputSubDir": "outputs",
+            "outputSubDir": "esOutput",
 	    "leftOverPatterns": ["%OUTPUT_FILE.%TASKID-%PANDAID-\\d+-\\d+-\\d+$"]
         },
         "preparator": {
@@ -119,7 +194,7 @@
             "name": "GlobusBulkStager",
             "objStoreID_ES": 9656,
             "pathConvention": 1000,
-            "jobtype": "Yoda",
+            "jobtype": "EventService",
             "srcBasePath": "/lcrc/group/ATLAS/atlasdatadisk/rucio",
             "srcRSE": "BNLHPC_DATADISK",
             "nThreadsForZip": 8,
