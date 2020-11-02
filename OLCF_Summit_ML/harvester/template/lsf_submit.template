@@ -1,6 +1,6 @@
 #!/bin/bash
 #BSUB -P {{submitter.projectName}}
-#BSUB -W 00:20
+#BSUB -W 02:00
 #BSUB -nnodes {{worker.jobspec_list|length}}
 #BSUB -alloc_flags gpumps
 #BSUB -J atlas-ml-{{workerID}}
@@ -67,8 +67,8 @@ set -x
 jsrun ${JSRUN_OPTS} \
 	/bin/bash -c "export PANDAID=(\$(tr ',' ' ' < ${JOBIDS_FILE} | tr -d '[]')); echo Job to use: \${PANDAID[\$PMIX_RANK]}; \
 	cd \${PANDAID[\$PMIX_RANK]}; \
-	cp ../agis*.json .; cp ../queuedata.json .; \
-	export HARVESTER_WORKDIR=${HARVESTER_ACCESS_POINT}/\${PANDAID[\$PMIX_RANK]}; \
+	cp ../agis*.json .; cp ../queuedata.json .; cp ../queuedata.json ./cric_pandaqueues.json; cp ../agis_ddmendpoints.json ./cric_ddmendpoints.json; \
+	export HARVESTER_WORKDIR=${HARVESTER_ACCESS_POINT}/\${PANDAID[\$PMIX_RANK]} PILOT_NOKILL=1; \
 	export PATH=$PATH:${USRBIN}; \
          ${WRAPPER_PATH} -s ${PANDA_QUEUE} -r ${PANDA_QUEUE} \
 	-q ${PANDA_QUEUE} -j ${PRODSOURCELABEL} -i PR -t --mute --harvester SLURM_NODEID \
@@ -86,6 +86,5 @@ jsrun ${JSRUN_OPTS} \
 	--resource-type MCORE \
 	--hpc-mode manytoone \
 	--cleanup False \
-	-z; " #\
-#	sed -i \"/\\\"path\\\"/c\\ \\\"path\\\": \\\"\$(readlink -f *.tgz | tail -n 1)\\\",\" \${PANDAID[\$PMIX_RANK]}/event_status.dump.json*;   "
+	-z; " 
 
