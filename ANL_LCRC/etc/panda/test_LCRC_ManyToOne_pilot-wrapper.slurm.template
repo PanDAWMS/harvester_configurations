@@ -1,15 +1,15 @@
 #!/bin/bash
 
-##SBATCH -A ATLAS-HEP-group
+#SBATCH -A ATLAS-HEP-group
 ##SBATCH -p knlall
 ##SBATCH -p bdwall
 
 #SBATCH -A condo
 #SBATCH -p  hepd
 
-##SBATCH --time 1:30:00
-#SBATCH --time 3:00:00
-##SBATCH --time 4:00:00
+##SBATCH --time 1:00:00
+##SBATCH --time 3:00:00
+#SBATCH --time 6:00:00
 
 # 36 for Broadwell and 128 for KNL
 ##SBATCH --cpus-per-task 128
@@ -43,14 +43,14 @@ export HARVESTER_MAPTYPE=ManyToOne
 
 # Darshan setup 
 #export DARSHAN_LOGPATH={accessPoint}/darshan-logs-outside
-export DARSHAN_ENABLE_NONMPI=1
+#export DARSHAN_ENABLE_NONMPI=1
 ##export DXT_ENABLE_IO_TRACE=1
 #export DARSHAN_JOBID=$SLURM_JOBID
 #mkdir -v $DARSHAN_LOGPATH
 #/home/dbenjamin/darshan/bin/darshan-mk-log-dirs-dpb.pl $DARSHAN_LOGPATH                                                                 
 # in setup release #export LD_PRELOAD=/home/dbenjamin/darshan/bin/libdarshan.so                                                          
 # move to hacked wrapper                                                                                                                 
-echo [$SECONDS] "darshan-config --log-path " $(/home/dbenjamin/harvester-py3/darshan/bin/darshan-config --log-path)
+#echo [$SECONDS] "darshan-config --log-path " $(/home/dbenjamin/harvester-py3/darshan/bin/darshan-config --log-path)
 #export LD_PRELOAD=/home/dbenjamin/harvester-py3/darshan/lib/libdarshan.so                                                               
 
 
@@ -65,7 +65,7 @@ export pilot_tar_file=$HARVESTER_DIR/etc/panda/pilot2.tar.gz
 
 export pilot_cric_pandaqueues_file=$HARVESTER_DIR/cric_pandaqueues.json
 
-export pilot_schedconfig_JSON_file=$HARVESTER_DIR/test_LCRC_agis_schedconf.json
+export pilot_schedconfig_JSON_file=$HARVESTER_DIR/test_LCRC_agis_schedconf.json   # extra ?
 export pilot_queuedata_file=$HARVESTER_DIR/test_LCRC_queuedata.json
 export pilot_ddmendpoints_file=$HARVESTER_DIR/cric_ddmendpoints.json
 
@@ -203,12 +203,12 @@ for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
 	echo [$SECONDS] "Hostname : " $HOSTNAME
 	echo [$SECONDS] "Launching srun command from : " $PWD
 
-        echo [$SECONDS] srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log /bin/bash ./runpilot2-wrapper.sh -3 -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
+        echo [$SECONDS] srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log /bin/bash ./runpilot2-wrapper.sh -3 --localpy -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
 	    -j managed -i PR -t --mute --harvester SLURM_NODEID --harvester_workflow $HARVESTER_MAPTYPE \
 	    --container -w generic --pilot-user=atlas --hpc-resource cori --use-https False -d --harvester-submit-mode=PUSH \
 	    --harvester-workdir=$HARVESTER_WORKDIR --allow-same-user=False --resource-type MCORE --cleanup False -z
 
-        srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log /bin/bash ./runpilot2-wrapper.sh -3 -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
+        srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log /bin/bash ./runpilot2-wrapper.sh -3 --localpy -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
 	    -j managed -i PR -t --mute --harvester SLURM_NODEID --harvester_workflow $HARVESTER_MAPTYPE \
 	    --container -w generic --pilot-user=atlas --hpc-resource cori --use-https False -d --harvester-submit-mode=PUSH \
 	    --harvester-workdir=$HARVESTER_WORKDIR --allow-same-user=False --resource-type MCORE --cleanup False -z
