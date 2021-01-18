@@ -1,0 +1,11 @@
+# Email
+MAILTO="atlas-adc-harvester-central-support@cern.ch"
+
+# Create condor log subdirectory
+22 6 * * * root /bin/mkdir -m 1777 -p /data2/atlpan/condor_logs/$(/bin/date -d "+1 days" +"\%y-\%m-\%d")_{00..23}
+*/5 * * * * root /bin/mkdir -m 1777 -p /data2/atlpan/condor_logs/$(/bin/date +"\%y-\%m-\%d_\%H")
+
+# Clean up old logs
+#38 16 * * * root /usr/bin/find /data2/atlpan/condor_logs/ -type f -size +100M -delete
+38 3 * * * root /usr/bin/find /data2/atlpan/condor_logs/ -type f -mtime +6 -delete
+38 15 * * * root /usr/bin/find /data2/atlpan/condor_logs/ -maxdepth 1 -type d -empty -mtime +3 -delete
