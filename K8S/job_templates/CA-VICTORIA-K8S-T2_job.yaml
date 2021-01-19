@@ -1,0 +1,90 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grid-job
+spec:
+  ttlSecondsAfterFinished: 172800
+  backoffLimit: 0
+  # can use activeDeadlineSeconds to set a time limit (in job spec or pod spec)
+  template:
+    spec:
+      # schedulerName: node-packing-scheduler # TODO: use custom scheduler
+      restartPolicy: Never
+      containers:
+        - name: job-container
+          image: gitlab-registry.cern.ch/unpacked/sync/danikam/atlas-grid-centos7-pip@sha256:ec450701db4447f29f791edf11afce8aaa78ce44ff4c2997cc97d14b11079aae
+          # TODO - remove securityContext, pending PSP config
+          securityContext:
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: cvmfs-atlas
+              mountPath: /cvmfs/atlas.cern.ch
+              readOnly: true
+            - name: cvmfs-atlas-condb
+              mountPath: /cvmfs/atlas-condb.cern.ch
+              readOnly: true
+            - name: cvmfs-atlas-nightlies
+              mountPath: /cvmfs/atlas-nightlies.cern.ch
+              readOnly: true
+            - name: cvmfs-sft
+              mountPath: /cvmfs/sft.cern.ch
+              readOnly: true
+            - name: secret-volume
+              mountPath: /proxy
+              readOnly: true
+            - name: pilot-dir
+              mountPath: /pilotdir
+          env:
+            - name: computingSite
+              value: "$computingSite"
+            - name: pandaQueueName
+              value: "$pandaQueueName"
+            - name: proxySecretPath
+              value: "$proxySecretPath"
+            - name: proxyContent
+              value: "$proxyContent"
+            - name: workerID
+              value: "$workerID"
+            - name: logs_frontend_w
+              value: "$logs_frontend_w"
+            - name: logs_frontend_r
+              value: "$logs_frontend_r"
+            - name: resourceType
+              value: "$resourceType"
+            - name: HARVESTER_WORKER_ID
+              value: "$HARVESTER_WORKER_ID"
+            - name: HARVESTER_ID
+              value: "$HARVESTER_ID"
+            - name: PANDA_JSID
+              value: "$PANDA_JSID"
+            - name: TMPDIR
+              value: "/pilotdir"
+            - name: PILOT_NOKILL
+              value: "True"
+          command: ["/usr/bin/bash"]
+          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/k8s_startup_script.py; python k8s_startup_script.py"]
+          args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py"]
+      volumes:
+        - name: cvmfs-atlas
+          hostPath:
+            path: /cvmfs/atlas.cern.ch
+            type: Directory
+        - name: cvmfs-atlas-condb
+          hostPath:
+            path: /cvmfs/atlas-condb.cern.ch
+            type: Directory
+        - name: cvmfs-atlas-nightlies
+          hostPath:
+            path: /cvmfs/atlas-nightlies.cern.ch
+            type: Directory
+        - name: cvmfs-sft
+          hostPath:
+            path: /cvmfs/sft.cern.ch
+            type: Directory
+        - name: secret-volume
+          secret:
+            secretName: proxy-secret
+        - name: pilot-dir
+          emptyDir: {}
