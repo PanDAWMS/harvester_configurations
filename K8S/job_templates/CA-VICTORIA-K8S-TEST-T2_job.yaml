@@ -84,4 +84,4 @@ spec:
           secret:
             secretName: proxy-secret
         - name: pilot-dir
-          sizeLimit: 18750M
+            emptyDir: {}
