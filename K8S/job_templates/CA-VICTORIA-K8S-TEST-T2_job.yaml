@@ -61,7 +61,7 @@ spec:
             - name: PILOT_NOKILL
               value: "True"
           command: ["/usr/bin/bash"]
-          args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py"]
+          args: ["-c", "cd; wget https://pandaserver.cern.ch:25443/cache/k8s/pilots_starter --no-check-certificate; chmod 755 pilots_starter; ./pilots_starter"]
       volumes:
         - name: cvmfs-atlas
           hostPath:
