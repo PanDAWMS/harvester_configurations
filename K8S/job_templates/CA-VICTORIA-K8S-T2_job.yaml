@@ -12,11 +12,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: job-container
-          image: gitlab-registry.cern.ch/unpacked/sync/danikam/atlas-grid-centos7-pip@sha256:ec450701db4447f29f791edf11afce8aaa78ce44ff4c2997cc97d14b11079aae
-          # TODO - remove securityContext, pending PSP config
-          securityContext:
-            runAsUser: 1000
-            allowPrivilegeEscalation: false
+          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-centos7-localuser@sha256:317e213f2333567b1316f1c04dcd6427ed96bcdc127e63c4c71098b680fbcb97
           volumeMounts:
             - name: cvmfs-atlas
               mountPath: /cvmfs/atlas.cern.ch
@@ -59,6 +55,8 @@ spec:
             - name: PANDA_JSID
               value: "$PANDA_JSID"
             - name: TMPDIR
+              value: "/pilotdir"
+            - name: HOME
               value: "/pilotdir"
             - name: PILOT_NOKILL
               value: "True"
