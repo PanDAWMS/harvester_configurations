@@ -9,7 +9,6 @@ spec:
   # can use activeDeadlineSeconds to set a time limit (in job spec or pod spec)
   template:
     spec:
-      # schedulerName: node-packing-scheduler # TODO: use custom scheduler
       restartPolicy: Never
       containers:
         - name: job-container
@@ -64,8 +63,7 @@ spec:
             - name: PILOT_NOKILL
               value: "True"
           command: ["/usr/bin/bash"]
-          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/k8s_startup_script.py; python k8s_startup_script.py"]
-          args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py"]
+          args: ["-c", "cd; wget https://pandaserver.cern.ch:25443/cache/k8s/pilots_starter --no-check-certificate; chmod 755 pilots_starter; ./pilots_starter"]
       volumes:
         - name: cvmfs-atlas
           hostPath:
