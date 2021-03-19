@@ -26,6 +26,9 @@ spec:
             - name: cvmfs-sft
               mountPath: /cvmfs/sft.cern.ch
               readOnly: true
+            - name: cvmfs-unpacked
+              mountPath: /cvmfs/unpacked.cern.ch
+              readOnly: true
             - name: secret-volume
               mountPath: /proxy
               readOnly: true
@@ -78,6 +81,10 @@ spec:
         - name: cvmfs-sft
           hostPath:
             path: /cvmfs/sft.cern.ch
+            type: Directory
+        - name: cvmfs-unpacked
+          hostPath:
+            path: /cvmfs/unpacked.cern.ch
             type: Directory
         - name: secret-volume
           secret:
