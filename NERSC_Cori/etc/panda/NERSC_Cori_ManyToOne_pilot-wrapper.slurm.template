@@ -3,13 +3,13 @@
 #DPB #SBATCH --time 0:30:00
 #DPB #SBATCH -q premium
 #DPB #SBATCH --time 2:00:00
-#DPB #SBATCH -q premium
+##SBATCH -q premium
 #SBATCH -q regular
+##SBATCH --time 2:30:00
 #SBATCH --time 6:00:00
-#SBATCH --image=custom:atlas_athena_21.0.15_DBRelease-31.8.1:latest
 #SBATCH --module=cvmfs
 #DPB #SBATCH -q flex
-#DPB #SBATCH --time-min=02:00:00
+##SBATCH --time-min=02:00:00
 #DPB #SBATCH --time 4:00:00
 #SBATCH -A m2616
 ##SBATCH -A m3416
@@ -28,9 +28,9 @@ export MPICH_GNI_VC_MSG_PROTOCOL=MSGQ
 export KMP_AFFINITY="granularity=fine,compact,1,0"
 nTasks=$SLURM_JOB_NUM_NODES
 
-export container_setup=/usr/atlas/release_setup.sh
+#export container_setup=/usr/atlas/release_setup.sh
 
-export PANDA_QUEUE=NERSC_Cori_p2_mcore
+export PANDA_QUEUE=NERSC_Cori_Test
 
 export HARVESTER_DIR=$PANDA_HOME  # PANDA_HOME is defined in etc/sysconfig/panda_harvester
 export HARVESTER_WORKER_ID={workerID}
@@ -49,16 +49,30 @@ export HARVESTER_MAPTYPE=ManyToOne
 export pilot_wrapper_file=$HARVESTER_DIR/etc/panda/runpilot2-wrapper.sh
 export pilot_tar_file=$HARVESTER_DIR/etc/panda/pilot2.tar.gz
 
-export HARVESTER_CONTAINER_IMAGE=custom:atlas_athena_21.0.15_DBRelease-31.8.1:latest
+export pilot_cric_pandaqueues_file=$HARVESTER_DIR/cric_pandaqueues.json
+
+export pilot_schedconfig_JSON_file=$HARVESTER_DIR/NERSC_Cori_Test_agis_schedconf.json   # extra ?
+export pilot_queuedata_file=$HARVESTER_DIR/NERSC_Cori_Test_queuedata.json
+export pilot_ddmendpoints_file=$HARVESTER_DIR/cric_ddmendpoints.json
+
+#export HARVESTER_CONTAINER_IMAGE=custom:atlas_athena_21.0.15_DBRelease-31.8.1:latest
 # variables create the string to setup container release path including fixing PYTHONPATH and LD_LIBRARY_PATH for yampl
-export HARVESTER_CONTAINER_RELEASE_SETUP_FILE="/usr/atlas/release_setup.sh"
-export HARVESTER_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
-export HARVESTER_PYTHONPATH=$PYTHONPATH 
+#export HARVESTER_CONTAINER_RELEASE_SETUP_FILE="/usr/atlas/release_setup.sh"
+#export HARVESTER_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+#export HARVESTER_PYTHONPATH=$PYTHONPATH 
+
+# set ATLAS Local Root Base options
+export ALRB_CONT_OPTS="$ALRB_CONT_OPTS -v"
+export ALRB_CONT_SWTYPE=shifter
 
 #Athena settings for AthenaMP
-export ATHENA_PROC_NUMBER_JOB=136
-export ATHENA_PROC_NUMBER=136
-export ATHENA_CORE_NUMBER=136
+#DPB Sample A export ATHENA_PROC_NUMBER_JOB=136
+#DPB Sample A export ATHENA_PROC_NUMBER=136
+#DPB Sample A export ATHENA_CORE_NUMBER=136
+
+export ATHENA_PROC_NUMBER_JOB=100 # Sample A
+export ATHENA_PROC_NUMBER=100    # Sample A
+export ATHENA_CORE_NUMBER=100    # Sample A
 
 # get the PanDA Job IDs from worker_pandaids.json 
 PANDA_JOB_IDS=( "$(python -c "import json;pids = json.load(open('worker_pandaids.json'));print(' '.join(str(x) for x in pids))")" )
@@ -74,7 +88,7 @@ echo [$SECONDS] "Harvester workflow (MAPTYPE) - "$HARVESTER_MAPTYPE
 echo [$SECONDS] "Harvester accessPoint - "$HARVESTER_ACCESS_POINT
 echo [$SECONDS] "pilot wrapper file - "$pilot_wrapper_file
 echo [$SECONDS] "Pilot tar file - "$pilot_tar_file
-echo [$SECONDS] "Container image - "$HARVESTER_CONTAINER_IMAGE
+echo [$SECONDS] "Container IMAGE_BASE - "$IMAGE_BASE
 echo [$SECONDS] "command to setup release in container - "$HARVESTER_CONTAINER_RELEASE_SETUP_FILE
 echo [$SECONDS] PANDA_JOB_IDS: $PANDA_JOB_IDS
 echo [$SECONDS] "Number of Nodes to use - "$HARVESTER_NNODE
@@ -87,6 +101,12 @@ echo [$SECONDS] unset TMPDIR
 unset TMPDIR
 echo [$SECONDS] TMPDIR = $TMPDIR
 
+echo [$SECONDS] ATLAS_LOCAL_ROOT_BASE = $ATLAS_LOCAL_ROOT_BASE
+#echo [$SECONDS] unset ATLAS_LOCAL_ROOT_BASE
+#unset ATLAS_LOCAL_ROOT_BASE
+echo [$SECONDS] ATLAS_LOCAL_ROOT_BASE = $ATLAS_LOCAL_ROOT_BASE
+echo [$SECONDS] ALRB_CONT_SWTYPE = $ALRB_CONT_SWTYPE
+echo [$SECONDS] "ALRB_CONT_OPTS - "$ALRB_CONT_OPTS
 
 # In OneToOne running Harvester expects fdiles in $HARVESTER_ACCESS_POINT
 # In OneToMany running (aka Jumbo jobs) Harvester expects fdiles in $HARVESTER_ACCESS_POINT
@@ -115,6 +135,25 @@ for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
     echo [$SECONDS] copy $pilot_tar_file to $HARVESTER_WORKDIR
     cp -v $pilot_tar_file $HARVESTER_WORKDIR
     
+    # test for json files used by pilot's infoservice
+    if [ ! -f $pilot_cric_pandaqueues_file ] ; then
+        echo [$SECONDS] Warning the file - "$pilot_cric_pandaqueues_file" does not exist
+    else
+        cp -v $pilot_cric_pandaqueues_file $HARVESTER_WORKDIR/cric_pandaqueues.json
+    fi
+
+    if [ ! -f $pilot_queuedata_file ] ; then
+        echo [$SECONDS] Warning the file - "$pilot_queuedata_file" does not exist
+    else
+        cp -v $pilot_queuedata_file $HARVESTER_WORKDIR/queuedata.json 
+    fi   
+
+    if [ ! -f $pilot_ddmendpoints_file ] ; then
+        echo [$SECONDS] Warning the file - "$pilot_ddmendpoints_file" does not exist
+    else
+        cp -v $pilot_ddmendpoints_file $HARVESTER_WORKDIR/cric_ddmendpoints.json 
+    fi   
+
     #DPB debugging
     #env | sort
     #DPB debugging
@@ -146,22 +185,17 @@ for PANDA_JOB_ID in $PANDA_JOB_IDS;  do
 	echo [$SECONDS] "Launching srun command from : " $PWD
 
 	echo [$SECONDS] srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log \
-	     shifter /bin/bash ./runpilot2-wrapper.sh -s $PANDA_QUEUE -r $PANDA_QUEUE \
-	     -q $PANDA_QUEUE -j managed -i PR -t --mute --harvester SLURM_NODEID \
-	     --harvester_workflow $HARVESTER_MAPTYPE \
-	     --container -w generic --pilot-user=atlashpc \
-	     -d --harvester-submit-mode=PUSH \
-	     --harvester-workdir=$HARVESTER_WORKDIR \
-	     --allow-same-user=False --resource-type MCORE -z 
+            /bin/bash ./runpilot2-wrapper.sh -3 --localpy -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
+                      -j managed -i PR -t --mute --harvester SLURM_NODEID --harvester_workflow $HARVESTER_MAPTYPE \
+                      --container -w generic --pilot-user=atlas --hpc-resource cori --use-https False -d --harvester-submit-mode=PUSH \
+                      --harvester-workdir=$HARVESTER_WORKDIR --allow-same-user=False --resource-type MCORE --cleanup False -z
 
-	srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log \
-	     shifter /bin/bash ./runpilot2-wrapper.sh -s $PANDA_QUEUE -r $PANDA_QUEUE \
-	     -q $PANDA_QUEUE -j managed -i PR -t --mute --harvester SLURM_NODEID \
-	     --harvester_workflow $HARVESTER_MAPTYPE \
-	     --container -w generic --pilot-user=atlashpc \
-	     -d --harvester-submit-mode=PUSH \
-	     --harvester-workdir=$HARVESTER_WORK_DIR \
-	     --allow-same-user=False --resource-type MCORE -z &
+        srun -n 1 -N 1 -o PandaID-$PANDA_JOB_ID-%N-%j-%t.log \
+            /bin/bash ./runpilot2-wrapper.sh -3 --localpy -s $PANDA_QUEUE -r $PANDA_QUEUE -q $PANDA_QUEUE \
+                      -j managed -i PR -t --mute --harvester SLURM_NODEID --harvester_workflow $HARVESTER_MAPTYPE \
+                      --container -w generic --pilot-user=atlas --hpc-resource cori --use-https False -d --harvester-submit-mode=PUSH \
+                      --harvester-workdir=$HARVESTER_WORKDIR --allow-same-user=False --resource-type MCORE --cleanup False -z &
+
     fi
     
 
