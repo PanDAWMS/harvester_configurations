@@ -27,9 +27,10 @@ export PANDA_HOME=${VIRTUAL_ENV}
 export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
 source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh --quiet
 #setup rucio client for voms code and rucio python libraries
-export X509_USER_PROXY=$LOCAL_PANDA_PATH/globus/$USER/usathpc-robot-vomsproxy
+#OLD export X509_USER_PROXY=$LOCAL_PANDA_PATH/globus/$USER/usathpc-robot-vomsproxy
+export X509_USER_PROXY=$LOCAL_PANDA_PATH/globus/$USER/bdouglas-harvester-vomsproxy
 export RUCIO_ACCOUNT=pilot
-lsetup rucio emi
+lsetup rucio emi prmon
 
 # contents for etc/sysconfig/panda_harvester in setup.sh
 #source etc/sysconfig/panda_harvester
