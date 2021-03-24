@@ -26,6 +26,9 @@ spec:
             - name: cvmfs-sft
               mountPath: /cvmfs/sft.cern.ch
               readOnly: true
+            - name: cvmfs-sft-nightlies
+              mountPath: /cvmfs/sft-nightlies.cern.ch
+              readOnly: true
             - name: cvmfs-unpacked
               mountPath: /cvmfs/unpacked.cern.ch
               readOnly: true
@@ -81,6 +84,10 @@ spec:
         - name: cvmfs-sft
           hostPath:
             path: /cvmfs/sft.cern.ch
+            type: Directory
+        - name: cvmfs-sft-nightlies
+          hostPath:
+            path: /cvmfs/sft-nightlies.cern.ch
             type: Directory
         - name: cvmfs-unpacked
           hostPath:
