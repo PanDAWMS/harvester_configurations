@@ -9,3 +9,6 @@ MAILTO="atlas-adc-harvester-central-support@cern.ch"
 #38 16 * * * root /usr/bin/find /data2/atlpan/condor_logs/ -type f -size +100M -delete
 38 3 * * * root /usr/bin/find /data2/atlpan/condor_logs/ -type f -mtime +6 -delete
 38 15 * * * root /usr/bin/find /data2/atlpan/condor_logs/ -maxdepth 1 -type d -empty -mtime +3 -delete
+
+# Kill old condor gridmanagers
+9 * * * * root /usr/bin/killall -o 1d -r -e 'condor_gridmanager'
