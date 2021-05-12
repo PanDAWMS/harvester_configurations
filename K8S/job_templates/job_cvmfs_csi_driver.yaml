@@ -78,4 +78,3 @@ spec:
         - name: proxy-secret
           secret:
               secretName: proxy-secret
-              defaultMode: 0400

@@ -96,6 +96,5 @@ spec:
         - name: secret-volume
           secret:
             secretName: proxy-secret
-            defaultMode: 0400
         - name: pilot-dir
           emptyDir: {}
