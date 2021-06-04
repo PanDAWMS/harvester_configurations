@@ -6,10 +6,10 @@ metadata:
 spec:
   ttlSecondsAfterFinished: 172800
   backoffLimit: 0
-  # can use activeDeadlineSeconds to set a time limit (in job spec or pod spec)
   template:
     spec:
       restartPolicy: Never
+      terminationGracePeriodSeconds: 300
       containers:
         - name: job-container
           image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-centos7-localuser@sha256:317e213f2333567b1316f1c04dcd6427ed96bcdc127e63c4c71098b680fbcb97
