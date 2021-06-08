@@ -6,7 +6,6 @@ metadata:
 spec:
   ttlSecondsAfterFinished: 172800
   backoffLimit: 0
-  # can use activeDeadlineSeconds to set a time limit (in job spec or pod spec)
   template:
     spec:
       restartPolicy: Never
