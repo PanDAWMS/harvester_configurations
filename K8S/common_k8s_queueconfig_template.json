@@ -180,6 +180,7 @@
           "name": "K8sSubmitter",
           "module": "pandaharvester.harvestersubmitter.k8s_submitter",
           "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "proxySecretPathAnalysis":"/proxy/x509up_u25606_pilot",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
           "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
@@ -201,7 +202,8 @@
           "name": "K8sSecretCredManager",
           "k8s_namespace": "${common.k8s_namespace}",
           "k8s_config_file": "${common.k8s_config_file}",
-          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod"]
+          "proxy_files": ["/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+                          "/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot"]
         }
       ],
       "common": {
