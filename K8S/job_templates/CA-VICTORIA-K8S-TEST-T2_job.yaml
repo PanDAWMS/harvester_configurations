@@ -15,13 +15,13 @@ spec:
           image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-centos7-localuser@sha256:317e213f2333567b1316f1c04dcd6427ed96bcdc127e63c4c71098b680fbcb97
           volumeMounts:
             - name: cvmfs-atlas
-              mountPath: /cvmfs/atlas.cern.ch
+              mountPath: /cvmfs/atlas.cern.ch/repo
               readOnly: true
             - name: cvmfs-atlas-condb
-              mountPath: /cvmfs/atlas-condb.cern.ch
+              mountPath: /cvmfs/atlas-condb.cern.ch/repo
               readOnly: true
             - name: cvmfs-atlas-nightlies
-              mountPath: /cvmfs/atlas-nightlies.cern.ch
+              mountPath: /cvmfs/atlas-nightlies.cern.ch/repo
               readOnly: true
             - name: cvmfs-sft
               mountPath: /cvmfs/sft.cern.ch
@@ -71,15 +71,15 @@ spec:
       volumes:
         - name: cvmfs-atlas
           hostPath:
-            path: /cvmfs/atlas.cern.ch
+            path: /cvmfs/atlas.cern.ch/repo
             type: Directory
         - name: cvmfs-atlas-condb
           hostPath:
-            path: /cvmfs/atlas-condb.cern.ch
+            path: /cvmfs/atlas-condb.cern.ch/repo
             type: Directory
         - name: cvmfs-atlas-nightlies
           hostPath:
-            path: /cvmfs/atlas-nightlies.cern.ch
+            path: /cvmfs/atlas-nightlies.cern.ch/repo
             type: Directory
         - name: cvmfs-sft
           hostPath:
