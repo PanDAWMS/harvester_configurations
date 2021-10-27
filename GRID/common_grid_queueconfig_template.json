@@ -143,6 +143,9 @@
           "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "x509UserProxyAnalysis":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
+          "useAnalysisCredentials": true,
+          "tokenDir": "/cephfs/atlpan/harvester/tokens/ce/prod",
+          "tokenDirAnalysis": "/cephfs/atlpan/harvester/tokens/ce/pilot",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
@@ -673,6 +676,9 @@
           "templateFile":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d/htcondor-ce-intel_pilot2.sdf",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "x509UserProxyAnalysis":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
+          "useAnalysisCredentials": true,
+          "tokenDir": "/cephfs/atlpan/harvester/tokens/ce/prod",
+          "tokenDirAnalysis": "/cephfs/atlpan/harvester/tokens/ce/pilot",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
@@ -733,6 +739,9 @@
           "templateFile":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull.sdf.d/htcondor-ce-cern_pilot2.sdf",
           "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "x509UserProxyAnalysis":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
+          "useAnalysisCredentials": true,
+          "tokenDir": "/cephfs/atlpan/harvester/tokens/ce/prod",
+          "tokenDirAnalysis": "/cephfs/atlpan/harvester/tokens/ce/pilot",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
           "nProcesses":8
