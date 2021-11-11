@@ -22,6 +22,7 @@
           "name": "K8sSubmitter",
           "module": "pandaharvester.harvestersubmitter.k8s_submitter",
           "proxySecretPath":"/proxy/x509up_u25606_prod",
+          "proxySecretPathAnalysis":"/proxy/x509up_u25606_pilot",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
           "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
