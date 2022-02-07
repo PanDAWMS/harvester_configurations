@@ -780,6 +780,68 @@
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
       }
+  },
+  "Pilot_-j_unified_pull_ups":{
+    "isTemplateQueue": true,
+    "prodSourceLabel":"managed",
+    "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":10},
+    "nQueueLimitWorkerRatio":40,
+    "nQueueLimitWorkerMax":999999,
+    "nQueueLimitWorkerMin":100,
+    "maxWorkers":999999,
+    "maxNewWorkersPerCycle":75,
+    "mapType":"NoJob",
+    "runMode":"slave",
+    "truePilot":true,
+    "maxSubmissionAttempts":3,
+    "walltimeLimit":1209600,
+    "prefetchEvents":false,
+    "preparator":{
+        "name":"DummyPreparator",
+        "module":"pandaharvester.harvesterpreparator.dummy_preparator"
+    },
+    "submitter":{
+        "name":"HTCondorSubmitter",
+        "module":"pandaharvester.harvestersubmitter.htcondor_submitter",
+        "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
+        "useSpool":false,
+        "useAtlasGridCE":true,
+        "CEtemplateDir":"/cephfs/atlpan/harvester/harvester_common/htcondor_atlas-grid-ce_pull_-j_unified.sdf.d",
+        "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+        "x509UserProxyAnalysis":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
+        "tokenDir": "/cephfs/atlpan/harvester/tokens/ce/prod",
+        "tokenDirAnalysis": "/cephfs/atlpan/harvester/tokens/ce/pilot",
+        "logDir":"/data2/atlpan/condor_logs",
+        "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
+        "nProcesses":8
+    },
+    "workerMaker":{
+        "name":"SimpleWorkerMaker",
+        "module":"pandaharvester.harvesterworkermaker.simple_worker_maker",
+        "jobAttributesToUse":[
+            "nCore"
+        ],
+        "pilotTypeRandomWeightsPermille": {"RC": 10, "ALRB": 10, "PT": 10}
+    },
+    "messenger":{
+        "name":"SharedFileMessenger",
+        "module":"pandaharvester.harvestermessenger.shared_file_messenger",
+        "jobSpecFileFormat":"cgi",
+        "accessPoint":"/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+    },
+    "stager":{
+        "name":"DummyStager",
+        "module":"pandaharvester.harvesterstager.dummy_stager"
+    },
+    "monitor":{
+        "name":"HTCondorMonitor",
+        "module":"pandaharvester.harvestermonitor.htcondor_monitor",
+        "cancelUnknown":false
+    },
+    "sweeper":{
+        "name":"HTCondorSweeper",
+        "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+    }
   }
 
 }
