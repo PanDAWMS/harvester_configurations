@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../panda-bigmon-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../panda-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../panda-common" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../panda_logstash_config" vcs="Git" />
+  </component>
+</project>
