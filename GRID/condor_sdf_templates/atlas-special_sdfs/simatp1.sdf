@@ -1,0 +1,30 @@
+executable = {executableFile}
+arguments = -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {prodSourceLabel} -i {pilotType} {pilotPythonOption} -w generic --pilot-user ATLAS --url https://pandaserver.cern.ch {pilotDebugOption} --harvester-submit-mode PULL --allow-same-user=False {pilotResourceTypeOption} --pilotversion {pilotVersion} {pilotUrlOption} {pilotArgs}
+initialdir = {accessPoint}
+universe = grid
+log = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).log
+output = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).out
+error = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).err
+transfer_executable = True
+x509userproxy = {x509UserProxy}
+environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} APFMON=http://apfmon.lancs.ac.uk/api APFFID={harvesterID} APFCID=$(Cluster).$(Process)"
++harvesterID = "{harvesterID}"
+DelegateJobGSICredentialsLifetime = 0
+
+remote_universe = vanilla
+grid_resource = condor {ceHostname} {ceEndpoint}
++remote_jobuniverse = 5
++remote_ShouldTransferFiles = "YES"
++remote_WhenToTransferOutput = "ON_EXIT_OR_EVICT"
++remote_TransferOutput = ""
++remote_RequestCpus   = quantize({nCoreTotal}, 1)
++remote_RequestMemory = quantize({requestRam}, 128)
++remote_JobMaxVacateTime = {requestWalltime}
+
++remote_Requirements = ( TARGET.Arch == "X86_64" ) && ( TARGET.OpSys == "LINUX" ) && ( ( TARGET.HasFileTransfer ) || ( TARGET.FileSystemDomain == MY.FileSystemDomain ) ) && ( TARGET.Cpus >= RequestCpus ) && ( TARGET.Memory >= RequestMemory )
++remote_PeriodicRemove = (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 3600) || (JobStatus == 1 && globusstatus =!= 1 && (CurrentTime - EnteredCurrentStatus) > 172800) || (JobStatus == 1 && JobRunCount >= 1)
+
++ioIntensity = {ioIntensity}
++sdfPath = "{sdfPath}"
+
+queue 1
