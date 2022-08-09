@@ -12,7 +12,7 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
         - name: job-container
-          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-centos7-localuser:20220125
+          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-centos7-localuser:20220809
           volumeMounts:
             - name: cvmfs-atlas
               mountPath: /cvmfs/atlas.cern.ch/repo
