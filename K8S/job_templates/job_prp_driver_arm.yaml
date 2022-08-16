@@ -1,0 +1,85 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grid-job
+spec:
+  ttlSecondsAfterFinished: 172800
+  backoffLimit: 0
+  template:
+    metadata:
+       annotations:
+          cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    spec:
+      tolerations:
+      - key: "arm-processor"
+        operator: "Exists"
+        effect: "NoSchedule"
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      restartPolicy: Never
+      containers:
+        - name: atlas-grid-centos7
+          image: fbarreir/adc-centos8s-singularity:latest
+          securityContext:
+             allowPrivilegeEscalation: true
+             privileged: true
+          env:
+            - name: computingSite
+              value: "$computingSite"
+            - name: pandaQueueName
+              value: "$pandaQueueName"
+            - name: proxySecretPath
+              value: "$proxySecretPath"
+            - name: proxyContent
+              value: "$proxyContent"
+            - name: workerID
+              value: "$workerID"
+            - name: logs_frontend_w
+              value: "$logs_frontend_w"
+            - name: logs_frontend_r
+              value: "$logs_frontend_r"
+            - name: resourceType
+              value: "$resourceType"
+            - name: HARVESTER_WORKER_ID
+              value: "$HARVESTER_WORKER_ID"
+            - name: HARVESTER_ID
+              value: "$HARVESTER_ID"
+            - name: PANDA_JSID
+              value: "$PANDA_JSID"
+            - name: TMPDIR
+              value: "/pilotdir"
+            - name: PILOT_NOKILL
+              value: "True"
+            # - name: ALRB_rucioVersion
+            #  value: "1.25.5.post1"
+          command: ["/usr/bin/bash"]
+          args: ["-c", "cd; python3 $EXEC_DIR/pilots_starter.py || true"]
+          volumeMounts:
+            - name: cvmfs
+              mountPath: /cvmfs
+              readOnly: true
+              mountPropagation: HostToContainer
+            - name: proxy-secret
+              mountPath: /proxy
+            - name: pilot-dir
+              mountPath: /pilotdir
+          livenessProbe:
+            exec:
+              command:  # returns 0 if log changed less than 10 min ago, otherwise 1
+              - /bin/sh
+              - -c
+              - find /tmp/wrapper-wid.log -mmin -10 | egrep '.*'
+            initialDelaySeconds: 300
+            periodSeconds: 300
+            failureThreshold: 3
+      volumes:
+        - name: cvmfs
+          hostPath:
+            path: /var/lib/cvmfs-k8s
+            type: Directory
+        - name: proxy-secret
+          secret:
+              secretName: proxy-secret
+        - name: pilot-dir
+          emptyDir: {}

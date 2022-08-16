@@ -1,0 +1,113 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grid-job
+spec:
+  ttlSecondsAfterFinished: 172800
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: atlas-grid-centos7
+          securityContext:
+             allowPrivilegeEscalation: true
+             privileged: true
+             # runAsUser: 2001
+          # image: atlasadc/atlas-grid-centos7
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
+          env:
+            - name: computingSite
+              value: "$computingSite"
+            - name: pandaQueueName
+              value: "$pandaQueueName"
+            - name: proxySecretPath
+              value: "$proxySecretPath"
+            - name: proxyContent
+              value: "$proxyContent"
+            - name: workerID
+              value: "$workerID"
+            - name: logs_frontend_w
+              value: "$logs_frontend_w"
+            - name: logs_frontend_r
+              value: "$logs_frontend_r"
+            - name: resourceType
+              value: "$resourceType"
+            - name: HARVESTER_WORKER_ID
+              value: "$HARVESTER_WORKER_ID"
+            - name: HARVESTER_ID
+              value: "$HARVESTER_ID"
+            - name: PANDA_JSID
+              value: "$PANDA_JSID"
+            - name: TMPDIR
+              value: "/pilotdir"
+            - name: HOME
+              value: "/pilotdir"
+            - name: PILOT_NOKILL
+              value: "True"
+          # command: ["/usr/bin/bash"]
+          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py || true"]
+          volumeMounts:
+            - name: atlas
+              mountPath: /cvmfs/atlas.cern.ch
+              readOnly: true
+            - name: atlas-condb
+              mountPath: /cvmfs/atlas-condb.cern.ch
+              readOnly: true
+            - name: atlas-nightlies
+              mountPath: /cvmfs/atlas-nightlies.cern.ch
+              readOnly: true
+            - name: sft
+              mountPath: /cvmfs/sft.cern.ch
+              readOnly: true
+            - name: grid
+              mountPath: /cvmfs/grid.cern.ch
+              readOnly: true
+            - name: unpacked
+              mountPath: /cvmfs/unpacked.cern.ch
+              readOnly: true
+            - name: proxy-secret
+              mountPath: /proxy
+              readOnly: true
+            - name: pilot-dir
+              mountPath: /pilotdir
+          livenessProbe:
+            exec:
+              command:  # returns 0 if log changed less than 10 min ago, otherwise 1
+              - /bin/sh
+              - -c
+              - find /tmp/wrapper-wid.log -mmin -10 | egrep '.*'
+            initialDelaySeconds: 300
+            periodSeconds: 300
+            failureThreshold: 3
+      volumes:
+        - name: atlas
+          hostPath:
+            path: /cvmfs/atlas.cern.ch
+            type: Directory
+        - name: atlas-condb
+          hostPath:
+            path: /cvmfs/atlas-condb.cern.ch
+            type: Directory
+        - name: atlas-nightlies
+          hostPath:
+            path: /cvmfs/atlas-nightlies.cern.ch
+            type: Directory
+        - name: sft
+          hostPath:
+            path: /cvmfs/sft.cern.ch
+            type: Directory
+        - name: grid
+          hostPath:
+            path: /cvmfs/grid.cern.ch
+            type: Directory
+        - name: unpacked
+          hostPath:
+            path: /cvmfs/unpacked.cern.ch
+            type: Directory
+        - name: proxy-secret
+          secret:
+              secretName: proxy-secret
+        - name: pilot-dir
+          emptyDir: {}

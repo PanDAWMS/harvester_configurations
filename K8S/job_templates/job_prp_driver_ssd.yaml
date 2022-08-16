@@ -1,0 +1,78 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grid-job
+spec:
+  ttlSecondsAfterFinished: 172800
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: atlas-grid-centos7
+          # image: atlasadc/atlas-grid-centos7
+          # image: gitlab-registry.cern.ch/unpacked/sync/atlasadc/atlas-grid-centos7
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
+          securityContext:
+             allowPrivilegeEscalation: true
+             privileged: true
+          env:
+            - name: computingSite
+              value: "$computingSite"
+            - name: pandaQueueName
+              value: "$pandaQueueName"
+            - name: proxySecretPath
+              value: "$proxySecretPath"
+            - name: proxyContent
+              value: "$proxyContent"
+            - name: workerID
+              value: "$workerID"
+            - name: logs_frontend_w
+              value: "$logs_frontend_w"
+            - name: logs_frontend_r
+              value: "$logs_frontend_r"
+            - name: resourceType
+              value: "$resourceType"
+            - name: HARVESTER_WORKER_ID
+              value: "$HARVESTER_WORKER_ID"
+            - name: HARVESTER_ID
+              value: "$HARVESTER_ID"
+            - name: PANDA_JSID
+              value: "$PANDA_JSID"
+            - name: TMPDIR
+              value: "/pilotdir"
+            - name: PILOT_NOKILL
+              value: "True"
+            #- name: ALRB_rucioVersion
+            #  value: "1.25.5.post1"
+          # command: ["/usr/bin/bash"]
+          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py || true"]
+          volumeMounts:
+            - name: cvmfs
+              mountPath: /cvmfs
+              readOnly: true
+              mountPropagation: HostToContainer
+            - name: proxy-secret
+              mountPath: /proxy
+            - name: pilot-dir
+              mountPath: /pilotdir
+          livenessProbe:
+            exec:
+              command:  # returns 0 if log changed less than 10 min ago, otherwise 1
+              - /bin/sh
+              - -c
+              - "[ `df -h | grep cvmfs2 | wc -l` -eq 7 ] && find /tmp/wrapper-wid.log -mmin -10 | egrep '.*'"
+            initialDelaySeconds: 60
+            periodSeconds: 120
+            failureThreshold: 3
+      volumes:
+        - name: cvmfs
+          hostPath:
+            path: /var/lib/cvmfs-k8s
+            type: Directory
+        - name: proxy-secret
+          secret:
+              secretName: proxy-secret
+        - name: pilot-dir
+          emptyDir: {}
