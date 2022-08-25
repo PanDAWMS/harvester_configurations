@@ -18,32 +18,6 @@ spec:
           # image: atlasadc/atlas-grid-centos7
           image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
           env:
-            - name: computingSite
-              value: "$computingSite"
-            - name: pandaQueueName
-              value: "$pandaQueueName"
-            - name: proxySecretPath
-              value: "$proxySecretPath"
-            - name: proxyContent
-              value: "$proxyContent"
-            - name: workerID
-              value: "$workerID"
-            - name: logs_frontend_w
-              value: "$logs_frontend_w"
-            - name: logs_frontend_r
-              value: "$logs_frontend_r"
-            - name: resourceType
-              value: "$resourceType"
-            - name: HARVESTER_WORKER_ID
-              value: "$HARVESTER_WORKER_ID"
-            - name: HARVESTER_ID
-              value: "$HARVESTER_ID"
-            - name: PANDA_JSID
-              value: "$PANDA_JSID"
-            - name: TMPDIR
-              value: "/pilotdir"
-            - name: HOME
-              value: "/pilotdir"
             - name: PILOT_NOKILL
               value: "True"
           # command: ["/usr/bin/bash"]
