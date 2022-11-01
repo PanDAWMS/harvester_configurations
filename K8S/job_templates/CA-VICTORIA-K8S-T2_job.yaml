@@ -39,8 +39,8 @@ spec:
           env:
             - name: PILOT_NOKILL
               value: "True"
-          command: ["/usr/bin/bash"]
-          args: ["-c", "cd; wget https://pandaserver.cern.ch:25443/cache/k8s/pilots_starter --no-check-certificate; chmod 755 pilots_starter; ./pilots_starter"]
+          # command: ["/usr/bin/bash"]
+          # args: ["-c", "cd; wget https://pandaserver.cern.ch:25443/cache/k8s/pilots_starter --no-check-certificate; chmod 755 pilots_starter; ./pilots_starter"]
       volumes:
         - name: cvmfs-atlas
           hostPath:
