@@ -8,6 +8,8 @@ spec:
   backoffLimit: 0
   template:
     spec:
+      nodeSelector:
+        hyperconverged: "true"
       restartPolicy: Never
       priorityClassName: preemptable
       containers:
