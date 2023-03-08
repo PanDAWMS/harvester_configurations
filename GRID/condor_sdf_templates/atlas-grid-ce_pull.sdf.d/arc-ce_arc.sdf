@@ -18,7 +18,7 @@ arc_resources = <QueueName>{ceQueueName}</QueueName> \
                     <NumberOfSlots>{nCoreTotal}</NumberOfSlots> \
                     <SlotsPerHost>{nCoreTotal}</SlotsPerHost> \
                 </SlotRequirement> \
-                <IndividualPhysicalMemory>{requestRamBytes}</IndividualPhysicalMemory> \
+                <IndividualPhysicalMemory>{requestRamBytesPerCore}</IndividualPhysicalMemory> \
                 <WallTime>{requestWalltime}</WallTime> \
                 <TotalCPUTime>{requestCputime}</TotalCPUTime>
 
