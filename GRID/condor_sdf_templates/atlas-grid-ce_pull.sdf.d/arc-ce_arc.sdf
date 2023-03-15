@@ -11,9 +11,15 @@ environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HAR
 +harvesterID = "{harvesterID}"
 +harvesterWorkerID = "{workerID}"
 
-grid_resource = arc https://{ceEndpoint}/arex/rest/1.0
+grid_resource = arc {ceEndpoint}
 
 arc_resources = <QueueName>{ceQueueName}</QueueName> \
+                <RuntimeEnvironment> \
+                    <Name>APPS/HEP/ATLAS-SITE-LCG</Name> \
+                </RuntimeEnvironment> \
+                <RuntimeEnvironment> \
+                    <Name>ENV/PROXY</Name> \
+                </RuntimeEnvironment> \
                 <SlotRequirement> \
                     <NumberOfSlots>{nCoreTotal}</NumberOfSlots> \
                     <SlotsPerHost>{nCoreTotal}</SlotsPerHost> \
