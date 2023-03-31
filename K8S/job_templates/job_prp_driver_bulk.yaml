@@ -46,8 +46,8 @@ spec:
           env:
             - name: PILOT_NOKILL
               value: "True"
-            #- name: ALRB_rucioVersion
-            #  value: "1.25.5.post1"
+            - name: ALRB_rucioVersion
+              value: "1.30.8-fix1"
           # command: ["/usr/bin/bash"]
           # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py || true"]
           volumeMounts:
