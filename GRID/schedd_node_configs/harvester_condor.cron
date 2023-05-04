@@ -12,3 +12,9 @@ MAILTO="atlas-adc-harvester-central-support@cern.ch"
 
 # Kill old condor gridmanagers
 9 * * * * root /usr/bin/killall -o 1d -e 'condor_gridmanager'
+
+# Kill old arc_gahp to avoid OOM
+10 * * * * root /usr/bin/killall -o 8h -e '/usr/sbin/arc_gahp'
+
+# Clean up c-gahp crash files
+27 * * * * root /usr/bin/find /var/tmp/cores/ -type f -mtime +0 -name 'core.condor_c-gahp_w.*' -delete

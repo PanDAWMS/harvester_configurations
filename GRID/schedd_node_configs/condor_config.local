@@ -46,6 +46,7 @@ JOB_TRANSFORM_AddSDFCopied @=end
 # wrapper to override LD_LIBRARY_PATH
 #CREAM_GAHP = /usr/local/bin/cream_gahp_wrap.sh
 #NORDUGRID_GAHP = /usr/local/bin/nordugrid_gahp_wrap.sh
+ARC_GAHP = /usr/local/bin/arc_gahp_wrap.sh
 
 
 #GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = 3000
@@ -96,9 +97,9 @@ AUTH_SSL_CLIENT_KEYFILE = /etc/grid-security/hostkey.pem
 #SEC_DEFAULT_AUTHENTICATION = REQUIRED
 SEC_DEFAULT_AUTHENTICATION = OPTIONAL
 SEC_DEFAULT_INTEGRITY = REQUIRED
-SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, GSI
+SEC_DEFAULT_AUTHENTICATION_METHODS = CLAIMTOBE, FS, SSL
 #SEC_CLIENT_AUTHENTICATION_METHODS = PASSWORD, GSI, FS
-SEC_CLIENT_AUTHENTICATION_METHODS = GSI, FS
+SEC_CLIENT_AUTHENTICATION_METHODS = SSL, FS, SCITOKENS
 ALLOW_READ = */*, */*.cern.ch
 ALLOW_WRITE = $(FULL_HOSTNAME), atlpan/aipanda081.cern.ch, atlpan/aipanda083.cern.ch, atlpan/aipanda170.cern.ch, atlpan/aipanda171.cern.ch, atlpan/aipanda172.cern.ch, atlpan/aipanda173.cern.ch, atlpan/aipanda174.cern.ch, atlpan/aipanda175.cern.ch
 #ALLOW_DAEMON = condor_pool@$(UID_DOMAIN)/*.cern.ch
@@ -111,7 +112,8 @@ JOB_SPOOL_PERMISSIONS = world
 
 NEGOTIATOR_CONSIDER_PREEMPTION = false
 
-DELEGATE_JOB_GSI_CREDENTIALS_LIFETIME = 0
+#DELEGATE_JOB_GSI_CREDENTIALS_LIFETIME = 0
+DELEGATE_JOB_GSI_CREDENTIALS = false
 
 # Macros and Remove resaons
 J_Active = member(JobStatus, {1,2,5,6,7})
