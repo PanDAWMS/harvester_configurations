@@ -1,3 +1,6 @@
+# THIS FILE IS AUTOMATICALLY DISTRIBUTED BY PUPPET.  ANY CHANGES MAY BE OVERWRITTEN
+## Please make changes in https://github.com/PanDAWMS/harvester_configurations/tree/master/GRID/schedd_node_configs
+
 # Email
 MAILTO="atlas-adc-harvester-central-support@cern.ch"
 
