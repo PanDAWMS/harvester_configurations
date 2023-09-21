@@ -39,7 +39,7 @@ spec:
       volumes:
         - name: cvmfs
           hostPath:
-            path: /srv/cvmfs
+            path: /opt/cvmfs
             type: Directory
         - name: proxy-secret
           secret:
