@@ -12,9 +12,9 @@ spec:
       containers:
         - name: atlas-grid-centos7
           image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
-          securityContext:
-             allowPrivilegeEscalation: true
-             privileged: true
+          #securityContext:
+          #   allowPrivilegeEscalation: true
+          #   privileged: true
           env:
             - name: PILOT_NOKILL
               value: "True"
