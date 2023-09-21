@@ -9,6 +9,7 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      serviceAccountName: harvester-service-account
       containers:
         - name: atlas-grid-centos7
           image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
@@ -39,7 +40,7 @@ spec:
       volumes:
         - name: cvmfs
           hostPath:
-            path: /srv/cvmfs
+            path: /opt/cvmfs
             type: Directory
         - name: proxy-secret
           secret:
