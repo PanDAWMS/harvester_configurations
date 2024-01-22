@@ -783,6 +783,70 @@
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
       }
+  },
+  
+  "cloudscheduler.pull_ups": {
+    "isTemplateQueue": true,
+    "prodSourceLabel": "managed",
+    "prodSourceLabelRandomWeightsPermille": {"ptest":10, "rc_test":10, "rc_test2":100, "rc_alrb":10},
+    "nQueueLimitWorkerRatio": 50,
+    "nQueueLimitWorkerMin": 100,
+    "maxWorkers": 100000,
+    "maxNewWorkersPerCycle": 100,
+    "mapType": "NoJob",
+    "runMode": "slave",
+    "truePilot": true,
+    "maxSubmissionAttempts": 3,
+    "walltimeLimit": 1209600,
+    "prefetchEvents": false,
+    "preparator": {
+      "name": "DummyPreparator",
+      "module": "pandaharvester.harvesterpreparator.dummy_preparator"
+    },
+    "submitter": {
+      "name": "HTCondorSubmitter",
+      "module": "pandaharvester.harvestersubmitter.htcondor_submitter",
+      "useSpool": false,
+      "useAtlasGridCE": false,
+      "useCRIC": true,
+      "templateFile":"/cephfs/atlpan/harvester/harvester_configurations/GRID/condor_sdf_templates/atlas-special_sdfs/cloudscheduler_pull.sdf",
+      "x509UserProxy":"/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
+      "x509UserProxyAnalysis":"/cephfs/atlpan/harvester/proxy/x509up_u25606_pilot",
+      "logDir": "/data2/atlpan/condor_logs",
+      "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
+      "nProcesses": 8
+    },
+    "workerMaker": {
+      "name": "SimpleWorkerMaker",
+      "module": "pandaharvester.harvesterworkermaker.simple_worker_maker",
+      "jobAttributesToUse": [
+        "nCore"
+      ],
+      "pilotTypeRandomWeightsPermille": {
+        "RC": 10,
+        "ALRB": 10,
+        "PT": 10
+      }
+    },
+    "messenger": {
+      "name": "SharedFileMessenger",
+      "module": "pandaharvester.harvestermessenger.shared_file_messenger",
+      "jobSpecFileFormat": "cgi",
+      "accessPoint": "/cephfs/atlpan/harvester/harvester_wdirs/${harvesterID}/${_workerID_3.2}/${_workerID_1.0}/${workerID}"
+    },
+    "stager": {
+      "name": "DummyStager",
+      "module": "pandaharvester.harvesterstager.dummy_stager"
+    },
+    "monitor": {
+      "name": "HTCondorMonitor",
+      "module": "pandaharvester.harvestermonitor.htcondor_monitor",
+      "cancelUnknown": false
+    },
+    "sweeper": {
+      "name": "HTCondorSweeper",
+      "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    }
   }
 
 }
