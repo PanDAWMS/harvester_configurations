@@ -1,0 +1,30 @@
+executable = /cvmfs/atlas.cern.ch/repo/sw/PandaPilotWrapper/latest/runpilot2-wrapper.sh
+arguments = -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {pilotJobLabel} -i {pilotType} {pilotPythonOption} -w generic --pilot-user ATLAS --url https://pandaserver.cern.ch --shoal -d --harvester-submit-mode PULL --allow-same-user=False --job-type={pilotJobType} {pilotResourceTypeOption} --pilotversion {pilotVersion} {pilotUrlOption} {pilotArgs}
+initialdir = {accessPoint}
+universe = grid
+log = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).log
+output = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).out
+error = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).err
+transfer_executable = True
+x509userproxy = {x509UserProxy}
+environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} APFMON=http://apfmon.lancs.ac.uk/api APFFID={harvesterID} APFCID=$(Cluster).$(Process)"
++harvesterID = "{harvesterID}"
++harvesterWorkerID = "{workerID}"
+
+grid_resource = condor {ceHostname} {ceEndpoint}
++remote_jobuniverse = 5
++remote_ShouldTransferFiles = "YES"
++remote_WhenToTransferOutput = "ON_EXIT_OR_EVICT"
++remote_TransferOutput = ""
++remote_RequestCpus = {nCoreTotal}
++remote_RequestMemory = {requestRam}
+queue_name = "{ceQueueName}"
++remote_Requirements = ( group_name == "{ceQueueName}" ) && ( target_alias == toLower("{computingSite}") ) && ( TARGET.Cpus >= RequestCpus ) && ( TARGET.Memory >= RequestMemory ) && ( TARGET.HasFileTransfer )
++remote_PeriodicRemove = (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 3600) || (JobStatus == 1 && globusstatus =!= 1 && (CurrentTime - EnteredCurrentStatus) > 180000)
+
+delegate_job_GSI_credentials_lifetime = 0
+
++sdfPath = "{sdfPath}"
+
+queue 1
+
