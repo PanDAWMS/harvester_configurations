@@ -806,6 +806,7 @@
     "submitter": {
       "name": "HTCondorSubmitter",
       "module": "pandaharvester.harvestersubmitter.htcondor_submitter",
+      "condorHostConfig": "/opt/harvester/etc/panda/condor_host_config.json",
       "useSpool": false,
       "useAtlasGridCE": false,
       "useCRIC": true,
