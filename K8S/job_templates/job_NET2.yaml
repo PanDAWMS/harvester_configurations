@@ -30,13 +30,13 @@ spec:
               mountPath: /pilotdir
           livenessProbe:
             exec:
-              command:  # returns 0 if log changed less than 10 min ago, otherwise 1
+              command:  # returns 0 if log changed less than 5 min ago, otherwise 1
               - /bin/sh
               - -c
-              - find /tmp/wrapper-wid.log -mmin -10 | egrep '.*'
+              - find /tmp/wrapper-wid.log -mmin -5 | egrep '.*'
             initialDelaySeconds: 300
             periodSeconds: 300
-            failureThreshold: 3
+            failureThreshold: 2
       volumes:
         - name: cvmfs
           hostPath:
