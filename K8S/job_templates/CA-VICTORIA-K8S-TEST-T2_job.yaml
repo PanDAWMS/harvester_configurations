@@ -11,7 +11,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: job-container
-          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-centos7-localuser:20230207
+          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240124
           volumeMounts:
             - name: cvmfs-atlas
               mountPath: /cvmfs/atlas.cern.ch/repo
