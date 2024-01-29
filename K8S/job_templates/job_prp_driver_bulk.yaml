@@ -39,7 +39,8 @@ spec:
         - name: atlas-grid-centos7
           # image: atlasadc/atlas-grid-centos7
           # image: gitlab-registry.cern.ch/unpacked/sync/atlasadc/atlas-grid-centos7
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
+          # image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
+          image: us-central1-docker.pkg.dev/atlas-panda-prod/panda-us-central1/adc-centos7-singularity:work
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true
