@@ -57,6 +57,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "production.pull":{
@@ -116,6 +119,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "production.pull_ups":{
@@ -178,6 +184,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "analysis.push":{
@@ -238,6 +247,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "analysis.pull":{
@@ -297,6 +309,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "analysis.pull_ups":{
@@ -357,6 +372,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
 
@@ -417,6 +435,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
 
@@ -478,6 +499,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "US_analysis_pull":{
@@ -537,6 +561,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "US_analysis_pull_ups":{
@@ -597,6 +624,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
 
@@ -658,6 +688,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "US_production_pull_intel":{
@@ -720,6 +753,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   "CERN_production_pull_ups":{
@@ -782,6 +818,9 @@
       "sweeper":{
           "name":"HTCondorSweeper",
           "module":"pandaharvester.harvestersweeper.htcondor_sweeper"
+      },
+      "common": {
+          "payloadType": "atlas_pilot_wrapper"
       }
   },
   
@@ -846,6 +885,9 @@
     "sweeper": {
       "name": "HTCondorSweeper",
       "module": "pandaharvester.harvestersweeper.htcondor_sweeper"
+    },
+    "common": {
+        "payloadType": "atlas_pilot_wrapper"
     }
   }
 
