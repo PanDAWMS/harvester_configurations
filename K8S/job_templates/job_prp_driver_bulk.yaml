@@ -35,6 +35,26 @@ spec:
                   - MCORE_HIMEM
               topologyKey: kubernetes.io/hostname
             weight: 100
+      initContainers:
+        - name: init-cvmfs-check
+          image: busybox
+          command:
+            - 'sh'
+            - '-c'
+            - >
+              until [ -d "/cvmfs/atlas.cern.ch" ] && 
+              [ -d "/cvmfs/atlas-condb.cern.ch" ] && 
+              [ -d "/cvmfs/atlas-nightlies.cern.ch" ] && 
+              [ -d "/cvmfs/grid.cern.ch" ] && 
+              [ -d "/cvmfs/sft.cern.ch" ] && 
+              [ -d "/cvmfs/sft-nightlies.cern.ch" ] && 
+              [ -d "/cvmfs/unpacked.cern.ch" ]; 
+              do echo "Waiting for CVMFS to mount"; sleep 5; done;
+          volumeMounts:
+            - name: cvmfs
+              mountPath: /cvmfs
+              readOnly: true
+              mountPropagation: HostToContainer
       containers:
         - name: atlas-grid-centos7
           # image: atlasadc/atlas-grid-centos7
