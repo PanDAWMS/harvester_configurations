@@ -10,17 +10,17 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: atlas-grid-alma9
+        - name: atlas-grid-centos7
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true
              # runAsUser: 2001
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
           env:
             - name: PILOT_NOKILL
               value: "True"
-          # command: ["/usr/bin/bash"]
-          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py || true"]
+          command: [ "/usr/bin/bash" ]
+          args: [ "-c", "cd; python $EXEC_DIR/pilots_starter.py || true" ]
           volumeMounts:
             - name: atlas
               mountPath: /cvmfs/atlas.cern.ch
