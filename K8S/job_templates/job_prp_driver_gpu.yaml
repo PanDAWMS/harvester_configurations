@@ -10,11 +10,11 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: atlas-grid-centos7
+        - name: atlas-grid-alma9
           resources:
             limits:
               nvidia.com/gpu: 1
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true

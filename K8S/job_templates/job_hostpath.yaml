@@ -10,13 +10,12 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: atlas-grid-centos7
+        - name: atlas-grid-alma9
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true
              # runAsUser: 2001
-          # image: atlasadc/atlas-grid-centos7
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
           env:
             - name: PILOT_NOKILL
               value: "True"
