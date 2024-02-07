@@ -25,7 +25,7 @@
           "proxySecretPathAnalysis":"/proxy/x509up_u25606_pilot",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -113,7 +113,7 @@
           "proxySecretPath":"/proxy/x509up_u25606_prod",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -185,7 +185,7 @@
           "proxySecretPathAnalysis":"/proxy/x509up_u25606_pilot",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -255,7 +255,7 @@
           "proxySecretPath":"/proxy/x509up_u25606_prod",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -325,7 +325,7 @@
           "proxySecretPath":"/proxy/x509up_u25606_prod",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -396,7 +396,7 @@
           "proxySecretPath":"/proxy/x509up_u25606_prod",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
@@ -467,7 +467,7 @@
           "proxySecretPath":"/proxy/x509up_u25606_prod",
           "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
           "logDir": "/var/log/harvester/k8s_logs_t2",
-          "logBaseURL": "https://aipanda047.cern.ch:25443/cache",
+          "logBaseURL": "https://aipanda117.cern.ch:25443/cache",
           "cpuAdjustRatio": 90,
           "memoryAdjustRatio": 100,
           "nProcesses": 4
