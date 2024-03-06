@@ -22,7 +22,7 @@ spec:
             #- name: ALRB_rucioVersion
             #  value: "1.25.5.post1"
           # command: ["/usr/bin/bash"]
-          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py || true"]
+          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py"]
           volumeMounts:
             - name: cvmfs
               mountPath: /cvmfs

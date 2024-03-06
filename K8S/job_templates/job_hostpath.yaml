@@ -20,7 +20,7 @@ spec:
             - name: PILOT_NOKILL
               value: "True"
           command: [ "/usr/bin/bash" ]
-          args: [ "-c", "cd; python $EXEC_DIR/pilots_starter.py || true" ]
+          args: [ "-c", "cd; python $EXEC_DIR/pilots_starter.py" ]
           volumeMounts:
             - name: atlas
               mountPath: /cvmfs/atlas.cern.ch

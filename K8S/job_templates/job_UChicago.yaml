@@ -22,7 +22,7 @@ spec:
             - name: PILOT_NOKILL
               value: "True"
           # command: ["/usr/bin/bash"]
-          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py || true"]
+          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py"]
           volumeMounts:
             - name: atlas
               mountPath: /cvmfs/atlas.cern.ch
