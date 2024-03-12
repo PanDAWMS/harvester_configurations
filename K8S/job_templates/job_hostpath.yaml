@@ -34,9 +34,9 @@ spec:
             - name: sft
               mountPath: /cvmfs/sft.cern.ch
               readOnly: true
-            - name: sft-nightlies
-              mountPath: /cvmfs/sft-nightlies.cern.ch
-              readOnly: true  
+            # - name: sft-nightlies
+            #  mountPath: /cvmfs/sft-nightlies.cern.ch
+            #  readOnly: true
             - name: grid
               mountPath: /cvmfs/grid.cern.ch
               readOnly: true
@@ -74,10 +74,10 @@ spec:
           hostPath:
             path: /cvmfs/sft.cern.ch
             type: Directory
-        - name: sft-nightlies
-          hostPath:
-            path: /cvmfs/sft-nightlies.cern.ch
-            type: Directory            
+        #- name: sft-nightlies
+        #  hostPath:
+        #    path: /cvmfs/sft-nightlies.cern.ch
+        #    type: Directory
         - name: grid
           hostPath:
             path: /cvmfs/grid.cern.ch
