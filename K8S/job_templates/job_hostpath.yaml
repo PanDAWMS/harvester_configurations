@@ -9,6 +9,8 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      securityContext:
+          fsGroup: 1000
       containers:
         - name: atlas-grid-centos7
           securityContext:
@@ -89,5 +91,6 @@ spec:
         - name: proxy-secret
           secret:
               secretName: proxy-secret
+              defaultMode: 0400
         - name: pilot-dir
           emptyDir: {}
