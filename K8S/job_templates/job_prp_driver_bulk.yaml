@@ -51,8 +51,6 @@ spec:
               mountPropagation: HostToContainer
       containers:
         - name: atlas-grid-alma9
-          # image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-centos7-singularity:work
-          # image: us-central1-docker.pkg.dev/atlas-panda-prod/panda-us-central1/adc-centos7-singularity:work
           image: us-central1-docker.pkg.dev/atlas-panda-prod/panda-us-central1/adc-alma9:latest
           securityContext:
              allowPrivilegeEscalation: true
@@ -60,10 +58,6 @@ spec:
           env:
             - name: PILOT_NOKILL
               value: "True"
-            # - name: ALRB_rucioVersion
-            #  value: "1.30.8-fix1"
-          # command: ["/usr/bin/bash"]
-          # args: ["-c", "cd; wget https://raw.githubusercontent.com/HSF/harvester/master/pandaharvester/harvestercloud/pilots_starter.py; chmod 755 pilots_starter.py; ./pilots_starter.py"]
           volumeMounts:
             - name: cvmfs
               mountPath: /cvmfs
