@@ -12,14 +12,8 @@ spec:
           cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
     spec:
       restartPolicy: Never
-      #tolerations:
-      #- key: bulk
-      #  operator: Equal
-      #  value: "True"
-      #  effect: NoSchedule
-      #nodeSelector:
-      #  bulk: "True"
-        # preemptible: "True"
+      securityContext:
+        fsGroup: 1000
       affinity:
         podAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -95,6 +89,7 @@ spec:
             type: Directory
         - name: proxy-secret
           secret:
-              secretName: proxy-secret
+            secretName: proxy-secret
+            defaultMode: 0400
         - name: pilot-dir
           emptyDir: {}
