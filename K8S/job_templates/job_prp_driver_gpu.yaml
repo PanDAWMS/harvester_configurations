@@ -9,6 +9,8 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: atlas-grid-alma9
           resources:
@@ -52,6 +54,7 @@ spec:
             type: Directory
         - name: proxy-secret
           secret:
-              secretName: proxy-secret
+            secretName: proxy-secret
+            defaultMode: 0400
         - name: pilot-dir
           emptyDir: {}

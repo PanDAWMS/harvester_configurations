@@ -9,6 +9,8 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
       serviceAccountName: harvester-service-account
       containers:
         - name: atlas-grid-alma9
@@ -44,7 +46,8 @@ spec:
             type: Directory
         - name: proxy-secret
           secret:
-              secretName: proxy-secret
+            secretName: proxy-secret
+            defaultMode: 0400
         - name: pilot-dir
           emptyDir: {}
 

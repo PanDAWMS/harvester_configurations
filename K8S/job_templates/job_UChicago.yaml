@@ -11,6 +11,8 @@ spec:
       nodeSelector:
         hyperconverged: "true"
       restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
       priorityClassName: preemptable
       containers:
         - name: atlas-grid-alma9
@@ -83,7 +85,8 @@ spec:
             type: Directory
         - name: proxy-secret
           secret:
-              secretName: proxy-secret
+            secretName: proxy-secret
+            defaultMode: 0400
         - name: pilot-dir
           hostPath:
             path: /scratch/panda

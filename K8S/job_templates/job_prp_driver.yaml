@@ -9,6 +9,8 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: atlas-grid-alma9
           image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
@@ -45,5 +47,6 @@ spec:
             type: Directory
         - name: proxy-secret
           secret:
-              secretName: proxy-secret
+            secretName: proxy-secret
+            defaultMode: 0400
 

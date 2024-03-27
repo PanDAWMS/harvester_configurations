@@ -18,6 +18,8 @@ spec:
       nodeSelector:
         kubernetes.io/arch: arm64
       restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
       containers:
         - name: atlas-grid-centos9s
           image: fbarreir/adc-centos9s-singularity:latest
@@ -56,6 +58,7 @@ spec:
             type: Directory
         - name: proxy-secret
           secret:
-              secretName: proxy-secret
+            secretName: proxy-secret
+            defaultMode: 0400
         - name: pilot-dir
           emptyDir: {}

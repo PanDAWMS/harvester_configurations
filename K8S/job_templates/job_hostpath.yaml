@@ -10,7 +10,7 @@ spec:
     spec:
       restartPolicy: Never
       securityContext:
-          fsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: atlas-grid-centos7
           securityContext:
