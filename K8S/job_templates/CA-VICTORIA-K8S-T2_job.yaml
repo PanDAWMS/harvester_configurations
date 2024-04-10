@@ -39,8 +39,8 @@ spec:
           env:
             - name: PILOT_NOKILL
               value: "True"
-          command: ["/usr/bin/bash"]
-          args: ["-c", "cd; export XRD_LOGLEVEL=Debug; python3 $EXEC_DIR/pilots_starter.py || true"]
+          # command: ["/usr/bin/bash"]
+          # args: ["-c", "cd; python3 $EXEC_DIR/pilots_starter.py || true"]
       volumes:
         - name: cvmfs-atlas
           hostPath:
