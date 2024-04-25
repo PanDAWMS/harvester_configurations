@@ -11,6 +11,11 @@ spec:
        annotations:
           cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
     spec:
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: arm64
       restartPolicy: Never
       securityContext:
         fsGroup: 1000
