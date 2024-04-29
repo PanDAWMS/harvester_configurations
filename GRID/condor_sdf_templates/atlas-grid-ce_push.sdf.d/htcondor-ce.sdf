@@ -37,5 +37,8 @@ periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 6048
 +sdfPath = "{sdfPath}"
 +ScitokensFile = "{tokenPath}"
 
++RequireGPUs = {requireGpus}
++RequestGPUs = {requestGpus}
+
 queue 1
 
