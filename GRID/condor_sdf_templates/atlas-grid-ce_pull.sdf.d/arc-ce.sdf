@@ -7,12 +7,28 @@ output = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).out
 error = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).err
 transfer_executable = True
 x509userproxy = {x509UserProxy}
-environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} APFMON=http://apfmon.lancs.ac.uk/api APFFID={harvesterID} APFCID=$(Cluster).$(Process)"
+environment = "PANDA_JSID=harvester-{harvesterID} HARVESTER_ID={harvesterID} HARVESTER_WORKER_ID={workerID} GTAG={gtag} APFMON=http://apfmon.lancs.ac.uk/api APFFID={harvesterID} APFCID=$(Cluster).$(Process)"
 +harvesterID = "{harvesterID}"
 +harvesterWorkerID = "{workerID}"
 
-grid_resource = nordugrid {ceHostname}
-nordugrid_rsl = (queue = {ceQueueName})(runtimeenvironment = APPS/HEP/ATLAS-SITE-LCG)(runtimeenvironment = ENV/PROXY)(jobname = arc_pilot)(count = {nCoreTotal})(countpernode = {nCoreTotal})(memory = {requestRamPerCore})(walltime = {requestWalltime})(cputime = {requestCputime})(environment = (PANDA_JSID harvester-{harvesterID})(HARVESTER_ID {harvesterID})(HARVESTER_WORKER_ID {workerID})(GTAG {gtag})(APFMON http://apfmon.lancs.ac.uk/api)(APFFID {harvesterID})(APFCID $(Cluster).$(Process)))
+grid_resource = arc {ceEndpoint}
+
+arc_resources = <QueueName>{ceQueueName}</QueueName> \
+                <RuntimeEnvironment> \
+                    <Name>APPS/HEP/ATLAS-SITE-LCG</Name> \
+                </RuntimeEnvironment> \
+                <RuntimeEnvironment> \
+                    <Name>ENV/PROXY</Name> \
+                </RuntimeEnvironment> \
+                <SlotRequirement> \
+                    <NumberOfSlots>{nCoreTotal}</NumberOfSlots> \
+                    <SlotsPerHost>{nCoreTotal}</SlotsPerHost> \
+                </SlotRequirement> \
+                <IndividualPhysicalMemory>{requestRamBytesPerCore}</IndividualPhysicalMemory> \
+                <WallTime>{requestWalltime}</WallTime> \
+                <TotalCPUTime>{requestCputime}</TotalCPUTime>
+
+arc_rte = APPS/HEP/ATLAS-SITE-LCG,ENV/PROXY
 
 +remote_jobuniverse = 5
 +remote_requirements = True
