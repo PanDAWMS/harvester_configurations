@@ -49,7 +49,4 @@ periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 6048
 
 +sdfPath = "{sdfPath}"
 
-+RequireGPUs = {requireGpus}
-+RequestGPUs = {requestGpus}
-
 queue 1
