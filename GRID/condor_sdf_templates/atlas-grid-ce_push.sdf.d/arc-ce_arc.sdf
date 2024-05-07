@@ -51,6 +51,4 @@ periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 6048
 
 +sdfPath = "{sdfPath}"
 
-{customSubmitAttributes}
-
 queue 1
