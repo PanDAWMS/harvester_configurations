@@ -40,5 +40,7 @@ periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 6048
 +RequireGPUs = {requireGpus}
 +RequestGPUs = {requestGpus}
 
+{customSubmitAttributes}
+
 queue 1
 
