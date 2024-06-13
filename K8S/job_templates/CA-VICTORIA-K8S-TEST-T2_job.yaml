@@ -12,6 +12,18 @@ spec:
       containers:
         - name: job-container
           image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240124
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            runAsNonRoot: true
+            runAsGroup: 10000
+            runAsUser: 10000
+            readOnlyRootFilesystem: true
+            seccompProfile: 
+              type: Unconfined
           volumeMounts:
             - name: cvmfs-atlas
               mountPath: /cvmfs/atlas.cern.ch/repo
