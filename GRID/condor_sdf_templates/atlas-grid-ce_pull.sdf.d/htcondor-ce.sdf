@@ -1,5 +1,5 @@
 executable = /cvmfs/atlas.cern.ch/repo/sw/PandaPilotWrapper/latest/runpilot2-wrapper.sh
-arguments = -s {computingSite} -r {computingSite} -q {pandaQueueName} -j {pilotJobLabel} -i {pilotType} {pilotPythonOption} -w generic --pilot-user ATLAS --url https://pandaserver.cern.ch {pilotDebugOption} --harvester-submit-mode PULL --allow-same-user=False --job-type={pilotJobType} {pilotResourceTypeOption} --pilotversion {pilotVersion} {pilotUrlOption} {pilotArgs}
+arguments = "-s {computingSite} -r {computingSite} -q {pandaQueueName} -j {pilotJobLabel} -i {pilotType} {pilotPythonOption} -w generic --pilot-user ATLAS --url https://pandaserver.cern.ch {pilotDebugOption} --harvester-submit-mode PULL --allow-same-user=False --job-type={pilotJobType} {pilotResourceTypeOption} --pilotversion {pilotVersion} {pilotUrlOption} {pilotArgs}"
 initialdir = {accessPoint}
 universe = grid
 log = {logDir}/{logSubdir}/grid.$(Cluster).$(Process).log
