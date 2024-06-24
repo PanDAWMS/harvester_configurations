@@ -77,7 +77,7 @@ spec:
               command:  # returns 0 if log changed less than 10 min ago, otherwise 1
               - /bin/sh
               - -c
-              - "[ `df -h | grep cvmfs2 | wc -l` -eq 7 ] && find /tmp/wrapper-wid.log -mmin -10 | egrep '.*'"
+              - "[ `df -h | grep cvmfs2 | wc -l` -eq 7 ] && find ${TMPDIR:-/tmp}/wrapper-wid.log -mmin -10 | egrep '.*'"
             initialDelaySeconds: 60
             periodSeconds: 120
             failureThreshold: 3
