@@ -21,7 +21,6 @@ spec:
             runAsNonRoot: true
             runAsGroup: 10000
             runAsUser: 10000
-            readOnlyRootFilesystem: true
             seccompProfile: 
               type: Unconfined
           volumeMounts:
