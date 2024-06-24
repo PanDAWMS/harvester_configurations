@@ -17,7 +17,7 @@ spec:
              allowPrivilegeEscalation: true
              privileged: true
              # runAsUser: 2001
-          image: gitlab-registry:cern.ch/panda/harvester-k8s-images/adc-alma9:latest
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
           env:
             - name: PILOT_NOKILL
               value: "True"
