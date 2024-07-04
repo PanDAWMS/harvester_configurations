@@ -11,7 +11,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: job-container
-          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240124
+          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240704
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
