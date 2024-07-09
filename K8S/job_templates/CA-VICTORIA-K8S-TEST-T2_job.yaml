@@ -9,6 +9,13 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
+        seccompProfile:
+          type: Unconfined
       containers:
         - name: job-container
           image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240704
@@ -17,12 +24,7 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
-              - ALL
-            runAsNonRoot: true
-            runAsGroup: 10000
-            runAsUser: 10000
-            seccompProfile: 
-              type: Unconfined
+                - ALL
           volumeMounts:
             - name: cvmfs-atlas
               mountPath: /cvmfs/atlas.cern.ch/repo
