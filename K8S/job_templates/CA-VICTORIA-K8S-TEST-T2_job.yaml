@@ -25,7 +25,7 @@ spec:
                 operator: DoesNotExist
       containers:
         - name: job-container
-          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240704
+          image: git.computecanada.ca:4567/rptaylor/misc/atlas-grid-almalinux9-localuser:20240830
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
