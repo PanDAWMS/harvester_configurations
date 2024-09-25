@@ -1,0 +1,98 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grid-job
+spec:
+  ttlSecondsAfterFinished: 172800
+  backoffLimit: 0
+  template:
+    metadata:
+       annotations:
+          cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    spec:
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: arm64
+      - effect: NoSchedule
+        key: xxl
+        operator: Equal
+        value: "True"
+      restartPolicy: Never
+      securityContext:
+        fsGroup: 1000
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: resourceType
+                  operator: In
+                  values:
+                  - SCORE
+                  - SCORE_HIMEM
+                  - MCORE
+                  - MCORE_HIMEM
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      initContainers:
+        - name: init-cvmfs-check
+          image: busybox
+          command:
+            - 'sh'
+            - '-c'
+            - >
+              until [ -d "/cvmfs/atlas.cern.ch" ] && 
+              [ -d "/cvmfs/atlas-condb.cern.ch" ] && 
+              [ -d "/cvmfs/atlas-nightlies.cern.ch" ] && 
+              [ -d "/cvmfs/grid.cern.ch" ] && 
+              [ -d "/cvmfs/sft.cern.ch" ] && 
+              [ -d "/cvmfs/sft-nightlies.cern.ch" ] && 
+              [ -d "/cvmfs/unpacked.cern.ch" ]; 
+              do echo "Waiting for CVMFS to mount"; sleep 5; done;
+          volumeMounts:
+            - name: cvmfs
+              mountPath: /cvmfs
+              readOnly: true
+              mountPropagation: HostToContainer
+      containers:
+        - name: atlas-grid-alma9
+          image: us-central1-docker.pkg.dev/atlas-panda-prod/panda-us-central1/adc-alma9:latest
+          securityContext:
+             allowPrivilegeEscalation: true
+             privileged: true
+          env:
+            - name: PILOT_NOKILL
+              value: "True"
+          volumeMounts:
+            - name: cvmfs
+              mountPath: /cvmfs
+              readOnly: true
+              mountPropagation: HostToContainer
+            - name: proxy-secret
+              mountPath: /proxy
+            - name: pilot-dir
+              mountPath: /pilotdir
+          livenessProbe:
+            exec:
+              command:  # returns 0 if log changed less than 10 min ago, otherwise 1
+              - /bin/sh
+              - -c
+              - "[ `df -h | grep cvmfs2 | wc -l` -eq 7 ] && find ${TMPDIR:-/tmp}/wrapper-wid.log -mmin -10 | egrep '.*'"
+            initialDelaySeconds: 60
+            periodSeconds: 120
+            failureThreshold: 3
+      volumes:
+        - name: cvmfs
+          hostPath:
+            path: /var/lib/cvmfs-k8s
+            type: Directory
+        - name: proxy-secret
+          secret:
+            secretName: proxy-secret
+            defaultMode: 0400
+        - name: pilot-dir
+          emptyDir: {}
