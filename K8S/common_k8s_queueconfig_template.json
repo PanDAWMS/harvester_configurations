@@ -26,6 +26,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "proxySecretPathAnalysis": "/proxy/x509up_u25606_pilot",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
@@ -129,6 +130,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
       "logDir": "/var/log/harvester/k8s_logs_t2",
@@ -215,6 +217,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "proxySecretPathAnalysis": "/proxy/x509up_u25606_pilot",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
@@ -297,6 +300,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
       "logDir": "/var/log/harvester/k8s_logs_t2",
@@ -382,6 +386,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
       "logDir": "/var/log/harvester/k8s_logs_t2",
@@ -468,6 +473,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
       "logDir": "/var/log/harvester/k8s_logs_t2",
@@ -553,6 +559,7 @@
     "submitter": {
       "name": "K8sSubmitter",
       "module": "pandaharvester.harvestersubmitter.k8s_submitter",
+      "tokenDir": "/proxy/",
       "proxySecretPath": "/proxy/x509up_u25606_prod",
       "x509UserProxy": "/cephfs/atlpan/harvester/proxy/x509up_u25606_prod",
       "logDir": "/var/log/harvester/k8s_logs_t2",
