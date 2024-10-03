@@ -13,7 +13,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: atlas-grid-alma9
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:20241003
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true

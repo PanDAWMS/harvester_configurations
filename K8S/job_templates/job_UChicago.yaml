@@ -19,7 +19,7 @@ spec:
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:20241003
           env:
             - name: PILOT_NOKILL
               value: "True"
