@@ -14,7 +14,8 @@ spec:
       serviceAccountName: harvester-service-account
       containers:
         - name: atlas-grid-alma9
-          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:latest
+          image: gitlab-registry.cern.ch/panda/harvester-k8s-images/adc-alma9:20241003
+          imagePullPolicy: IfNotPresent
           securityContext:
              allowPrivilegeEscalation: true
              privileged: true
