@@ -138,7 +138,7 @@
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":100,
       "maxWorkers":999999,
-      "maxNewWorkersPerCycle":75,
+      "maxNewWorkersPerCycle":150,
       "mapType":"NoJob",
       "runMode":"slave",
       "truePilot":true,
