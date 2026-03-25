@@ -32,7 +32,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -97,7 +97,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -165,7 +165,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -231,7 +231,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -296,7 +296,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -362,7 +362,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -428,7 +428,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -495,7 +495,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -560,7 +560,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -626,7 +626,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -693,7 +693,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -761,7 +761,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -829,7 +829,7 @@
           "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
           "logDir":"/data2/atlpan/condor_logs",
           "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-          "rcPilotRandomWeightPermille": 10,
+          "rcPilotRandomWeightPermille": 50,
           "nProcesses":8
       },
       "workerMaker":{
@@ -896,7 +896,7 @@
             "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
             "logDir":"/data2/atlpan/condor_logs",
             "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-            "rcPilotRandomWeightPermille": 10,
+            "rcPilotRandomWeightPermille": 50,
             "nProcesses":8
         },
         "workerMaker":{
@@ -961,7 +961,7 @@
             "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
             "logDir":"/data2/atlpan/condor_logs",
             "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-            "rcPilotRandomWeightPermille": 10,
+            "rcPilotRandomWeightPermille": 50,
             "nProcesses":8
         },
         "workerMaker":{
@@ -1029,7 +1029,7 @@
             "pandaTokenKeyPath": "/cephfs/atlpan/harvester/keys/panda_token_key",
             "logDir":"/data2/atlpan/condor_logs",
             "logBaseURL":"https://[ScheddHostname]/condor_logs_2",
-            "rcPilotRandomWeightPermille": 10,
+            "rcPilotRandomWeightPermille": 50,
             "nProcesses":8
         },
         "workerMaker":{
