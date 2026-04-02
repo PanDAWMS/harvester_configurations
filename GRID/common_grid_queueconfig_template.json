@@ -134,7 +134,7 @@
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
       "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":10},
-      "nQueueLimitWorkerRatio":80,
+      "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":100,
       "maxWorkers":999999,
