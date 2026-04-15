@@ -68,7 +68,7 @@
   "production.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
-      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":1},
       "nQueueLimitWorker":1000,
       "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMin":100,
@@ -133,7 +133,7 @@
   "production.pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"managed",
-      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":1},
       "nQueueLimitWorkerRatio":40,
       "nQueueLimitWorkerMax":999999,
       "nQueueLimitWorkerMin":100,
@@ -267,7 +267,7 @@
   "analysis.pull":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
-      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":1},
       "nQueueLimitWorkerRatio":100,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":100,
@@ -332,7 +332,7 @@
   "analysis.pull_ups":{
       "isTemplateQueue": true,
       "prodSourceLabel":"user",
-      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":10},
+      "prodSourceLabelRandomWeightsPermille": {"rc_test":10, "rc_test2":10, "rc_alrb":1},
       "nQueueLimitWorkerRatio":60,
       "nQueueLimitWorkerMax":500,
       "nQueueLimitWorkerMin":100,
