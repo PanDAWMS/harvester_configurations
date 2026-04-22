@@ -50,5 +50,6 @@ periodic_remove = (JobStatus == 2 && (CurrentTime - EnteredCurrentStatus) > 6048
 +remote_PeriodicRemove = (JobStatus == 5 && (CurrentTime - EnteredCurrentStatus) > 3600) || (JobStatus == 1 && globusstatus =!= 1 && (CurrentTime - EnteredCurrentStatus) > 86400)
 
 +sdfPath = "{sdfPath}"
++ScitokensFile = "{tokenPath}"
 
 queue 1
