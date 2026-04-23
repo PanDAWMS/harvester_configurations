@@ -49,7 +49,7 @@ JOB_TRANSFORM_AddSDFCopied @=end
 # wrapper to override LD_LIBRARY_PATH
 #CREAM_GAHP = /usr/local/bin/cream_gahp_wrap.sh
 #NORDUGRID_GAHP = /usr/local/bin/nordugrid_gahp_wrap.sh
-ARC_GAHP = /usr/local/bin/arc_gahp_wrap.sh
+#ARC_GAHP = /usr/local/bin/arc_gahp_wrap.sh
 
 
 #GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = 3000
