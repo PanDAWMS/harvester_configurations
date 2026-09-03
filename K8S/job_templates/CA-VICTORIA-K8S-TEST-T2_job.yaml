@@ -55,13 +55,16 @@ spec:
             - name: secret-volume
               mountPath: /proxy
               readOnly: true
+            - name: eos-storage
+              mountPath: /eos-storage
+              readOnly: true
             - name: pilot-dir
               mountPath: /pilotdir
           env:
             - name: PILOT_NOKILL
               value: "True"
-          # command: ["/usr/bin/bash"]
-          # args: ["-c", "cd; python3 $EXEC_DIR/pilots_starter.py"]
+            - name: XRD_APPNAME
+              value: "xrootd#cephfs-kermes-dev"
       volumes:
         - name: cvmfs-atlas
           hostPath:
@@ -91,5 +94,8 @@ spec:
           secret:
             secretName: proxy-secret
             defaultMode: 0400
+        - name: eos-storage
+          persistentVolumeClaim:
+            claimName: eos-access
         - name: pilot-dir
           emptyDir: {}
